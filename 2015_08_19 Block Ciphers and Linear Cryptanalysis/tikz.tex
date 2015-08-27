@@ -1,0 +1,86 @@
+\newcommand{\DrawPresentPLayer}[2]{%
+	\draw[color=saphierblau] ( 0.2,#1) -- ( 0.2,#2); \draw[color=saphierblau] ( 0.4,#1) -- ( 6.2,#2);
+	\draw[color=saphierblau] ( 0.6,#1) -- (12.2,#2); \draw[color=saphierblau] ( 0.8,#1) -- (18.2,#2);
+	\draw[color=saphierblau] ( 1.7,#1) -- ( 0.4,#2); \draw[color=saphierblau] ( 1.9,#1) -- ( 6.4,#2);
+	\draw[color=saphierblau] ( 2.1,#1) -- (12.4,#2); \draw[color=saphierblau] ( 2.3,#1) -- (18.4,#2);
+	\draw[color=saphierblau] ( 3.2,#1) -- ( 0.6,#2); \draw[color=saphierblau] ( 3.4,#1) -- ( 6.6,#2);
+	\draw[color=saphierblau] ( 3.6,#1) -- (12.6,#2); \draw[color=saphierblau] ( 3.8,#1) -- (18.6,#2);
+	\draw[color=saphierblau] ( 4.7,#1) -- ( 0.8,#2); \draw[color=saphierblau] ( 4.9,#1) -- ( 6.8,#2);
+	\draw[color=saphierblau] ( 5.1,#1) -- (12.8,#2); \draw[color=saphierblau] ( 5.3,#1) -- (18.8,#2);
+	\draw[color=saphierblau] ( 6.2,#1) -- ( 1.7,#2); \draw[color=saphierblau] ( 6.4,#1) -- ( 7.7,#2);
+	\draw[color=saphierblau] ( 6.6,#1) -- (13.7,#2); \draw[color=saphierblau] ( 6.8,#1) -- (19.7,#2);
+	\draw[color=saphierblau] ( 7.7,#1) -- ( 1.9,#2); \draw[color=saphierblau] ( 7.9,#1) -- ( 7.9,#2);
+	\draw[color=saphierblau] ( 8.1,#1) -- (13.9,#2); \draw[color=saphierblau] ( 8.3,#1) -- (19.9,#2);
+	\draw[color=saphierblau] ( 9.2,#1) -- ( 2.1,#2); \draw[color=saphierblau] ( 9.4,#1) -- ( 8.1,#2);
+	\draw[color=saphierblau] ( 9.6,#1) -- (14.1,#2); \draw[color=saphierblau] ( 9.8,#1) -- (20.1,#2);
+	\draw[color=saphierblau] (10.7,#1) -- ( 2.3,#2); \draw[color=saphierblau] (10.9,#1) -- ( 8.3,#2);
+	\draw[color=saphierblau] (11.1,#1) -- (14.3,#2); \draw[color=saphierblau] (11.3,#1) -- (20.3,#2);
+	\draw[color=saphierblau] (12.2,#1) -- ( 3.2,#2); \draw[color=saphierblau] (12.4,#1) -- ( 9.2,#2);
+	\draw[color=saphierblau] (12.6,#1) -- (15.2,#2); \draw[color=saphierblau] (12.8,#1) -- (21.2,#2);
+	\draw[color=saphierblau] (13.7,#1) -- ( 3.4,#2); \draw[color=saphierblau] (13.9,#1) -- ( 9.4,#2);
+	\draw[color=saphierblau] (14.1,#1) -- (15.4,#2); \draw[color=saphierblau] (14.3,#1) -- (21.4,#2);
+	\draw[color=saphierblau] (15.2,#1) -- ( 3.6,#2); \draw[color=saphierblau] (15.4,#1) -- ( 9.6,#2);
+	\draw[color=saphierblau] (15.6,#1) -- (15.6,#2); \draw[color=saphierblau] (15.8,#1) -- (21.6,#2);
+	\draw[color=saphierblau] (16.7,#1) -- ( 3.8,#2); \draw[color=saphierblau] (16.9,#1) -- ( 9.8,#2);
+	\draw[color=saphierblau] (17.1,#1) -- (15.8,#2); \draw[color=saphierblau] (17.3,#1) -- (21.8,#2);
+	\draw[color=saphierblau] (18.2,#1) -- ( 4.7,#2); \draw[color=saphierblau] (18.4,#1) -- (10.7,#2);
+	\draw[color=saphierblau] (18.6,#1) -- (16.7,#2); \draw[color=saphierblau] (18.8,#1) -- (22.7,#2);
+	\draw[color=saphierblau] (19.7,#1) -- ( 4.9,#2); \draw[color=saphierblau] (19.9,#1) -- (10.9,#2);
+	\draw[color=saphierblau] (20.1,#1) -- (16.9,#2); \draw[color=saphierblau] (20.3,#1) -- (22.9,#2);
+	\draw[color=saphierblau] (21.2,#1) -- ( 5.1,#2); \draw[color=saphierblau] (21.4,#1) -- (11.1,#2);
+	\draw[color=saphierblau] (21.6,#1) -- (17.1,#2); \draw[color=saphierblau] (21.8,#1) -- (23.1,#2);
+	\draw[color=saphierblau] (22.7,#1) -- ( 5.3,#2); \draw[color=saphierblau] (22.9,#1) -- (11.3,#2);
+	\draw[color=saphierblau] (23.1,#1) -- (17.3,#2); \draw[color=saphierblau] (23.3,#1) -- (23.3,#2);
+}
+
+
+\newcommand{\DrawPresentStructure}[1]{%
+	\def \maxround{#1}
+	\def \roundH{5}
+	\pgfmathparse{#1 - 1}
+
+	\foreach \round in {1,...,\pgfmathresult}{%
+		\def \TEST{\roundH*\maxround-\roundH*\round+0.5}
+		\def \BEST{\roundH*\maxround-\roundH*\round-\roundH+2.5}
+		%Sboxes with input and output lines and xor for the key
+		\foreach \i in {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}{%Sbox
+			\draw[color=saphierblau] (1.5*\i,\roundH*\maxround-\roundH*\round+1)
+				rectangle (1.5*\i+1,\roundH*\maxround-\roundH*\round+2);
+			\node[color=saphierblau] at (1.5*\i+0.5,\roundH*\maxround-\roundH*\round+1.5) {S};
+
+			%Input and output lines
+			\foreach \j in {1,2,3,4}{%output lines
+				\draw[color=saphierblau] (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+1) -- (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+0.5);
+
+				%input lines
+				\draw[color=saphierblau] (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+2) -- (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+2.5);
+
+				%XOR
+				\draw[color=saphierblau] (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+2.25) circle (0.1);
+				\draw[color=saphierblau] (1.5*\i+0.2*\j-0.1,\roundH*\maxround-\roundH*\round+2.25) -- (1.5*\i+0.2*\j+0.1,\roundH*\maxround-\roundH*\round+2.25);
+			}
+		}
+
+		%The P-layer
+		\DrawPresentPLayer{\TEST}{\BEST}
+	}
+
+	\def \round{#1}
+	%Sboxes with input and output lines and xor for the key
+	\foreach \i in {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}{%Sbox
+		\draw[color=saphierblau] (1.5*\i,\roundH*\maxround-\roundH*\round+1) rectangle (1.5*\i+1,\roundH*\maxround-\roundH*\round+2);
+		\node[color=saphierblau] at (1.5*\i+0.5,\roundH*\maxround-\roundH*\round+1.5) {S};
+
+		%Input and output lines
+		\foreach \j in {1,2,3,4}{%output lines
+			\draw[color=saphierblau] (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+1) -- (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+0.5);
+
+			%input lines
+			\draw[color=saphierblau] (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+2) -- (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+2.5);
+
+			%XOR
+			\draw[color=saphierblau] (1.5*\i+0.2*\j,\roundH*\maxround-\roundH*\round+2.25) circle (0.1);
+			\draw[color=saphierblau] (1.5*\i+0.2*\j-0.1,\roundH*\maxround-\roundH*\round+2.25) -- (1.5*\i+0.2*\j+0.1,\roundH*\maxround-\roundH*\round+2.25);
+		}
+	}
+}

@@ -1,0 +1,3429 @@
+% \iffalse meta-comment
+% !TEX encoding = MacOSRoman
+%: CheckSum
+% \fi
+%% \CheckSum{0}
+%
+% \iffalse meta-comment 
+% 
+% Copyright (C) 2014 by Ben Vitecek (current Maintainer)
+% 
+% This file may be distributed and/or modified under the 
+% conditions of the LaTeX Project Public License, either 
+% version 1.3 of this license or (at your option) any later 
+% version. The latest version of this license is in: 
+% 
+%	http://www.latex-project.org/lppl.txt 
+% 
+% and version 1.3c or later is part of all distributions of 
+% LaTeX version 2008-05-04 or later. 
+% 
+% This work has the LPPL maintenance status `maintained'.
+%
+% This work consists of the files README, tikzsymbols.dtx and tikzsymbols.ins
+% and the derived file tikzsymbols.sty.
+% \fi
+%
+% \iffalse 
+%<*driver> 
+\documentclass{ltxdoc} 
+\usepackage{marvosym} 
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{array} 
+\usepackage{lmodern} 
+\usepackage{microtype}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{tikzsymbols} 
+\usepackage{csquotes}
+\usepackage{mathtools}
+%
+\usepackage[colorlinks=true, urlcolor=cyan]{hyperref} 
+
+\EnableCrossrefs 
+\CodelineIndex 
+\RecordChanges 
+
+%: Ganz oben
+\makeatletter
+\DeclareRobustCommandx{\definedBasicTree}[5][1=1, usedefault]{{%
+\def\Basic@Tree{\Basic@Tree@off}%
+\Basic@Tree[#1]{#2}{#3}{#4}{#5}%
+}}
+\newcommand{\PlainVanilla}[1]{{{\tikzymbols@draftabsolutetrue#1[1.00001]}}}
+\newcommand{\PlainVanillaII}[1]{{{\tikzymbols@draftabsolutetrue#1}}}
+\newcommand{\da}[1]{#1}
+\newcommand{\de}[1]{#1}
+%
+%
+\let\Package\textsf
+\let\Option\texttt
+\let\Makro\cs
+%\newcommand{\Package}[1]{\textsf{#1}}
+%\newcommand{\Option}[1]{\texttt{#1}}
+\newcommand{\Meta}[1]{\meta{#1}}
+%
+%
+%
+\hfuzz=500pt
+\vbadness=\maxdimen
+\hbadness=\maxdimen
+
+
+\makeatother
+%
+\begin{document}
+\DocInput{tikzsymbols.dtx} 
+\end{document} 
+%</driver> 
+% \fi
+% 
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+%
+%
+% \iffalse meta-comment
+%: Changes
+% \fi
+%
+%\changes {v1.0} {2013/01/19} {Initial version}
+%\changes {v1.05} {2013/02/13} {Deleted a \enquote{t} in the BasicTree-code, shortened the trunk from the tree a bit, renamed some codes,  made an index}
+%\changes {v1.6} {2013/02/14} {Now \enquote{Person} can be used in sections, etc.}
+%\changes {v1.6} {2013/02/14} {Now an error message is generated  if the last parameter of \enquote{BasicTree} is neither \enquote{leaf} nor empty.}
+%\changes {v1.6} {2013/02/14} { New options: draft and final. If in documentclass the option \enquote{draft} is defined, the package recognizes it. Plus some warnings if you use class option draft/final with package option tree=on/off.}
+%\changes {v1.6} {2013/02/14} { Renamed \enquote{tikzsymbolsaftersymbolinput} to \enquote{tikzsymbolsaftersymbolinput}}
+%\changes {v1.61} {2013/02/17} {Made an invisible box in BasicTree.}
+%\changes {v1.65} {2013/02/17} {Improved BasicTree; New symbols \enquote{Schaler/peeler}, Laughey, Walley, Ninja; but didn't improve the source-description}
+%\changes {v1.7} {2013/02/28} {New symbols, etc.}
+%\changes {v2.0} {2013/03/07} {Fixed Bugs, improved BasicTree, new option \enquote{marvosym}, new symbol}
+%\changes {v2.2} {2013/03/23} {Now you can use negative scaling. Include \Makro{@ifpackageloaded}. Did something else, I can't remember}
+%\changes {v2.5} {2013/04/18} {New option: draftabsolute, changed the documentation a bit}
+%\changes {v3.0} {2013/07/21} {Changed the documentation}
+%\changes {v3.0} {2013/07/21} {Replaced \cs{let} by \cs{tikzsymbols@let}}
+% \changes{v3.0}{2013/07/21}{Changed symbol code}
+% \changes{v3.0}{2013/07/26}{Using \cs{changes{}{}{}} correctly (hopefully)}
+% \changes{v3.0}{2013/07/21}{Changed output of \enquote{absolute} option}
+% \changes{v3.0b}{2014/10/19}{Deleted non ASCII characters in der .sty file.}
+% \changes{v3.0d}{2014/10/29}{\cs{tkzsymblsscl} to \cs{tkzsymbls@scl}}
+% \changes{v3.0e}{2014/10/29}{\cs{tkzsymblsDeclareRobustCommand} to \cs{tkzsymbls@Declare@Robust@Command}}
+% \changes{v3.0f}{2014/10/29}{\cs{tksymblsbxPrmtrstore} to \cs{tksymbls@bx@Prmtrstore}}
+%
+%
+%
+% \GetFileInfo{tikzsymbols.sty}
+%
+% \iffalse meta-comment
+%: DoNotIndex
+% \fi
+%
+%\DoNotIndex {\begin{tikzpicture},\end{tikzpicture}}
+%\DoNotIndex {\verb, \DeclareRobustCommandx}
+%\DoNotIndex {=\verb}
+%\DoNotIndex {\verb||}
+%\DoNotIndex {\draw,\fill,\DeclareRobustCommand, \colorlet,\shade}
+%\DoNotIndex {\xspace,\begin,\end}
+%
+%
+%
+% \iffalse meta-comment
+%: Titelpage
+% \fi
+%
+%\title{\Package{tikzsymbols}\thanks{This document corresponds to \textsf{tikzsymbols}~\fileversion, dated~\filedate.}}
+%\author{Ben Vitecek \\ \href{mailto:b.vitecek@gmx.at}{b.vitecek@gmx.at}} 
+%\maketitle
+%
+%\begin{abstract}\centering
+%Just some symbols created using \Package{tikz}.
+%
+% English is not my native language. So  there (still) might be some errors \Winkey
+%\end{abstract}
+%
+%
+%\tableofcontents
+%
+%
+%
+% \iffalse meta-comment
+%: sec: Short Introduction
+% \fi
+%
+% \section{Short Introduction} 
+% 
+% There are about two emoticons available in \LaTeX{}: Smiley and Frowny.
+% But why aren't there more? Or why did nobody make cooking-symbols\footnote{Well, there are some, but not the one I wanted.}?
+% I thought about this questions and during a project I developed some (cooking)symbols.
+% Developing them was real fun and so I made some more, reworked them etc.  
+%^^A And one day I had the idea \enquote{Why not uploading these symbols in CTAN?} 
+%^^A Well, now I am here and writing this documentation about my first package.
+%^^A It's a strange feeling \dots
+% And here they are.
+%
+%
+%
+%
+%
+%
+% \iffalse meta-comment
+%: sec: Options
+% \fi
+% \section{Options} \label{Options}
+%^^A This package offers exactly \textbf{one} option (and I am extremely proud of this one option. Do you know why? Because it took almost two hours to produce it. There is no thing like a \enquote{easy} xkeyval syntax! Well, maybe it took so long because it was my first time producing something like that \dots{} However, I am extremely glad that this option works \dSmiley).
+%
+%
+%
+%
+%
+%
+% \iffalse meta-comment
+%: subsec: tree und draft
+% \fi
+% 
+%\subsection[tree=on/true/off/false, draft=true/false]{tree=on/true/off/false, \\ draft=true/false} 
+%
+% 
+% These options are only relevant for the commands in the section
+% \enquote{Trees} (\ref{Trees}).  The trees look pretty nice (at least
+% I think they do), but have one drawback: \LaTeX\ needs extremely
+% long to produce them.  So these options come in handy: by setting
+% \Option{tree=off/false} or using \Option{draft=true} or simply
+% \Option{draft} the trees will be replaced by squares drawn by
+% \Package{tikz} (for examples see section \enquote{Trees}
+% \ref{Trees}).
+% 
+% One drawback is that these options only change the \verb|\BasicTree|
+% command, but not the others. Also another drawback is that
+% \Package{tikz} is still used to draw, this means \LaTeX\ will be
+% slowed down if you use many symbols.  ^^A if you use many symbols,
+%^^A \LaTeX\ will be slowed down.  ^^A So you may look at the option
+% You may use  \verb|draft=absolute|, which is -- I think -- more useful.
+%
+%^^A To solve this problem I made another option: \verb|draft=absolute|,
+%^^A which is -- I think -- more useful (see \ref{draft=absolute}).
+%
+% \iffalse meta-comment
+%: subsec: draft=absolute
+% \fi
+%\subsection{draft=absolute} \label{draft=absolute}
+%
+% {\color{blue}\textbf{Use this option if you use many symbols!}}
+%
+% This option replaces \emph{all} symbols by fast drawn plain vanilla
+% rectangles, which have (mostly) the exactly same proportions as the
+% tikzsymbols.  For example, by setting \Option{draft=absolute}
+% \verb|\Smiley| will produce \PlainVanilla{\Smiley}, \verb|\Nursey|
+% \PlainVanilla{\Nursey},
+% \verb|\BasicTree{red}{red!50!black}{black}{leaf}|\PlainVanillaII{\BasicTree[1.000001]{red}{red!50!black}{black}{leaf}},
+% \verb|\Schussel|\PlainVanilla{\Schussel}, etc.
+%
+% You see, they are \emph{very} plain and \emph{very} vanilla (but
+% \LaTeX\ needs no time to produce them).\footnote{The old option
+% \Option{draftabsolute} is still useable, but obsolete.}
+%
+% 
+% \iffalse meta-comment
+%: subsec: final
+% \fi
+% \subsection{final=true/false}
+% This option is the opposite of \Option{draft=true/false}.
+% 
+%
+% \iffalse meta-comment
+%: subsec: marvosym
+% \fi
+% \subsection{marvosym=true/false}
+%
+% You can use this special option if you also use package
+% \Package{marvosym}. If you want the \Package{marvosym} Smiley
+% (\mvchr{169}) and Coffeecup (\mvchr{75}) instead of the
+% \Package{tikzsymbols} ones (\Smiley, \Coffeecup) you can use option
+% \Option{marvosym} resp. \Option{marvosym=true}.  If you use this
+% option, \Package{tikzsymbols} will simply not define its Smiley and
+% Coffeecup.
+%
+% Note:  \emph{Always load \Package{tikzsymbols} after \Package{marvosym}.}
+% 
+%^^A Package \enquote{marvosym} defines  partly the same commands as \enquote{tikzsymbols}.
+%^^A \emph{You should always load \enquote{tikzsymbols} after \enquote{marvosym}!!}
+%^^A If you do that, \enquote{tikzsymbols} redefines for example marvosyms \enquote{Smiley} and \enquote{Coffeecup}.
+%^^A  But if you like marvosyms \verb|\Smiley| more than the \verb|\Smiley| from \enquote{tikzsymbols}, you should use the option \enquote{marvosym}: 
+%
+% 
+% \begin{longtable}{c|c}
+%   Without option \enquote{marvosym}: \Smiley \Coffeecup & With
+%   option \enquote{marvosym}: \mvchr{169}
+%   \mvchr{75}\\\hline\vspace{-1.5ex} \endhead
+%   \verb|\usepackage{marvosym}| & \verb|\usepackage{marvosym}|\\
+%   \verb|\usepackage{tikzsymbols}| &
+%   \verb|\usepackage{marvosym}{tikzsymbols}|
+% \end{longtable}
+% \normalsize
+%
+% If you use option \Option{marvosym} without loading the package
+% \Package{marvosym}, \LaTeX{} will produce an error message.
+%
+% This option is \emph{false} by default.
+%
+%
+%
+%
+%
+% \subsection{usebox=true/false}\label{usebox}
+%
+% Since v3.0 the symbols are stored inside a
+% \Makro{savebox}\footnote{Inside a \Makro{sbox} to be correctly.} and
+% are used with \Makro{usebox}.  The advantage is that \LaTeX\ doesn't
+% need to recalculate the symbol again\footnote{I think.} (if you use the \emph{exactly}
+% same symbol, see section \ref{Symbols} for more information).  This
+% option is \Option{true} by default.
+%
+% You can deactivate this storing-inside-saveboxes by setting
+% \Option{usebox=false}.
+%
+% To activate it you can use \Option{usebox=true} or just
+% \Option{usebox}.
+%
+% 
+%
+%
+%
+%
+% \iffalse meta-comment
+%: subsec: prefix
+% \fi
+% \subsection{prefix, prefix=\texttt{\Meta{prefix}}}
+%
+% If you use a package which collides with \Package{tikzsymbols}, but
+% want to use symbols of both packages, you can use this option.  It
+% adds a \texttt{\Meta{prefix}} to all symbol commands provided by
+% \Package{tikzsymbols}.  All commands will look like
+% \verb|\<prefix>command|, for example: \verb|\<prefix>Smiley|,
+% \verb|\<prefix>drWalley|, \verb|\<prefix>Springtree|, etc.
+%
+% If you simply use option \verb|prefix|, \verb|<prefix>| will be
+% \enquote{tikzsymbols}: \verb|\Smiley| will change to
+% \verb|\tikzsymbolsSmiley|, \verb|\drWalley| to
+% \verb|\tikzsymbolsdrWalley|, \verb|\tikzsymbolsSpringtree|,
+% \verb|\tikzsymbolsBasicTree|, etc.
+%
+% 
+%
+% If this prefix is too long for you, you can define your own prefix
+% via \Option{prefix=<prefix>}. \verb|<prefix>| should neither contain
+% any special characters (e.g., \"a, \"u, \ss, etc.) nor empty spaces.
+% For example (using \Option{prefix=T}): \verb|\Smiley| changes to
+% \verb|\TSmiley|, \verb|\Kochtopf| to \verb|\TKochtopf| (and
+% \verb|\pot| to \verb|\Tpot|), etc.
+%
+% \DescribeMacro{\tikzsymbolsuse} If you change the \verb|prefix|
+% often or are not sure if you will change it in future, you may work
+% with \verb|\tikzsymbolsuse{}| to use the symbols without worrying
+% about the prefix.  \verb|\tikzsymbolsuse{}| takes one mandatory
+% argument: the command-name of the symbol \emph{without}
+% backslash. Write the optional and mandatory parameters of the symbol
+% after the curly braces.
+%
+% \smallskip
+%
+% For example:
+% \verb|\tikzsymbolsuse{Smiley}[2]|\tikzsymbolsuse{Smiley}[2]
+%
+% \verb|\tikzsymbolsuse{BasicTree}[1.2]{black}{red!50!black}{red}{leaf}|\tikzsymbolsuse{BasicTree}[1.2]{black}{red!50!black}{red}{leaf}
+%
+%
+% \verb|\tikzsymbolsuse{Ofen}| \tikzsymbolsuse{Ofen}
+% \verb|\tikzsymbolsuse{Fire}[-1.3]|\tikzsymbolsuse{Fire}[-1.3]
+%
+% etc.
+%
+%
+%
+%
+% \iffalse meta-comment
+%: sec: Symbols
+% \fi
+% \section{Symbols} \label{Symbols}
+%
+% In this section the  symbols are introduced.
+% They \Kochtopf  \tiny all \dInnocey \Huge change \Moai \small automatically \Wintertree \large with \oven \normalsize the text-size \Strichmaxerl.
+%
+%
+% Furthermore since v3.0 this package uses a savebox-usebox system.
+% That means the output of a symbol is saved inside a box\footnote{To
+% say the truth: I am (still) not sure what exactly happens while storing
+% commands inside \Makro{sbox} and using them via \Makro{usebox}\dots}
+% using \Makro{sbox} and every time you use the \emph{exactly} same
+% symbol, \LaTeX{} just can use the already calculated symbol (via
+% \Makro{usebox}).
+% 
+% What is \enquote{the \emph{exactly} same symbol}? Using a symbol
+% with the same optional parameter(s), the same script size and
+% text-color.
+%
+% For example: \Smiley and \Smiley and \Smiley were only calculated
+% once because they have the same optional parameter, script size and
+% text-color.
+%
+% \Sadey, {\color{red}\Sadey} and \Sadey would be calculated twice:
+% the first time for the black one , the second time for the red one
+% due to having a different text-color.  The third Sadey is the same
+% as the first, so it doesn't have to be recalculated.
+%
+% \Annoey, {\color{blue}\Annoey}, {\footnotesize \Annoey} and
+% {\color{blue}\tiny \Annoey} have all to be calculated separately:
+% the first time for the normal, black one, the second time for the
+% blue one (due to text color), the third time for having a different
+% script size than the first one and the fourth time due to having a
+% different script size and a different text-color.
+%
+% Each symbol is stored in a separate box, but I think using
+% \Package{etex} with 32768 box registers is enough (and I don't think
+% that you are using so many symbols; if you managed somehow to use so
+% many boxes you can deactivate the storing of
+% \Package{tikzsymbols}-symbols inside boxes using
+% \Option{usebox=false} (see \ref{usebox})).
+%
+% There is a great advantage using this box-system: once calculated,
+% the symbol can be used again without any new
+% calculation\footnote{And hopefully no disadvantage\dots} (I know I
+% am repeating myself). This means, you can use for example
+% \verb|\Summertree| many times without having to wait till \LaTeX\
+% finished recalculating all of them (again, only if they are
+% \emph{exactly} the same): \Summertree \Summertree \Summertree
+% \Summertree \Summertree \Summertree \Summertree \Summertree
+% \Summertree \Summertree \Summertree \Summertree \Summertree
+% \Summertree \Summertree \Summertree \Summertree \Summertree
+% \Summertree \Summertree \Summertree \Summertree \Summertree
+% \Summertree \Summertree \Summertree \Summertree \Summertree
+% \Summertree \Summertree \Summertree \Summertree \Summertree.  With
+% version $<3.0$ or option \Option{usebox=false} this would take
+% \emph{extremely} long.
+%
+% And again I will give you an advice: If you are using trees or many
+% symbols, you should use option \Option{draft=absolute}.
+%
+%
+% \iffalse meta-comment
+%: subsec: cooking-symbols
+% \fi
+% \subsection{cooking-symbols \texorpdfstring{\Kochtopf}{Kochtopf}}
+%
+% At the following table the cooking-symbols are listed.
+%
+% The first column shows the commands (at first the german at second
+% the english ones).  In the second the optional parameter(s) are
+% shown.  The optional parameter(s) are for both, the german and the
+% english commands the same.
+%
+% \Meta{scale} can be a number between (not exactly) -1400 and (also
+% not exactly) $1400$\footnote{Since version 2.2 you can use negative
+% numbers as well (see examples)} , default is $1$.
+%
+% Da Umlaute nicht angezeigt werden k\"onnen, werden die Umlaute \"o,
+% \"a, \"u durch: o, a, u ersetzt.
+%
+% \begin{longtable}{llc@{~~}c} 
+%   \multicolumn{2}{l}{German \& English Commands} & Optional
+%   parameter(s) & Output \\\toprule\endhead
+%
+%   \verb|\Kochtopf|		& \verb|\pot| 	& \oarg{scale} 	& \da{\Kochtopf} \\
+%   \verb|\Bratpfanne|	& \verb|\fryingpan|& \oarg{scale} 	& \da{\Bratpfanne} \\
+%   \verb|\Schneebesen|	& \verb|\eggbeater| & \oarg{scale} & \da{\eggbeater}\\
+%   \verb|\Sieb|	& \verb|\sieve| & \oarg{scale} & \da{\sieve}\\
+%   \verb|\Purierstab|	& \verb|\blender|\footnote{I know that \enquote{P\"urierstab} should be translated as \enquote{immersion blender}, but I'm just using \enquote{blender}} & \oarg{scale} & \da{\blender}\\
+%   \verb|\Dreizack|	& \verb|\trident| & \oarg{scale} & \da{\Dreizack}\\
+%   \verb|\Backblech|	& \verb|\bakingplate| & \oarg{scale} & \da{\bakingplate}\\
+%   \verb|\Ofen|	& \verb|\oven| & \oarg{scale} & \da{\Ofen}\\
+%   \verb|\Pfanne|	& \verb|\pan| & \oarg{scale} & \da{\Pfanne} \\
+%   \verb|\Herd|	& \verb|\cooker| & \oarg{scale} & \da{\cooker} \\
+%   \verb|\Saftpresse|	& \verb|\squeezer| & \oarg{scale} & \da{\Saftpresse} \\
+%   \verb|\Schussel|	& \verb|\bowl| & \oarg{scale} & \da{\Schussel} \\
+%   \verb|\Schaler|	& \verb|\peeler| & \oarg{scale} & \da{\peeler} \\
+%   \verb|\Reibe|	& \verb|\grater| & \oarg{scale} & \da{\Reibe} \\
+%   \verb|\Flasche| & \verb|\bottle| & \oarg{scale} & \da{\Flasche}
+% \end{longtable}
+%
+%
+%  
+%
+%
+% \iffalse meta-comment
+%: subsec: Emoticons
+% \fi
+%\subsection{Emoticons \texorpdfstring{\Smiley}{Smiley}}
+%\subsubsection{\enquote{normal} Emoticons \texorpdfstring{\Cat}{Cat}}
+%
+% First column shows the commands, the second the optional
+% parameter(s), the third the default-output.
+%
+% \Meta{scale} can be a number between (not exactly) $-2000$ and (not
+% exactly) $2000$\footnote{Do you even need so large symbols?},
+% default is $1$.
+%
+% \Meta{color} can be every defined color. Note: The color names
+% shouldn't contain special characters like \ss, \"a, \"o, \dots
+% 
+% 
+% \begin{longtable}{l@{}c@{}c}
+%   Commands & Optional parameter(s) & Output \\\toprule\endhead
+%   
+%   \verb|\Sadey|		& \oarg{scale}\oarg{color} 	& \da{\Sadey} \\
+%   \verb|\Smiley|		& \oarg{scale}\oarg{color} 	& \da{\Smiley} \\
+%   \verb|\Laughey|	& \oarg{scale}\oarg{color}\oarg{mouth color} 	& \da{\Laughey} \\
+%   \verb|\Annoey|		& \oarg{scale}\oarg{color} 	& \da{\Annoey} \\
+%   \verb|\Neutrey|		& \oarg{scale}\oarg{color} 	& \da{\Neutrey} \\
+%   \verb|\Winkey|		& \oarg{scale}\oarg{color} 	& \da{\Winkey} \\
+%   \verb|\oldWinkey|		& \oarg{scale}\oarg{color} & \da{\oldWinkey} \\
+%   \verb|\Sey|		& \oarg{scale}\oarg{color} 	& \da{\Sey} \\
+%   \verb|\Xey|		& \oarg{scale}\oarg{color} 	& \da{\Xey} \\
+%   \verb|\Innocey|	& \oarg{scale}\oarg{color}\oarg{halo color} & \da{\Innocey} \\
+%   \verb|\wInnocey|		& \oarg{scale} 			& \da{\wInnocey} \\
+%   \verb|\Cooley|		& \oarg{scale}\oarg{color} 	& \da{\Cooley} \\
+%   \verb|\Tongey|& \oarg{scale}\oarg{color}\oarg{tongue color} 	& \da{\Tongey} \\
+%   \verb|\Nursey|& \oarg{scale}\oarg{color}\oarg{cap color}\oarg{cross color} &\da{\Nursey} \\
+%   \verb|\Vomey|	& \oarg{scale}\oarg{color}\oarg{vomit color} 	& \da{\Vomey} \\
+%   \verb|\Walley|	& \oarg{scale}\oarg{color}\oarg{wall color} 	& \da{\Walley} \\
+%   \verb|\rWalley|\footnote{\enquote{r} stands for \enquote{random}  and means that the cracks in the wall are generated randomly, but it takes some time to generate them.}	& \oarg{scale}\oarg{color}\oarg{wall color} 	& \da{\rWalley} \\
+%   \verb|\Cat|		& \oarg{scale}			& \da{\Cat} \\
+%   \verb|\Ninja|& \oarg{scale}\oarg{color}\oarg{headband color}\oarg{eye color}			& \da{\Ninja} \\
+%   \verb|\NiceReapey| & \oarg{scale} & \da{\NiceReapey}
+%   
+% \end{longtable}
+% 
+% Examples: \verb|\Sadey[][red]|\Sadey[][red]
+% \quad\verb|\Cooley[-3][cyan]|\Cooley[-3][cyan]
+% 
+% \verb|\Vomey[1.5][green!80!black][olive]|\Vomey[1.5][green!80!black][olive].
+% 
+% \verb|\Nursey[][yellow][blue][red]|\Nursey[1][yellow][blue][red].
+% 
+% \verb|\Ninja[1.3][][violet][red]|\Ninja[1.3][][violet][red].
+% 
+% \verb|\colorbox{yellow}{\Winkey \Annoey[-1]\Neutrey}|\colorbox{yellow}{\Winkey \Annoey [-1]\Neutrey}
+% 
+% \verb|{\color{blue}\Sey}| {\color{blue}\Sey}
+% 
+% 
+% 
+% 
+% 
+% 
+% \iffalse meta-comment
+%: subsec: 3D Emoticons
+% \fi
+% \subsubsection{\enquote{3D} Emoticons \texorpdfstring{\dSmiley\dSadey[-1]}{dSmiley dSadey}}
+% First column shows the commands (note: the \enquote{3D} Emoticons
+% begin with \verb|\d...|), the second shows the optional
+% parameter(s), the third shows the default-output.
+%
+% \Meta{scale} can be a number between a small number\footnote{under
+% $-500$ for sure} and a large number\footnote{over 500 for sure},
+% default is $1$.
+% 
+% \Meta{color} can be every defined color (see examples below). Note:
+% The color names shouldn't contain special characters like \ss, \"a,
+% \"o, \dots
+% 
+% 
+% 
+% \begin{longtable}{l@{}c@{}c}
+%   Commands & Optional parameter(s) & Output \\\toprule\endhead
+%   
+%   \verb|\dSadey|		& \oarg{scale}\oarg{color} 	& \da{\dSadey} \\
+%   \verb|\dSmiley|		& \oarg{scale}\oarg{color} 	& \da{\dSmiley} \\
+%   \verb|\dLaughey|	& \oarg{scale}\oarg{color}\oarg{mouth color} 	& \da{\dLaughey} \\
+%   \verb|\dAnnoey|		& \oarg{scale}\oarg{color} 	& \da{\dAnnoey} \\
+%   \verb|\dNeutrey|		& \oarg{scale}\oarg{color} 	& \da{\dNeutrey} \\
+%   \verb|\dWinkey|		& \oarg{scale}\oarg{color} 	& \da{\dWinkey} \\
+%   \verb|\olddWinkey|		& \oarg{scale}\oarg{color} 	& \da{\olddWinkey} \\
+%   \verb|\dSey|		& \oarg{scale}\oarg{color} 	& \da{\dSey} \\
+%   \verb|\dXey|		& \oarg{scale}\oarg{color} 	& \da{\dXey} \\
+%   \verb|\dInnocey|	& \oarg{scale}\oarg{color}\oarg{halo color} 	& \da{\dInnocey} \\
+%   \verb|\dCooley|		& \oarg{scale}\oarg{color} 	& \da{\dCooley} \\
+%   \verb|\dTongey|	& \oarg{scale}\oarg{color}\oarg{tongue color} & \da{\dTongey} \\
+%   \verb|\dNursey|& \oarg{scale}\oarg{color}\oarg{cap color}\oarg{cross color} 	& \da{\dNursey} \\
+%   \verb|\dVomey|	& \oarg{scale}\oarg{color}\oarg{vomit color} 	& \da{\dVomey} \\
+%   \verb|\dWalley|	& \oarg{scale}\oarg{color}\oarg{wall color} 	& \da{\dWalley}  \\
+%   \verb|\drWalley|\footnote{\enquote{r} stands for \enquote{random}  and means that the cracks in the wall are generated randomly, but it takes some time.}	& \oarg{scale}\oarg{color}\oarg{wall color}& \da{\drWalley} \\
+%   \verb|\dNinja|	& \oarg{scale}\oarg{color}\oarg{headband color}\oarg{eye color} 	& \da{\dNinja}  \\
+% \end{longtable}
+% 
+% Examples:
+% \verb|\dSadey[][red]|\dSadey[][red]\quad\verb|\dCooley[-3][cyan]|\dCooley[-3][cyan]
+% 
+% \verb|\dVomey[1.5][green!70!black][olive]|\dVomey[1.5][green!80!black][olive].
+% 
+% \verb|\dNursey[][yellow][blue][red]|\dNursey[1][yellow][blue][red].
+% 
+% \verb|\dNinja[1.3][][violet][red]|\dNinja[1.3][][violet][red].
+% 
+% \subsection{other Symbol(s) \texorpdfstring{\Moai}{Moai}}
+%
+% \verb|\Strichmaxerl|'s optional parameters 2--5 (\Meta{left arm} to
+% \Meta{right leg}) can be a number
+% between %-360% and $360$\footnote{Of course the number can be even
+% greater or less, but it doesn't make sense.}. These parameters are
+% the angles between the body  and the separate parts of
+% \verb|\Strichmaxerl| (see examples).
+%
+% \Meta{scale} can be a very great and a very small number (but I
+% don't think, that you need so large symbols).
+%
+% \Meta{color} can be every defined color. Note: The color names
+% shouldn't contain special characters like \ss, \"a, \"o, \dots.
+% 
+% 
+% \begin{longtable}{l@{~}c@{~}c}
+%   Commands  & Optional parameter(s)  & Output \\\toprule\endhead
+%   \verb|\Strichmaxerl| & \oarg{scale}\oarg{left arm}\oarg{right arm}\oarg{left leg}\oarg{right leg}  &\da{\Strichmaxerl}\\
+%   \verb|\Candle| & \oarg{scale} & \da{\Candle}\\
+%   \verb|\Fire| & \oarg{scale} & \da{\Fire}\\
+%   \verb|\Coffeecup| & \oarg{scale} & \da{\Coffeecup}\\
+%   \verb|\Chair| & \oarg{scale} & \da{\Chair}\\
+%   \verb|\Bed| & \oarg{scale} & \da{\Bed}\\
+%   \verb|\Moai| & \oarg{scale} & \da{\Moai}\\
+%   \verb|\Tribar| &\oarg{scale}\oarg{color 1}\oarg{color 2}\oarg{color 3} & \da{\Tribar}\\
+%   \verb|\Snowman| &\oarg{scale} & \da{\Snowman}\\
+% \end{longtable}
+% 
+% \Tribar[-10][blue][red][green]\verb|\Tribar[-10][blue][red][green]|\par
+% \Tribar[2.1][blue][blue!50][blue!20] \verb|\Tribar[2.1][blue][blue!50][blue!20]|
+% 
+% \vspace{1ex}
+% 
+% \verb|\Strichmaxerl[1][10][30][40][4]|\Strichmaxerl[1][10][30][40][4], 
+% \verb|\Strichmaxerl[1.4][210][310][10][90]|\Strichmaxerl[1.4][210][310][10][90], 
+% 
+% \verb|\Strichmaxerl[2][510][110][190][990]|\Strichmaxerl[2][510][110][190][990],
+% \verb|\Strichmaxerl[0.9][54][28][95][16]|\Strichmaxerl[0.9][54][28][95][16]
+% 
+% 
+% 
+% 
+% 
+%\iffalse meta-comment
+%: subsec: Trees
+%\fi
+% \subsection{Trees \texorpdfstring{\BasicTree{blue!60!black}{red}{green}{leaf}}{BasicTree}}\label{Trees}
+% \enquote{Hey, these trees look exactly like the ones in the
+% tikzmanual} -- \enquote{NO! Not \enquote{exactly}, they look pretty
+% a like\dots{} Well I changed them a bit\dots{} \dots{} Hey! The best
+% ideas are stolen \dots}
+% 
+% \Meta{scale} can be a number between (not exactly) $-900$ and (again
+% not exactly) $900$\footnote{if it is larger (or less) it uses too
+% much of \LaTeX{} memory and an error message appears.}, default is
+% $1$.
+%
+% \Meta{color} can be every defined color (see examples below). Note:
+% The color names shouldn't contain special characters like \ss, \"a,
+% \"o, \dots.
+%
+% \verb|{|\emph{leaf}\verb|}| uses the colors of \marg{leaf color a}
+% and \marg{leaf color b}, you can leave this one empty if you don't
+% want leaves (\verb|\Wintertree| is without \emph{leaf}, see examples
+% below).
+%
+% If you are using those trees, \LaTeX{} needs longer to produce the
+% output.  So you may use the package option \Option{tree=off},
+% \Option{draft} or (better) \Option{draft=absolute} (see section
+% \ref{Options}) to make \LaTeX{} faster.
+%
+% \small
+% \begin{longtable}{@{}lcc@{}}
+%   Commands & Optional/Needed parameter(s) & Output
+%   \\\toprule\endhead
+%   \verb|\BasicTree| & \oarg{scale}\marg{trunk color}\marg{leaf color a}\marg{leaf color b}\verb|{|\emph{leaf}\verb|}| & see below \\
+%
+%   \verb|\Springtree| & \oarg{scale} & \da{\Springtree} \\
+%   \verb|\Summertree| & \oarg{scale} & \da{\Summertree} \\
+%   \verb|\Autumntree| & \oarg{scale} & \da{\Autumntree} \\
+%   \verb|\Wintertree| & \oarg{scale} & \da{\Wintertree} \\
+%   \verb|\WorstTree| & \oarg{scale} & \da{\WorstTree}
+% \end{longtable}
+% \normalsize
+%
+% \noindent\verb|\BasicTree| examples (normal trees):
+%
+% \verb|\colorbox{green}{\BasicTree{red}{orange}{yellow}{leaf}}|\colorbox{green}{\BasicTree{red}{orange}{yellow}{leaf}}
+%
+% \verb|\BasicTree[5]{orange!95!black}{orange!80!black}{orange!70!black}{leaf}|\BasicTree[5]{orange!95!black}{orange!80!black}{orange!70!black}{leaf}
+% 
+% \verb|\BasicTree[2]{blue!65!white}{cyan!50!white}{cyan!50!white}{}|\BasicTree[2]{blue!65!white}{cyan!50!white}{cyan!50!white}{}
+%
+%
+% \verb|\BasicTree[-1.54]{green!20!black}{green!50!black}{green!70!black}{leaf}|\BasicTree[-1.54]{green!20!black}{green!50!black}{green!70!black}{leaf}
+%
+% \verb|\colorbox{black}{\BasicTree[3.75]{gray!80}{gray!50}{gray!40}{leaf}}|\colorbox{black}{\BasicTree[3.75]{gray!80}{gray!50}{gray!40}{leaf}}
+%
+% \bigskip
+% 
+% \noindent \dots and using the same trees with \Option{tree=off/false} or \Option{draft}(\Option{=true}): 
+% 
+% \indent\verb|\colorbox{green}{\BasicTree{red}{orange}{yellow}{leaf}}|\colorbox{green}{\definedBasicTree{red}{orange}{yellow}{leaf}}
+% 
+% 
+% \verb|\BasicTree[5]{orange!95!black}{orange!80!black}{orange!70!black}{leaf}|\definedBasicTree[5]{orange!95!black}{orange!80!black}{orange!70!black}{leaf}
+% 
+% \verb|\BasicTree[2]{blue!65!white}{cyan!50!white}{cyan!50!white}{}|\definedBasicTree[2]{blue!65!white}{cyan!50!white}{cyan!50!white}{}
+% 
+% \verb|\BasicTree[-1.54]{green!20!black}{green!50!black}{green!70!black}{leaf}|\definedBasicTree[-1.54]{green!20!black}{green!50!black}{green!70!black}{leaf}
+% 
+% \verb|\colorbox{black}{\BasicTree[3.75]{gray!80}{gray!50}{gray!40}{leaf}}|\colorbox{black}{\definedBasicTree[3.75]{gray!80}{gray!50}{gray!40}{leaf}}
+% \\[1ex]
+% I think it's better if you define your own tree using \verb|\newcommand| and \verb|\BasicTree|:
+%\begin{verbatim}
+% \newcommand{\Myicetree}[1][1]{%
+% \BasicTree[#1]{blue!65!white}{cyan!50!white}{cyan!50!white}{}}
+% \end{verbatim}
+% 
+% 
+%
+% \iffalse meta-comment
+%: subsec: Something to redefine
+% \fi
+% \subsection{Something to redefine}
+%
+% At the end of each symbol \verb|\tikzsymbolsaftersymbolinput| is inserted.
+% By default it is defined to contain \Makro{xspace}:
+% \begin{quote}
+%\verb|\newcommand{\tikzsymbolsaftersymbolinput}{\xspace}|
+%\end{quote}
+%
+% You can redefine this macro.
+% If you don't want \verb|\xspace| just say:
+% \begin{quote}
+% \verb|\renewcommand{\tikzsymbolsaftersymbolinput}{}|
+%\end{quote}
+%
+%
+%
+% \iffalse meta-comment
+%: subsec: Warning and Errors
+% \fi
+% \section{Warnings and Errors}
+%
+% \iffalse meta-comment
+%: subsec: Warnings
+% \fi
+% \subsection{Warnings \dots}
+% You can use this symbols in chapters, sections, subsections, etc.
+% But the log file will print a warning, something like:
+% \begin{quotation}
+%   \noindent Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding): 
+%   (hyperref)                removing `\verb|\Smiley|' on input line 137.
+% \end{quotation}
+% 
+% You can avoid those messages by putting the symbol into this command:
+% 
+% \verb|\texorpdfstring{\Smiley}{Smiley}|
+% 
+% For example you may use something like that:
+% 
+% \verb|\subsubsection{\enquote{3D} Emoticons \texorpdfstring{\dSmiley}{dSmiley}}| or
+% 
+% \verb|\subsection{Emoticons \texorpdfstring{\Smiley}{Smiley}}| \\or
+% 
+% \verb|\subsubsection{\enquote{normal} Emoticons \texorpdfstring{\Cat}{Cat}}|
+% 
+% 
+% 
+%\iffalse meta-comment
+%: subsec: and errors
+%\fi
+% \subsection{\dots and errors}
+% Make sure you load  \Package{marvosym} \emph{before}
+% \Package{tikzsymbols} because both packages define \verb|\Smiley|,
+% \Package{marvosym} via \verb|\newcommand| \Package{tikzsymbols} via
+% \verb|\DeclareRobustCommand|.
+% 
+% If you load \Package{marvosym} \emph{after} \Package{tikzsymbols},
+% \LaTeX{} generates an error-message because \verb|\Smiley| has
+% already been defined.
+%
+% If you load \Package{marvosym} \emph{before} \Package{tikzsymbols},
+% \Package{tikzsymbols} will overwrite \Package{marvosym}'s Smiley and no
+% error-message is generated (if you like the \verb|\Smiley| from
+% marvosym more, use the \Package{tikzsymbols} option \verb|marvosym|
+% or \Option{prefix}).
+%
+%
+%
+%
+% \iffalse meta-comment
+%: subsec: Nobody is perfect
+% \fi
+% \section{Nobody is perfect}
+%
+% If you  find a bug, please send me a mail involving a \emph{minimal example}  which shows the bug.
+% And a description would be nice.
+%
+%
+%
+%
+% \iffalse meta-comment
+%: subsec: Code
+% \fi
+% \section[Code]{Code (do you really need this section?)}
+%
+% There is not much to see, all this symbols were created with \Package{tikz}.
+% But it may helps you (somehow).
+% 
+% 
+% 
+% \StopEventually{Well then, happy \TeX ing!}
+% 
+%
+%The first lines are always the same: what do I need, how is the package named:
+%    \begin{macrocode} 
+\NeedsTeXFormat{LaTeX2e}[2011/06/27] 
+\ProvidesPackage{tikzsymbols} 
+[2014/10/31 v3.0f Some symbols created using tikz.] 
+\@ifpackageloaded{tikz}{}{\RequirePackage{tikz}}
+\@ifpackageloaded{xargs}{}{\RequirePackage{xargs}}
+\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
+\@ifpackageloaded{xkeyval}{}{\RequirePackage{xkeyval}}
+\@ifpackageloaded{xspace}{}{\RequirePackage{xspace}}
+\@ifpackageloaded{calc}{}{\RequirePackage{calc}}
+%    \end{macrocode} 
+% Furthermore we need to load some libraries from \Package{tikz}:
+%
+%    \begin{macrocode}
+ \usetikzlibrary{arrows,decorations.pathmorphing,trees}
+%    \end{macrocode}
+%
+%
+%\begin{macro}{\if@tkzssmbls@neg}
+%\begin{macro}{\iftikzymbols@draftabsolute}
+% \changes{v3.0}{2013/07/21}{New \cs{newif}}
+% We need \verb|\if@tkzssmbls@neg| (\texttt{=negative}), well \dots if something is negative (\verb|\chair| needs this). 
+%
+% \verb|\iftikzymbols@draftabsolute| is needed for option \Option{draft=absolute}.
+%    \begin{macrocode}
+\newif\if@tkzssmbls@neg
+\newif\iftikzymbols@draftabsolute
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+%
+%\begin{macro}{\Basic@Tree}
+% \changes{v3.0}{2013/07/21}{has now the default definition \cs{Basic@Tree@on}}
+% Now we define our \verb|\Basic@Tree|. We will need it later for our package option.
+% Furthermore if no option is given this will be the default definition of \verb|\Basic@Tree| inside the document.
+%    \begin{macrocode}
+\newcommand{\Basic@Tree}{\Basic@Tree@on}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{final}
+% \changes{v3.0}{2013/07/21}{using \Package{xkeaval}'s choicekey}
+% \changes{v3.0}{2013/07/21}{using \Package{xkeaval}'s boolkey}
+% If final is false, \verb|\Basic@Tree|  will show squares drawn by \Package{tikz}.
+% If it is true, it will show trees.
+%    \begin{macrocode}
+\define@boolkey{tikzsymbols}{final}[true]{%
+  \ifKV@tikzsymbols@final
+    \def\Basic@Tree{\Basic@Tree@on}% final=true => final
+  \else
+    \def\Basic@Tree{\Basic@Tree@off}% = false  => draft
+  \fi
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{draft}
+% \changes{v3.0}{2013/07/21}{using \Package{xkeaval}'s choicekey. Furthermore new option absolute is available}
+% If   option \Option{draft} or \Option{draft=true} is set, then squares drawn by \Package{tikz} are typed instead of trees. 
+%
+% If option \Option{draft=absolute} is set, we set \verb|\iftikzymbols@draftabsolute| to \Option{true} and \emph{all} symbols are replaced by plain vanilla rectangles drawn by \LaTeX.
+%    \begin{macrocode}
+\define@choicekey*{tikzsymbols}{draft}%
+[\tikzsymbols@draft@val\tikzsymbols@draft@nr]{false,true,absolute}[true]{%
+  \ifcase\tikzsymbols@draft@nr\relax
+    \def\Basic@Tree{\Basic@Tree@on}% draft=false => final
+  \or
+    \def\Basic@Tree{\Basic@Tree@off}% = true  => draft
+  \or
+    \def\Basic@Tree{\Basic@Tree@off}\tikzymbols@draftabsolutetrue% =absolute
+  \fi
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{draftabsolute}
+% \changes{v3.0}{2013/07/21}{is obsolete}
+% Obsolete Option \Option{draftabsolute}. You can still use it, but it gives a warning.
+%    \begin{macrocode}
+\define@key{tikzsymbols}{draftabsolute}{%
+\typeout{----------------------------}%
+\PackageWarningNoLine{tikzsymbols}{Option '\CurrentOption' is obsolete! 
+\MessageBreak Please use 'draft=absolute' instead!}
+\typeout{----------------------------}%
+\tikzymbols@draftabsolutetrue}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{marvosym}
+% \changes{v3.0}{2013/07/21}{using \Package{xkeaval}'s boolkey}
+% Now I define the boolean option \Option{marvosym}: you may use it, if you load the package \Package{marvosym}.
+%    \begin{macrocode}
+\define@boolkey{tikzsymbols}{marvosym}[true]{}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{usebox}
+% \changes{v3.0}{2013/07/21}{New option}
+% If it is true, the savebox-usebox-system is used. If it is false, then the system is turned off.
+% 
+% Furthermore it is true by default (\verb|\KV@tikzsymbols@useboxtrue|)
+%    \begin{macrocode}
+\define@boolkey{tikzsymbols}{usebox}[true]{}
+\KV@tikzsymbols@useboxtrue
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{prefix}
+% \changes{v3.0}{2013/07/21}{New option. Sets all commands to \cs{<prefix>macro}}
+%\begin{macro}{\cmdKV@tikzsymbols@prefix}
+% \changes{v3.0}{2013/07/23}{New macro.}
+% Option \Option{prefix} changes all commands to \verb|\<prefix>command|. If only \Option{prefix} is set, \verb|<prefix>| will be \enquote{tikzsymbols}, but you can define your own prefix via \verb|prefix=<prefix>|
+%
+% If this option is not used inside a document, \verb|\cmdKV@tikzsymbols@prefix| wouldn't be defined. So we define it and let it empty.
+%    \begin{macrocode}
+\newcommand{\cmdKV@tikzsymbols@prefix}{}
+\define@cmdkey{tikzsymbols}{prefix}[tikzsymbols]{}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+%
+%\begin{macro}{tree}
+% \changes{v3.0}{2013/07/21}{Using \Package{xkeyval}'s choicekey. Can be set: on/true, off/false}
+%  Now we declare the name of our option: \Option{tree} (I could have named it stone, or wood, etc., but I used \enquote{tree}). 
+% I am using \Package{xkeyval} now more than before and \Option{tree} can now be set to \Option{on/true} resp. \Option{off/false}.
+%    \begin{macrocode}
+\define@choicekey{tikzsymbols}{tree}%
+[\tikzsymbols@tree@val\tikzsymbols@tree@nr]{true,on,false,off}[on]{%
+  \ifcase\tikzsymbols@tree@nr\relax
+     \def\Basic@Tree{\Basic@Tree@on}% tree=true
+   \or
+     \def\Basic@Tree{\Basic@Tree@on}% tree=on
+   \or
+     \def\Basic@Tree{\Basic@Tree@off}% tree=false
+   \or
+     \def\Basic@Tree{\Basic@Tree@off}% tree=false
+  \fi
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\ProcessOptionsX*}
+%We process all options. What is  \verb|\relax| doing?
+%    \begin{macrocode}
+\ProcessOptionsX*<tikzsymbols>\relax
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\tikzsymbolsaftersymbolinput}
+% Now we define this strange named macro. 
+% This macro is inserted after the tikz-code, and is defined as \verb|\xspace|.
+% If you don't want \verb|\xspace| to be inserted, you can redefine this command.
+%    \begin{macrocode}
+ \newcommand*{\tikzsymbolsaftersymbolinput}{\xspace}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\@leaf@is@leaf}
+% We need this command for creating an error-message if the last parameter of BasicTree is neither \enquote{leaf} nor empty.
+%    \begin{macrocode}
+ \newcommand*{\@leaf@is@leaf}{leaf}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tkzsymbls@scl}
+% The \oarg{scale} parameter of the commands is stored inside \verb|\tkzsymbls@scl|. 
+% 
+% \verb|\set@tkzsymblsscl| is a short version of \verb|\setlength{\tkzsymbls@scl}{#1pt}|. I defined it to write less.
+%    \begin{macrocode}
+\newlength{\tkzsymbls@scl}
+\newcommand*{\set@tkzsymblsscl}[1]{\setlength{\tkzsymbls@scl}{#1pt}}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tikzsymbols@draftboxlength}
+% \changes{v3.0}{2013/07/21}{New length}
+%\begin{macro}{\tikzsymbols@draftboxheight}
+% \changes{v3.0}{2013/07/21}{New length}
+% The length and the height of the plain vanilla rectangle are stored inside these lengths.
+%    \begin{macrocode}
+\newlength{\tikzsymbols@draftboxlength}
+\newlength{\tikzsymbols@draftboxheight}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+%
+%
+%\begin{macro}{\tikzsymbols@draftbox}
+% \changes{v3.0}{2013/07/21}{New macro. Draw a plain vanilla rectangle if draft is absolute}
+% Our plain vanilla rectangle. 
+% Using \verb|\tikzsymbols@draftboxlength| and  \verb|\tikzsymbols@draftboxheight| to calculate the length and the height of the box.
+%
+% The box is drawn using \verb|\frame| and a \verb|\vbox|, \verb|\hbox| construction. \verb|\vbadness=\maxdimen| is needed because otherwise there would be many overfull v-box errors.
+%    \begin{macrocode}
+\newcommand*{\tikzsymbols@draftbox}[2]{%
+  \setlength{\tikzsymbols@draftboxlength}{#1}%
+  \setlength{\tikzsymbols@draftboxheight}{#2}%
+  \frame{%
+    {\vbadness=\maxdimen%
+    \frame{\vbox to \tikzsymbols@draftboxheight{%
+      \hbox to \tikzsymbols@draftboxlength{}}}}%
+   }%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tikzsymbols@draftQbox}
+% \changes{v3.0}{2013/07/21}{New macro. Short form of \cs{tikzsymbols@draftbox}}
+% Short form of \verb|\tikzsymbols@draftbox|. \enquote{Q} means \enquote{Quadrat}(\emph{square}) and just means that height and length of the box are the same.
+%    \begin{macrocode}
+\newcommand*{\tikzsymbols@draftQbox}[1]{\tikzsymbols@draftbox{#1}{#1}}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tkzsymbls@Prmtr}
+% \changes{v3.0}{2013/07/21}{New macro. Needed for the plain vanilla rectangles}
+%\begin{macro}{\tksymbls@bx@Prmtrstore}
+% \changes{v3.0}{2013/07/21}{New macro. Makes \cs{tkzsymblsPrmtr} positive (if it is negative)}
+% \changes{v3.0c}{2014/10/25}{Added a @ sign.}
+% \verb|\tikzsymbols@draftbox| doesn't like negative numbers. 
+% So to be sure that only positive numbers are used, \verb|\tksymbls@bx@Prmtrstore| changes \verb|\tkzsymbls@Prmtr| to be positive (if it is negative).
+% I am using \verb|\tkzsymbls@Prmtr| instead of \verb|#1| (scaling) in \verb|\tikzsymbols@draftbox|
+%    \begin{macrocode}
+\newcommand*\tkzsymbls@Prmtr{}
+\newcommand*\tksymbls@bx@Prmtrstore[1]{%
+  \edef\tkzsymbls@Prmtr{\ifdim\tkzsymbls@scl<0pt-\fi#1}%
+}
+%    \end{macrocode}
+%\end{macro}\end{macro}
+%
+%\begin{macro}{\current@tikzsymbols}
+% \changes{v3.0}{2013/07/21}{New macro. Current script size and text color is stored inside}
+% The \verb|\sbox| and \verb|\usebox| system I am using now has one drawback: If the symbol was used inside e.g. \verb|\color{red}| all other symbols of the same type are red, even if they are in normal text, or even inside another color.
+% 
+% The same with e.g. \verb|\small|. If a symbol was used the first time inside e.g. \verb|\small| all other symbols of the same type are as small as the first one.
+%
+% To overcome this problem, the save-boxes name depends of the current color and the current script size. These things are stored inside \verb|\current@tikzsymbols|.
+%    \begin{macrocode}
+\newcommand*{\current@tikzsymbols}{}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tikzsymbols@ifsaveboxundefined}
+% \changes{v3.0}{2013/07/21}{New macro. Checks if save-box is undefined, if true: does nothing; if false: defined new box.}
+% For every symbol we define a box (using \Makro{sbox}). If a symbol of the same type is  used again, it doesn't have to be  recalculated. We simply use the same output as the first symbol. If the symbol has another input, a new save-box is defined.
+%
+% For example: \verb|\Summertree[1]|\verb|\Summertree[1]|\verb|\Summertree[1]| is only calculated once because they are alike: \Summertree[1]\Summertree[1]\Summertree[1]. \verb|\Summertree[1.3]| will be saved in an own save-box because it is different then the others.
+%
+%    \begin{macrocode}
+\newcommand*{\tikzsymbols@ifsaveboxundefined}[2]{%
+  \edef\current@tikzsymbols{\current@color\f@size}%
+  \expandafter\ifcsname\current@tikzsymbols tikzsymbols@savebox@#1\endcsname%
+  \relax%
+  \else%
+  \expandafter\expandafter\expandafter\newsavebox%
+  \expandafter\expandafter\expandafter{%
+    \csname\current@tikzsymbols tikzsymbols@savebox@#1\endcsname}%
+  \expandafter\expandafter\expandafter\global%
+  \expandafter\expandafter\expandafter\sbox%
+  \expandafter\expandafter\expandafter{%
+    \csname\current@tikzsymbols tikzsymbols@savebox@#1\endcsname}{#2}%
+  \fi%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\tikzsymbols@use@box}
+% \changes{v3.0}{2013/07/21}{New macro. Prints the savebox}
+% \Package{tikzsymbols} version of \Makro{usebox}.
+%    \begin{macrocode}
+\newcommand*\tikzsymbols@use@box[1]{%
+  \expandafter\expandafter\expandafter\usebox%
+  \expandafter\expandafter\expandafter{%
+    \csname\current@tikzsymbols tikzsymbols@savebox@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\ifKV@tikzsymbols@usebox = true}
+% If option \Option{usebox} is \Option{false}, then \verb|\tikzsymbols@ifsaveboxundefined| and \verb|\tikzsymbols@use@box| will be redefined so that they don't store the input inside a save-box.
+%    \begin{macrocode}
+\ifKV@tikzsymbols@usebox
+  \relax% if true
+  \else
+    \renewcommand{\tikzsymbols@ifsaveboxundefined}[2]{\@secondoftwo{#1}{#2}}%
+    \renewcommand{\tikzsymbols@use@box}[1]{\@gobble{#1}}%
+\fi
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tkzsymbls@Declare@Robust@Command}
+% \changes{v3.0}{2013/07/21}{New macro. Is needed for option prefix}
+%  To make use of the \Option{prefix} option (and to write less), I am using these commands.
+% If \verb|<prefix>| is empty, the commands will be \enquote{normal}: \verb|\Smiley|
+% will be \verb|\Smiley|, etc.
+% 
+% If \verb|<prefix>| is not empty the commands will be defined as \verb|\<prefix>command| e.g. \verb|\<prefix>Smiley| , etc.
+%
+% Furthermore a new command is defined. \verb|tikzsymbolsuse| needs this command to specify wherever the input is a symbol of \Package{tikzsymbols} or not.
+%    \begin{macrocode}
+\newcommand{\tkzsymbls@Declare@Robust@Command}[1]{%
+  \expandafter\def\csname\cmdKV@tikzsymbols@prefix#1tikzsymbolsuse\endcsname{}%
+  \expandafter\DeclareRobustCommand%
+  \csname\cmdKV@tikzsymbols@prefix#1\endcsname%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tkzsymbls@Declare@Robust@Commandx}
+% \changes{v3.0}{2013/07/21}{New macro. Is needed for option prefix}
+% Same as before
+%    \begin{macrocode}
+\newcommand{\tkzsymbls@Declare@Robust@Commandx}[1]{%
+  \expandafter\def\csname\cmdKV@tikzsymbols@prefix#1tikzsymbolsuse\endcsname{}%
+  \expandafter\DeclareRobustCommandx%
+  \csname\cmdKV@tikzsymbols@prefix#1\endcsname%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tkzsymblsnewcommand}
+% \changes{v3.0}{2013/07/21}{New macro. Is needed for option prefix}
+% Same as before
+%    \begin{macrocode}
+\newcommand{\tkzsymblsnewcommand}[1]{%
+  \expandafter\def\csname\cmdKV@tikzsymbols@prefix#1tikzsymbolsuse\endcsname{}%
+  \expandafter\newcommand%
+  \csname\cmdKV@tikzsymbols@prefix#1\endcsname%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\tikzsymbolsuse}
+% \changes{v3.0}{2013/07/21}{New macro. Using symbols without carrying about the prefix}
+% To be able to don't have to care about the prefix, I made this command.
+% Simply write the name of the symbols inside without backslash.
+% If the symbol is not defined, there will be an error message.
+%    \begin{macrocode}
+\newcommand{\tikzsymbolsuse}[1]{%
+  \ifcsname\cmdKV@tikzsymbols@prefix#1tikzsymbolsuse\endcsname%
+  \relax\else\PackageError{tikzsymbols}{\MessageBreak%
+    Undefined Control sequence: '#1'}{Did you write the name correctly?}\fi%
+  \csname\cmdKV@tikzsymbols@prefix#1\endcsname%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tikzsymbols@let}
+% \changes{v3.0}{2013/07/21}{New macro. \cs{let} with prefix}
+% \verb|\eggbeater| is the same as \verb|\Schneebesen| (\verb|\let\eggbeater\Schneebesen|). 
+% To make the prefix also for the \verb|\let| commands, I defined my own let-command
+%    \begin{macrocode}
+\newcommand{\tikzsymbols@let}[2]{%
+  \expandafter\def\csname\cmdKV@tikzsymbols@prefix#1tikzsymbolsuse\endcsname{}%
+  \expandafter\expandafter\expandafter\let%
+  \expandafter\csname\expandafter\cmdKV@tikzsymbols@prefix%
+  \expandafter#1\expandafter\endcsname%
+  \csname\cmdKV@tikzsymbols@prefix#2\endcsname%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\@Tree@SetUp}
+% First we define our \verb|\@Tree@SetUp| (how the trees will look like) (I used the code from the \Package{tikz} manual and changed it a little bit):
+%    \begin{macrocode}
+\def\@Tree@SetUp{\tikzset{%
+    ld/.style={level distance=##1ex},lw/.style={line width=##1ex},%
+    level 1/.style={ld=0.60,    trunk,                lw=0.1 ,sibling angle=60},%
+    level 2/.style={ld=0.20,    trunk!80!leaf a,      lw=.073,sibling angle=70},%
+    level 3/.style={ld=0.25,    trunk!60!leaf a,      lw=.05,sibling angle=70}, %
+    level 4/.style={ld=0.10,    trunk!40!leaf a,      lw=.025,sibling angle=60},%
+    level 5/.style={ld=0.15,    trunk!20!leaf a,      lw=.02,sibling angle=60},%
+    level 6/.style={ld=0.08,    leaf a,               lw=.021,sibling angle=60},%
+}}%
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Basic@Tree}
+%  \verb|\Basic@Tree@off| and \verb|\Basic@Tree@on| are necessary for option \Option{tree}, \Option{draft} and \Option{final}.
+%
+%
+%\begin{macro}{\Basic@Tree@ff}
+% \changes{v3.0}{2013/07/21}{Draft rectangle same size as normal tree. Changed parts of the code}
+% \verb|\Basic@Tree@off| is used when trees are turned off.
+%    \begin{macrocode}
+\DeclareRobustCommandx{\Basic@Tree@off}[5][1=1, usedefault]{{%
+    \set@tkzsymblsscl{#1}%
+    \pgfmathsetmacro\tikzsymbols@Tree@absolute@scale{#1+0.02ex}%
+    \edef\tkzsymbls@Prmtr{\ifdim\tkzsymbls@scl<0pt-\fi\tikzsymbols@Tree@absolute@scale}%
+    \ifdim\tkzsymbls@scl<0pt \set@tkzsymblsscl{-#1}\fi%   
+    \def\leaf@or@not@leaf{#5}%
+    \iftikzymbols@draftabsolute%
+      \ifx\leaf@or@not@leaf\@leaf@is@leaf%
+        \tikzsymbols@draftbox{(1.6772ex+0.4pt)*\real{\tkzsymbls@Prmtr}}
+        {(1.42ex-0.2pt+0.4pt)*\real{\tkzsymbls@Prmtr}}%
+      \else
+        \tikzsymbols@draftbox{(1.3996ex+0.4pt)*\real{\tkzsymbls@Prmtr}}
+        {(1.28ex-0.2pt+0.4pt)*\real{\tkzsymbls@Prmtr}}%    
+      \fi
+    \else%
+      \begin{tikzpicture}[scale=#1+0.02ex,x=1ex,y=1ex, line width=0.4pt*\tkzsymbls@scl]
+        \ifx\leaf@or@not@leaf\@leaf@is@leaf%
+          \draw[#2] (-0.8386,0+0.2pt) -- (-0.8386,1.42);
+          \draw[#3] (-0.8386,1.42) -- (0.8386,1.42);
+          \draw[#4] (0.8386,1.42) -- (0.8386,0+0.2pt);
+          \draw[#3] (0.8386,0+0.2pt) -- (0,0+0.2pt);
+          \draw[#4] (0,0+0.2pt) -- (-0.8386,0+0.2pt);
+        \else
+          \draw[#2] (-0.6998,0+0.2pt) -- (-0.6998,0.68+0.6);
+          \draw[#3] (-0.6998,0.68+0.6) -- (0.6998,0.68+0.6);
+          \draw[#4] (0.6998,0.68+0.6) -- (0.6998,0+0.2pt);
+        \fi%
+      \end{tikzpicture}%
+    \fi%
+}}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\Basic@Tree@on}
+% \changes{v3.0}{2013/07/21}{Same here}
+% \changes{v3.0b}{2014/10/19}{Transfered \cs{pgfarrowsdeclare} inside
+% the tikzpicture environment. It seems this command produces an
+% unwanted space.}
+% \verb|\Basic@Tree@on| is used when trees are turned on.
+%    \begin{macrocode}
+\DeclareRobustCommandx{\Basic@Tree@on}[5][1=1, usedefault]{{%
+  \iftikzymbols@draftabsolute%
+    \Basic@Tree@off[#1]{#2}{#3}{#4}{#5}%
+  \else%
+    \set@tkzsymblsscl{#1}%
+    \ifdim\tkzsymbls@scl<0pt \set@tkzsymblsscl{-#1}\@tkzssmbls@negtrue\fi%
+    \def\leaf@or@not@leaf{#5}%
+    \@Tree@SetUp%
+    \colorlet{trunk}{#2}%
+    \colorlet{leaf a}{#3}%
+    \colorlet{leaf b}{#4}%
+    \begin{tikzpicture}[x=1ex,y=1ex,line width=0.07ex]%
+      \pgfarrowsdeclare{leaf}{leaf}%
+      {\pgfarrowsleftextend{-.1ex}\pgfarrowsrightextend{-0.05ex}}%
+      {%
+        \pgfpathmoveto{\pgfpoint{-.01ex}{0ex}}%
+        \pgfpatharc{150}{30}{0.08ex}% 
+        \pgfpatharc{-30}{-150}{0.08ex}%
+        \pgfusepathqfill%
+      }%
+      \ifx\leaf@or@not@leaf\@leaf@is@leaf%
+      \draw[opacity=0,scale=#1+0.02ex, line width=0.4pt*\tkzsymbls@scl] 
+      (-0.8386,0+0.2pt) rectangle
+      (0.8386, 1.42);
+      \else %
+      \draw[opacity=0,scale=#1+0.02ex, line width=0.4pt*\tkzsymbls@scl] 
+      (-0.6998,0+0.2pt) rectangle (0.6998,0.68+0.6);
+      \fi
+      \pgflowlevel{\pgftransformscale{#1+0.02ex}}{%
+        \coordinate (root) [grow cyclic,rotate=90] child {
+          child [line cap=round] foreach \a in {0,1, 2} { child foreach \b in {0,1} {
+              child foreach \c in {0,1,2} { child foreach \d in {0,1} {
+                  child foreach \leafcolor in {leaf a,leaf b} { edge from parent [color=\leafcolor,-#5]}
+                }}}} edge from parent [shorten >=-0.05ex,serif cm-,line cap=butt]
+      };}%
+ \end{tikzpicture}%
+ \@tkzssmbls@negfalse%
+ \fi%
+}}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+%
+%
+% \subsection{Cookingsymbolcode}
+%
+%\begin{macro}{\Kochtopf = \pot}
+% I am using \verb|\DefineRobustCommand| so that the symbols can be used inside \verb|\section{}|, \verb|\footnote|, \verb|\index{}|,  etc. 
+% It may would have  worked with \Makro{newcommand} too.
+%
+% You can either use the german commands or the english ones:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Kochtopf}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Kochtopf#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.47ex*\real{\tkzsymbls@Prmtr}}{1.577ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2ex,y=2.2ex, line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\draw[rounded corners=0.2ex*\tkzsymbls@scl] (0,0.5) -- (0,0) -- (1,0) -- (1,0.5);
+\draw(0,0.4) arc (90:270:0.1);
+\draw(1,0.4) arc (90:-90:0.1);
+\draw (0,0.5) -- (1,0.5) .. controls (1,0.6) and (0,0.6) .. (0,0.5);
+\draw (0.6,0.585) arc (0:180:0.1);
+\draw[decorate,
+decoration={snake,amplitude=.12ex*\tkzsymbls@scl,segment length=0.93ex*\tkzsymbls@scl}]
+(0,0.35) -- (1,0.35);
+\draw (0.1,0.25) circle (0.04);
+\draw (0.3,0.2) circle (0.04);
+\draw (0.13, 0.125) circle (0.04);
+\draw (0.6,0.25) circle (0.04);
+\draw (0.45,0.1) circle (0.04);
+\draw (0.88,0.2) circle (0.04);
+\draw (0.7,0.11) circle (0.04);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Kochtopf#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{pot}{Kochtopf}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Bratpfanne = \fryingpan}
+%
+%^^A You may wonder why I am writing something like: \verb|amplitude=.12ex*#1|.
+%^^A Well it's hard to explain in english, but I try my best: 
+%^^A After being scaled the symbols would not  look  so good without \verb|*#1|.
+%^^A The lines would be too thin, the corners not rounded enough, etc.
+%^^A To prevent too thin lines due to scaling I am multiplying  the line width and the corners etc. so that they look the same, no matter how you scale it.
+% If you wonder why I am using \verb|line width=0.07ex*\tkzsymbls@scl| instead of \verb|line width=0.07ex*#1| I will try to explain it.
+%
+% After being multiplied by a negative number, the line widths would be too thin for the size of the symbol.
+% So it is necessary that the line width is always scaled with a positive number.
+% Thus I am using \verb|\tkzsymbls@scl| because it is always positive.
+%
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Bratpfanne}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Bratpfanne#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{3.5535ex*\real{\tkzsymbls@Prmtr}}{1.4525ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.7ex,y=1.4ex, line width=0.07ex*\tkzsymbls@scl, scale=#1,
+decoration={snake,amplitude=.05ex*\tkzsymbls@scl,segment length=0.408ex*\tkzsymbls@scl}]
+\draw[rounded corners=0.07ex*\tkzsymbls@scl]
+(-1,0) -- (1,0) -- (1.5,0.4) -- (-1.5,0.4) -- cycle;
+\draw[ line width=0.037ex*\tkzsymbls@scl, rounded corners=0.023ex*\tkzsymbls@scl]
+(-1.4,0.3) -- (-3.5,0.3) -- (-3.5,0.25) -- (-1.3,0.25);
+\draw[line width=0.023ex*\tkzsymbls@scl] (-1.1,0.1) -- (1.1,0.1);
+\draw[line width=0.035ex*\tkzsymbls@scl, decorate]
+(-0.3,0.5) -- (-0.3,1);
+\draw[line width=0.035ex*\tkzsymbls@scl, decorate]
+   (0.3,0.5) -- (0.3,1);
+\draw[line width=0.035ex*\tkzsymbls@scl, decorate]
+(-1,0.5) -- (-1,1);
+\draw[line width=0.035ex*\tkzsymbls@scl, decorate]
+   (1,0.5) -- (1,1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Bratpfanne#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{fryingpan}{Bratpfanne}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Schneebesen = \eggbeater}
+% The next one:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Schneebesen}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Schneebesen#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{0.5697ex*\real{\tkzsymbls@Prmtr}}{1.57985ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[y=2.1ex,x=1.4ex, scale=#1,
+   line width=0.01ex*\tkzsymbls@scl*\real{0.97}]
+\draw (0,0) .. controls (0.2,0.0) and  (0.2,0.2) ..  (0,0.4);
+\draw (0,0) .. controls (-0.2,0.0) and  (-0.2,0.2) ..  (0,0.4);
+\draw  (0,0) .. controls (-0.1,0.0) and  (-0.1,0.2) ..  (0,0.4);
+\draw (0,0) .. controls (0.1,0.0) and  (0.1,0.2) ..  (0,0.4);
+\draw (0,0) .. controls (-0.15,0.0) and  (-0.15,0.2) ..  (0,0.4);
+\draw (0,0) .. controls (0.15,0.0) and  (0.15,0.2) ..  (0,0.4);
+\draw (0,0) .. controls (-0.05,0.0) and  (-0.05,0.2) ..  (0,0.4);
+\draw  (0,0) .. controls (0.05,0.0) and  (0.05,0.2) ..  (0,0.4);
+\draw (0,0) --(0,0.4);
+\fill[line width=0.05ex*\tkzsymbls@scl, rounded corners=0.07ex*\tkzsymbls@scl]
+   (-0.05,0.37) -- (0.05,0.37) -- (0.05,0.75) -- (-0.05,0.75) -- cycle;
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Schneebesen#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{eggbeater}{Schneebesen}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Sieb = \sieve}
+% Now a long one;
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Sieb}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Sieb#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{3.478ex*\real{\tkzsymbls@Prmtr}}{1.175ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.8ex, y=2.8ex,line width=0.02ex*\tkzsymbls@scl ,scale=#1]
+\draw[line width=0.09ex*\tkzsymbls@scl] (-0.2,0) -- (1.01,0);
+\draw (0.2,0) arc (180:360:0.4);
+\draw(0.25,0) arc (180:360:0.35);
+\draw (0.3,0) arc (180:360:0.3);
+\draw (0.35,0) arc (180:360:0.25);
+\draw (0.4,0) arc (180:360:0.2);
+\draw (0.45,0) arc (180:360:0.15);
+\draw (0.5,0) arc (180:360:0.1);
+\draw (0.55,0) arc (180:360:0.05);
+\draw (.95,0) -- (0.95,-0.194);
+\draw (.9,0) -- (0.9,-0.265);
+\draw (.85,0) -- (0.85,-0.313);
+\draw (.8,0) -- (0.8,-0.345);
+\draw (.75,0) -- (0.75,-0.37);
+\draw (.7,0) -- (0.7,-0.39);
+\draw (.65,0) -- (0.65,-0.4);
+\draw (.6,0) -- (0.6,-0.4);
+\draw (.55,0) -- (0.55,-0.4);
+\draw (.5,0) -- (0.5,-0.39);
+\draw (.45,0) -- (0.45,-0.37);
+\draw (.4,0) -- (0.4,-0.348);
+\draw (.35,0) -- (0.35,-0.314);
+\draw (.3,0) -- (0.3,-0.265);
+\draw (.25,0) -- (0.25,-0.194);
+\draw (0.2,-0.05) -- (1,-0.05);
+\draw (0.21,-0.1) -- (0.99,-0.1);
+\draw (0.23,-0.15) -- (0.97,-0.15);
+\draw (0.255,-0.2) -- (0.945,-0.2);
+\draw (0.289,-0.25) -- (0.911,-0.25);
+\draw (0.335,-0.3) -- (0.865,-0.3);
+\draw (0.406,-0.35) -- (0.794,-0.35);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Sieb#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{sieve}{Sieb}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Purierstab = \blender}
+% Da es keine Umlaute gibt, werden \"a, \"u, \"o einfach zu: a, u, o.
+% This symbol is far from perfect. And I know that the correct translation of \enquote{P\"urierstab} would be \enquote{immersion blender}, but I am just using \enquote{blender}:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Purierstab}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Purierstab#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{0.76ex*\real{\tkzsymbls@Prmtr}}{1.575ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.3ex, y=2.2ex, line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\draw[rounded corners=0.07ex*\tkzsymbls@scl] (0,0) -- (0.3,0) --  (0.15,0.1) --cycle;
+\fill[rounded corners=0.07ex*\tkzsymbls@scl] (0.15,0.3) -- (0.24,0.4) -- (0.24,0.7) --
+   (0.06,0.7) -- (0.06,0.4) -- cycle;
+\draw (0.15,0.4) -- (0.15,0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Purierstab#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{blender}{Purierstab}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Dreizack = \trident}
+% Important cooking-tool for cooking:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Dreizack}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Dreizack#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{0.265ex*\real{\tkzsymbls@Prmtr}}{1.575ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.3ex, y=2.2ex, line width=0.035ex*\tkzsymbls@scl,scale=#1]
+\fill[rounded corners=0.07ex*(\tkzsymbls@scl-\tkzsymbls@scl/100)]
+(0,0) -- (0,0.4)  -- (0.1,0.4) -- (0.1,0.0) -- cycle;
+\draw (0.05,0) -- (0.05,0.7);
+\draw[rounded corners=0.07ex*(\tkzsymbls@scl-\tkzsymbls@scl/100*\tkzsymbls@scl*2]
+(0,0.7) -- (0,0.55)  -- (0.05,0.55) -- (0.1,0.55) --  (0.1,0.7);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Dreizack#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{trident}{Dreizack}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Backblech = \bakingplate}
+% I may have too many strange named commands:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Backblech}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Backblech#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.3155ex*\real{\tkzsymbls@Prmtr}}{1.57ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=6.53ex,y=5ex, line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\filldraw[rounded corners=0.09ex*\tkzsymbls@scl] (0,0) rectangle (0.3,0.3);
+\draw[rounded corners=0.07ex*\tkzsymbls@scl, line width=0.03ex*\tkzsymbls@scl]
+   (0.1,0) -- (-0.025,0) -- (-0.025,0.3) -- (0.1,0.3);
+\draw[rounded corners=0.07ex*\tkzsymbls@scl, line width=0.03ex*\tkzsymbls@scl]
+   (0.2,0) -- (.325,0) -- (.325,0.3) -- (0.2,0.3);
+\foreach \@BackblechlochX in {0.007,0.293}
+\foreach \@BackblechlochY in {0.007,0.293}
+\fill[white] (\@BackblechlochX,
+\@BackblechlochY) circle (0.02ex);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Backblech#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{bakingplate}{Backblech}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Ofen = \oven}
+% I may have again too many strange named commands:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Ofen}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Ofen#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.07ex*\real{\tkzsymbls@Prmtr}}{1.57ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.50ex,y=0.5ex, line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\draw (0,0) rectangle (4,3);
+\draw (0.25,0.25) rectangle (3.75,2);
+\foreach \@Ofenschalter in {0.5,1.1,2.9,3.5}
+\fill (\@Ofenschalter,2.5) circle (0.22);
+\draw (1.5,2.28) rectangle  (2.5,2.72);
+\draw[line width=0.05ex*\tkzsymbls@scl] (1,1.75) -- (3,1.75);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Ofen#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{oven}{Ofen}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Pfanne = \pan}
+%A pan \dots What did you expect?
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Pfanne}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Pfanne#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{3.034ex*\real{\tkzsymbls@Prmtr}}{0.78ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.3ex,y=2.3ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\draw [rounded corners=0.023ex*\tkzsymbls@scl]
+   (0,0) -- (0.9,0) -- (1,0.3) -- (-0.1,0.3) -- cycle;
+\draw (-0.2,0.22) -- (-0.08,0.22);
+\draw (0.97,0.22) -- (1.08,0.22);
+\draw[decorate,decoration={snake,amplitude=.046ex*\tkzsymbls@scl,
+   segment length=0.82ex*\tkzsymbls@scl},line width=0.05ex*\tkzsymbls@scl]
+   (-0.05,0.1) -- (0.95,0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Pfanne#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{pan}{Pfanne}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Herd = \cooker}
+% I hope it's the right translation:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Herd}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Herd#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.08ex*\real{\tkzsymbls@Prmtr}}{1.58ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex,line width=0.04ex*\tkzsymbls@scl,scale=#1]
+\draw[line width=0.08ex*\tkzsymbls@scl] (0,0) rectangle (2,1.5);
+\draw (0.5,0.45) circle (0.35);
+\draw (0.5,0.45) circle (0.2);
+\draw (1.45,0.45) circle (0.3);
+\draw (0.5,1.15) circle (0.21);
+\draw (1.05,0.95) rectangle (1.85,1.35);
+\draw (1.45,1.15) circle (0.15);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Herd#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{cooker}{Herd}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Saftpresse = \squeezer}
+% It's an old squeezer:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Saftpresse}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Saftpresse#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.87ex*\real{\tkzsymbls@Prmtr}}{1.62ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1.2ex,y=1ex,line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\draw[rounded corners=0.1ex*\tkzsymbls@scl]
+   (0,0.85) -- (0,0) -- (1.5,0) -- (1.5,0.85) -- cycle;
+\draw (0,0.7) -- (1.5,0.7);
+\draw[rounded corners=0.1ex*\tkzsymbls@scl] (0.3,0.7) -- (0.75,1.55) -- (1.2,0.7);
+\draw[rounded corners=0.1ex*\tkzsymbls@scl] (0.45,0.7) -- (0.75,1.55) -- (1.05,0.7);
+\draw[rounded corners=0.1ex*\tkzsymbls@scl]
+   (0.65,0.7) -- (0.75,1.55) -- (0.85,0.7);
+\draw[line width=0.05ex*\tkzsymbls@scl, decorate,
+   decoration={snake,amplitude=.05ex*\tkzsymbls@scl,
+   segment length=0.48ex*\tkzsymbls@scl}]  (0,0.3) -- (1.5,0.3);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Saftpresse#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{squeezer}{Saftpresse}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Schussel = \bowl}
+% It may looks a bit weird, but I like it. 
+% Wieder dasselbe mit den Umlauten: \"u=u.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Schussel}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Schussel#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.32ex*\real{\tkzsymbls@Prmtr}}{1.47ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex,line width=0.07ex*\tkzsymbls@scl, scale=#1]
+\draw[rounded corners=0.5ex*\tkzsymbls@scl]
+   (-0.02,1.4) -- (0,1.4) -- (0,0.05) -- (1.5,0.05) -- (1.5,1.4) -- (1.52,1.4);
+\draw (0.35,0) -- (1.15,0);
+\draw[opacity=00] (-0.4,0) -- (1.85,0); 
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Schussel#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{bowl}{Schussel}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Schaler = \peeler}
+% I cannot believe I forgot this command. I made it and forgot to copy and paste it inside this document!
+% Jedenfalls wieder \"a=a:
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Schaler}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Schaler#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.15ex*\real{\tkzsymbls@Prmtr}}{1.565ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.7ex,y=2.3ex, line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\draw[rounded corners=0.07ex*\tkzsymbls@scl]
+   (0,0.4) -- (0,0.1) arc (0:180:-0.1) -- (0.2,0.4)
+   -- (0.3,0.5) -- (0.3,0.65) -- (0.2,0.65) -- (0.2,0.5) -- (0,0.5) -- (0,0.65) --
+   (-0.1,0.65) -- (-0.1,0.5)  -- cycle;
+\draw[line width=0.03ex*\tkzsymbls@scl] (0,0.6) -- (0.2,0.6);
+\draw[line width=0.03ex*\tkzsymbls@scl] (0,0.58) -- (0.2,0.58);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Schaler#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{peeler}{Schaler}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Reibe = \grater}
+%\changes {v3.0a} {2013/08/06} {new command: \Makro{Reibe}}
+% Text hinschreiben\marginpar{Text hinschreiben}
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Reibe}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Reibe#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.08ex*\real{\tkzsymbls@Prmtr}}{1.58ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex, line width=0.08ex*\tkzsymbls@scl, scale=#1]%
+\draw (0,0) rectangle (1,1.2);
+\draw[rounded corners=0.04ex] (0.05,1.2) rectangle (0.95,1.5);
+\foreach\x in {0.2,0.4,0.6,0.8}
+\foreach\y in {0.2,0.4, 0.6, 0.8, 1}
+\fill (\x,\y) circle (0.05ex);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Reibe#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{grater}{Reibe}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Flasche = \bottle}
+%\changes {v3.0a} {2013/08/14} {new command: \Makro{Flasche}}
+% Text hinschreiben
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Flasche}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Flasche#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{0.78ex*\real{\tkzsymbls@Prmtr}}{1.58ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex, line width=0.08ex, rounded corners=0.08ex*\tkzsymbls@scl, scale=#1]
+\draw (0, 1.5) -- (0,1.2) -- (-0.15,0.8) -- (-0.15,0) --++ (0.6,0) --++ (0,0.8) --++ (-0.15,0.4) --++ (0,0.3) -- cycle;
+%\draw (-0.15,0.8) -- (0.45,0.8);
+%\draw (-0.15,0.3) -- (0.45,0.3);
+\draw[opacity=00] (-0.2,0) --++ (0.7,0);
+\end{tikzpicture}\fi%
+}%
+\tikzsymbols@use@box{Flasche#1}%
+\tikzsymbolsaftersymbolinput%
+}
+\tikzsymbols@let{bottle}{Flasche}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%
+%
+%
+% \subsection{Emoticonscode}
+%
+%\begin{macro}{\Sadey  \dSadey}
+% Another name of Sadey is Frowny, but I named it Sadey because there are enough Frownys in the world.
+% All \enquote{3D} Emoticons start with \verb|\d...|, and all Emoticons end with an \enquote{ey} (exception: \enquote{Cat}, \enquote{Ninja}, and else).
+% The \enquote{default color} of the 2D Emoticons is \verb|opacity=0|, it's useful for \verb|\colorbox{yellow}{\Sadey}| which leads to  \colorbox{yellow}{\Sadey} instead of \colorbox{yellow}{\Sadey[][white]} (with default=white).
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Sadey}[2][1=1, 2={opacity=0}, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Sadey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2, line width=0.1ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw[line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\fill (0.1,0.1) circle (0.05);
+\fill (-0.1,0.1) circle (0.05);
+\draw (-0.2,-0.15) .. controls (-0.1,-0.06) and (0.1,-0.06) .. (0.2,-0.15);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Sadey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dSadey}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dSadey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\draw[black] (-0.2,-0.15) .. controls (-0.1,-0.06) and (0.1,-0.06) .. (0.2,-0.15);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dSadey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%
+%\begin{macro}{\Annoey   \dAnnoey}
+% An annoyed Smiley -\_-
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Annoey}[2][1=1,2={opacity=0},usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Annoey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2, line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw[line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw (0.08,0.1) -- (0.22,0.1);
+\draw (-0.08,0.1) -- (-0.22,0.1);
+\draw (-0.2,-0.1) -- (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Annoey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dAnnoey}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dAnnoey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\draw[black] (0.08,0.1) -- (0.22,0.1);
+\draw[black] (-0.08,0.1) -- (-0.22,0.1);
+\draw[black] (-0.2,-0.1) -- (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dAnnoey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Smiley \dSmiley}
+% A normal Smiley
+%    \begin{macrocode}
+\ifKV@tikzsymbols@marvosym\relax\else%
+ \tkzsymbls@Declare@Robust@Commandx{Smiley}[2][1=1,2={opacity=0} ,usedefault]{%
+ \tikzsymbols@ifsaveboxundefined{Smiley#1#2}{%
+ \set@tkzsymblsscl{#1}%
+  \iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl, scale=#1]
+\fill[#2] (0,0) circle (0.33);
+\draw (0,0) circle (0.33);
+\fill (-0.1,0.1) circle (0.05);
+\fill (0.1,0.1) circle (0.05);
+\draw (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Smiley#1#2}%
+\tikzsymbolsaftersymbolinput%
+}%
+\fi
+\tkzsymbls@Declare@Robust@Commandx{dSmiley}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dSmiley#1#2}{%
+\set@tkzsymblsscl{#1}%
+ \iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+ \begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.1ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\draw[black] (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dSmiley#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Laughey \dLaughey}
+% A laughing Smiley
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Laughey}[3][1=1,2={opacity=0},3={opacity=0} ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Laughey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2,line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw[line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw (-0.09,0.06) .. controls (-0.11,0.16) and (-0.17,0.16) .. +(-0.1,0);
+\draw (0.09,0.06) .. controls (0.11,0.16) and (0.17,0.16) .. +(0.1,0);
+\fill[#3,rounded corners=0.1ex*\tkzsymbls@scl, yshift=-0.5] 
+(-0.22,-0.0) .. controls (-0.13,-0.23) and (0.13,-0.23) .. (0.22,-0.0) -- cycle;
+\draw[rounded corners=0.1ex*\tkzsymbls@scl, yshift=-0.5] 
+(-0.22,-0.0) .. controls (-0.13,-0.23) and (0.13,-0.23) .. (0.22,-0.0) -- cycle;
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Laughey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dLaughey}[3][1=1,2=yellow, 3=red ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dLaughey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[ball color=#2,line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw (-0.09,0.06) .. controls (-0.11,0.16) and (-0.17,0.16) .. +(-0.1,0);
+\draw (0.09,0.06) .. controls (0.11,0.16) and (0.17,0.16) .. +(0.1,0);
+\shade[ball color=#3, rounded corners=0.1ex*\tkzsymbls@scl, yshift=-0.3]
+ (-0.25,-0.0) .. controls (-0.13,-0.26) and (0.13,-0.26) .. (0.25,-0.0) -- cycle;
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dLaughey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\Neutrey \dNeutrey}
+% neutral Smiley \verb+:|+
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Neutrey}[2][1=1, 2={opacity=0}, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Neutrey#1#2}{%
+ \set@tkzsymblsscl{#1}%
+ \iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2,line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw[line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\fill (0.1,0.1) circle (0.05);
+\fill (-0.1,0.1) circle (0.05);
+\draw (-0.2,-0.1) -- (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Neutrey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dNeutrey}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dNeutrey#1#2}{%
+ \set@tkzsymblsscl{#1}%
+ \iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\draw[black] (-0.2,-0.1) -- (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dNeutrey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\Winkey \dWinkey}
+%\changes{v3.0}{2013/07/27}{Changed the smile. Old Winkey available as \Makro{oldWinkey} and \Makro{olddWinkey}}
+%\begin{macro}{\oldWinkey \olddWinkey}
+%\changes{v3.0}{2013/07/27}{Old Winkey}
+% ;)
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Winkey}[2][1=1,2={opacity=0} ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Winkey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\fill[#2] (0,0) circle (0.33);
+\draw(0,0) circle (0.33);
+\draw(0.17,0.1) -- (0.05,0.1);
+\fill (-0.1,0.1) circle (0.05);
+\draw (-0.15,-0.15) .. controls (-0.05,-0.2) and (0.15,-0.2) .. (0.19,0);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Winkey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{oldWinkey}[2][1=1,2={opacity=0} ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{oldWinkey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\fill[#2] (0,0) circle (0.33);
+\draw(0,0) circle (0.33);
+\draw(0.17,0.1) -- (0.05,0.1);
+\fill (-0.1,0.1) circle (0.05);
+\draw (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.15,-0.2) .. (0.2,0);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{oldWinkey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dWinkey}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dWinkey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\draw[black] (0.17,0.1) -- (0.05,0.1);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\draw[black] (-0.15,-0.15) .. controls (-0.05,-0.2) and (0.15,-0.2) .. (0.19,0);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dWinkey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{olddWinkey}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{olddWinkey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\draw(0.17,0.1) -- (0.05,0.1);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\draw[black] (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.15,-0.2) .. (0.2,0);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{olddWinkey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\Sey \dSey}
+% I can't think of a better name \verb|:S|
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Sey}[2][1=1,2={opacity=0} ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Sey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2, line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw[line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\fill (0.1,0.1) circle (0.05);
+\fill (-0.1,0.1) circle (0.05);
+\draw (-0.2,-0.08) .. controls (-0.0,-0.2) and (0.0,0) .. (0.2,-0.12);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Sey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dSey}[2][1=1,2=yellow ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dSey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\draw[black] (-0.2,-0.08) .. controls (-0.0,-0.2) and (0.0,0) .. (0.2,-0.12);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dSey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Xey \dXey}
+% I can't think of a better name again.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Xey}[2][1=1, 2={opacity=0}, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Xey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2, line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw[line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw (0.05,0.05) -- ++ (0.1,0.1);
+\draw (0.15,0.05) -- ++ (-0.1,0.1);
+\draw (-0.05,0.05) -- ++ (-0.1,0.1);
+\draw (-0.15,0.05) -- ++ (0.1,0.1);
+\draw (-0.2,-0.15) .. controls (-0.1,-0.06) and (0.1,-0.06) .. (0.2,-0.15);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Xey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dXey}[2][1=1, 2={yellow}, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dXey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[ball color=#2, line width=0.12ex*\tkzsymbls@scl] (0,0) circle (0.33);
+\draw (0.05,0.05) -- ++ (0.1,0.1);
+\draw (0.15,0.05) -- ++ (-0.1,0.1);
+\draw (-0.05,0.05) -- ++ (-0.1,0.1);
+\draw (-0.15,0.05) -- ++ (0.1,0.1);
+\draw (-0.2,-0.15) .. controls (-0.1,-0.06) and (0.1,-0.06) .. (0.2,-0.15);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dXey#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Innocey \dInnocey}
+% An innocent Smiley
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Innocey}[3][1=1,2={opacity=0},3=yellow ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Innocey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.73ex*\real{\tkzsymbls@Prmtr}}{1.909ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\fill[#2] (0,0) circle (0.33);
+\draw (0,0) circle (0.33);
+\fill (-0.1,0.1) circle (0.05);
+\fill (0.1,0.1) circle (0.05);
+\draw (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\draw[#3, line width=0.095ex*\tkzsymbls@scl] (0.32,0.31) arc (0:360:0.32 and 0.1);
+\draw[line width=0.05ex*\tkzsymbls@scl] (0.3,0.31) arc (0:360:0.3 and 0.07);
+\draw[line width=0.05ex*\tkzsymbls@scl] (0.35,0.31) arc (0:360:0.35 and 0.12);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Innocey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Command{wInnocey}[1][1]{\Innocey[#1][opacity=0][white]}
+\tkzsymbls@Declare@Robust@Commandx{dInnocey}[3][1=1,2=yellow,3=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dInnocey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.73ex*\real{\tkzsymbls@Prmtr}}{1.849ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\draw[black] (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\draw[color=#3!97!black, line width=0.1ex*\tkzsymbls@scl] 
+   (0.32,0.31) arc (0:360:0.32 and 0.1);
+\draw[line width=0.05ex*\tkzsymbls@scl] (0.3,0.31) arc (0:360:0.3 and 0.07);
+\draw[line width=0.05ex*\tkzsymbls@scl] (0.35,0.31) arc (0:360:0.35 and 0.12);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dInnocey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\Cooley \dCooley}
+%  Don't know what I shall write here.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Cooley}[2][1=1,2={opacity=0} ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Cooley#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\fill[#2] (0,0) circle (0.33);
+\draw (0,0) circle (0.33);
+\fill[rounded corners=0.1ex*\tkzsymbls@scl] 
+   (0.24,0.15) -- (0.01,0.15) -- (0.01,0) -- (0.24,0) -- cycle;
+\fill[rounded corners=0.1ex*\tkzsymbls@scl] 
+   (-0.24,0.15) -- (-0.01,0.15) -- (-0.01,0) -- (-0.24,0) -- cycle;
+\draw (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\draw (0.02,0.1) -- (-0.02,0.1);
+\draw (-0.2,0.1) -- (-0.3,0.13);
+\draw (0.2,0.1) -- (0.3,0.13);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Cooley#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dCooley}[2][1=1,2=yellow,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dCooley#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\draw[black] (0.02,0.1) -- (-0.02,0.1);
+\draw[black] (-0.2,0.1) -- (-0.295,0.146);
+\draw[black] (0.2,0.1) -- (0.295,0.146);
+\shade[ball color=black,rounded corners=0.1ex*\tkzsymbls@scl] 
+   (0.24,0.15) -- (0.01,0.15) -- (0.01,0) -- (0.24,0) -- cycle;
+\shade[ball color=black,rounded corners=0.1ex*\tkzsymbls@scl] 
+   (-0.24,0.15) -- (-0.01,0.15) -- (-0.01,0) -- (-0.24,0) -- cycle;
+\draw[black] (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dCooley#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Tongey \dTongey}
+% :P
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Tongey}[3][1=1,2={opacity=0},3={opacity=0} ,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Tongey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.704ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\fill[#2] (0,0) circle (0.33);
+\draw (0,0) circle (0.33);
+\fill (-0.1,0.1) circle (0.05);
+\fill (0.1,0.1) circle (0.05);
+\fill[#3,line width=0.058ex*\tkzsymbls@scl, rounded corners=0.12ex*\tkzsymbls@scl] 
+   (0,-0.09) -- (0.05,-0.2) -- (0.16,-0.23) -- (0.2,-0.15) -- (0.19,-0.03);
+\draw[line width=0.07ex*\tkzsymbls@scl, yshift=0.21ex] 
+   (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\draw[line width=0.058ex*\tkzsymbls@scl, rounded corners=0.12ex*\tkzsymbls@scl] 
+   (0,-0.09) -- (0.05,-0.2) -- (0.16,-0.23) -- (0.2,-0.15) -- (0.19,-0.03);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Tongey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dTongey}[3][1=1,2=yellow,3=red,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dTongey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftQbox{1.584ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.33);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\shade[ball color=#3,line width=0.058ex*\tkzsymbls@scl, rounded corners=0.12ex*\tkzsymbls@scl] 
+   (0,-0.09) -- (0.05,-0.2) -- (0.16,-0.23) -- (0.2,-0.15) -- (0.19,-0.03);
+\draw[black, line width=0.058ex*\tkzsymbls@scl, rounded corners=0.12ex*\tkzsymbls@scl] 
+   (0,-0.09) -- (0.05,-0.2) -- (0.16,-0.23) -- (0.2,-0.15) -- (0.19,-0.03);
+\draw[black, line width=0.07ex*\tkzsymbls@scl, yshift=0.21ex] 
+   (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dTongey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Nursey \dNursey}
+% a Nurse.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Nursey}
+[4][1=1,2={opacity=0},3={opacity=0},4=black,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Nursey#1#2#3#4}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.5ex*\real{\tkzsymbls@Prmtr}}{2.19ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.3ex, y=2.3ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\fill[#3,rounded corners=.023ex*\tkzsymbls@scl] 
+   (-0.3,0) -- (-0.3,0.3) -- (0,0.6) -- (0.3,0.3) -- (0.3,0);
+\fill[#2] (0,0) circle (0.3);
+\draw (0,0) circle (0.3);
+\fill (-0.1,0.1) circle (0.05);
+\fill (0.1,0.1) circle (0.05);
+\draw[line width=0.09ex*\tkzsymbls@scl, yshift=0.07ex] 
+   (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\draw[rounded corners=.023ex*\tkzsymbls@scl] 
+   (-0.3,0) -- (-0.3,0.3) -- (0,0.6) -- (0.3,0.3) -- (0.3,0);
+\draw[#4,line width=.046ex*\tkzsymbls@scl] (0,0.35) -- (0,0.5);
+\draw[#4,line width=.046ex*\tkzsymbls@scl] (-0.05,0.45) -- (0.05,0.45);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Nursey#1#2#3#4}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dNursey}[4][1=1,2=yellow,3=white,4=red,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dNursey#1#2#3#4}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.38ex*\real{\tkzsymbls@Prmtr}}{1.98ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.3ex, y=2.3ex, line width=0.12ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2] (0,0) circle (0.3);
+\shade[ball color=black] (-0.1,0.1) circle (0.05);
+\shade[ball color=black] (0.1,0.1) circle (0.05);
+\draw[black, line width=0.09ex*\tkzsymbls@scl, yshift=0.07ex] 
+   (-0.2,-0.1) .. controls (-0.1,-0.2) and (0.1,-0.2) .. (0.2,-0.1);
+\shade[ball color=#3, rounded corners=.023ex*\tkzsymbls@scl,yshift=-0.09ex] 
+   (-0.3,0) -- (-0.3,0.3) -- (0,0.6) -- (0.3,0.3) -- (0.3,0) arc (0:180:0.3);
+\shade[ball color=#4,line width=.046ex*\tkzsymbls@scl] 
+   (-0.01,0.31) -- (-0.01,0.46) -- (0.01,0.46) -- (0.01,0.31)--cycle;
+\shade[ball color=#4,line width=.046ex*\tkzsymbls@scl] 
+   (-0.05,0.4) -- (0.05,0.4) -- (0.05,0.42)--(-0.05,0.42) -- cycle;
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dNursey#1#2#3#4}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\Vomey \dVomey}
+% *Bl\"a\"argh*
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Vomey}[3][1=1,2={opacity=0},3={opacity=0},usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Vomey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{3.0335ex*\real{\tkzsymbls@Prmtr}}{1.743ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.58ex,y=0.58ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\fill[#2,rounded corners=0.05ex*\tkzsymbls@scl]  (0,0)  arc (15:330:1) -- (-0.6,-0.3) -- cycle;
+\draw[rounded corners=0.05ex*\tkzsymbls@scl]  (0,0)  arc (15:330:1) -- (-0.6,-0.3) -- cycle;
+\draw[line width=0.05ex*\tkzsymbls@scl] (-0.5,0.3) -- (-0.3,0.1);
+\fill (-0.45,0.27) arc (100:350:0.1);
+\fill[#3] (1.8,-0.5)  .. controls (2.5,-0.3) and (2.8,-0.7) .. (2.5,-1) .. 
+   controls (3,-1) and (3,-1.7) .. (2,-1.5) .. controls (1.7,-2) and (1,-2) .. (1,-1.5) ..
+   controls (0.5,-1.9) and (0.3,-1) .. (0.7,-0.9);
+\fill[#3] (0,-0.4) .. controls (1,0) and (2,-1) .. (2,-1) .. 
+   controls (1.7,-1.2) and (1.3,-1.2) .. (1,-1) .. 
+   controls (0.8,-0.7) and (0.5,-0.5) .. (0,-0.4);
+\draw (0,-0.4) .. controls (1,0) and (2,-1) .. (2,-1);
+\draw (0,-0.4) .. controls (0.5,-0.5) and (0.8,-0.7) .. (1,-1);
+\draw (1.8,-0.5)  .. controls (2.5,-0.3) and (2.8,-0.7) .. (2.5,-1) .. 
+   controls (3,-1) and (3,-1.7) .. (2,-1.5) .. controls (1.7,-2) 
+   and (1,-2) .. (1,-1.5) .. controls (0.5,-1.9) and (0.3,-1) .. (0.7,-0.9);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Vomey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dVomey}[3][1=1,2=yellow,3={brown!10!olive},usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dVomey#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{3.2435ex*\real{\tkzsymbls@Prmtr}}{1.653ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.58ex,y=0.58ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=#2!90!brown,rounded corners=0.03ex*\tkzsymbls@scl]  
+   (0,0)  arc (15:330:1) -- (-0.6,-0.3) -- cycle;
+\draw[black, line width=0.05ex*\tkzsymbls@scl] (-0.5,0.3) -- (-0.3,0.1);
+\shade[ball color=black] (-0.45,0.27) arc (100:350:0.1);
+\shade[ball color=#3] (1.8,-0.5)  .. controls (2.5,-0.3) and (2.8,-0.7) .. (2.5,-1) ..
+ controls (3,-1) and (3,-1.7) .. (2,-1.5) .. controls (1.7,-2) and (1,-2) .. (1,-1.5) .. 
+ controls (0.5,-1.9) and (0.3,-1) .. (0.7,-0.9);
+\shade[ball color=#3] (0,-0.4) .. controls (1,0) and (2,-1) .. (2,-1) .. controls
+   (1.7,-1.2) and (1.3,-1.2) .. (1,-1) .. controls (0.8,-0.7) and (0.5,-0.5) .. (0,-0.4);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dVomey#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Walley \dWalley}
+% Well \dots{} this Emoticon should be the visualization of the german saying \enquote{Gegen eine Wand rennen}, which means something like: Not being able to solve a problem.  
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Walley}[3][1=1, 2={opacity=0},3={opacity=0}, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Walley#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.341ex*\real{\tkzsymbls@Prmtr}}{1.674ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1,
+decoration={random steps,segment length=0.15ex*\tkzsymbls@scl, amplitude=0.1ex*\tkzsymbls@scl}]
+\fill[#2, line width=0.08ex*\tkzsymbls@scl] (0,0) circle (0.28);
+\draw[line width=0.08ex*\tkzsymbls@scl] (0,0) circle (0.28);
+\fill[#3] (0.28,-0.33) rectangle (0.66,0.33);
+\draw (0.28,-0.33) rectangle (0.66,0.33);
+\draw[line width=0.06ex*\tkzsymbls@scl] 
+(0.28,0) --++(0.05,0.07) --++(0.03,0.02) --+
++(0.03,-0.02) --++(0.03,0.1) --++(0.03,0.02) -- (0.5,0.25);
+\draw[line width=0.06ex*\tkzsymbls@scl] 
+(0.28,0) --++(0.06,-0.02) --++(0.04,0.06) --+
++(0.0,-0.08) --++(0.08,0.06) --++(0.03,-0.02) --+(0.08,0.02) -- (0.6,0.0);
+\draw[line width=0.06ex*\tkzsymbls@scl] 
+(0.28,0) --++(0.03,-0.02)  --++(0.03,-0.07)  --+
++(0.03,-0.01)  --++(0.01,-0.07)  --++(0.06,0.01)  --++(0.03,-0.08)   -- 
+(0.5,0.-0.25);
+\draw[rotate=-20] (0.12,0.1) -- (0.2,0.05);
+\draw[rotate=-20] (0.27,-0.1) .. controls (0.2,-0.072) and (0.1,-0.06) .. (0.,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Walley#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{rWalley}[3][1=1, 2={opacity=0},3={opacity=0}, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{rWalley#1#2#3}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.341ex*\real{\tkzsymbls@Prmtr}}{1.674ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1,
+decoration={random steps,segment length=0.15ex*\tkzsymbls@scl, amplitude=0.1ex*\tkzsymbls@scl}]
+\fill[#2, line width=0.08ex*\tkzsymbls@scl] (0,0) circle (0.28);
+\draw[line width=0.08ex*\tkzsymbls@scl] (0,0) circle (0.28);
+\fill[#3] (0.28,-0.33) rectangle (0.66,0.33);
+\draw (0.28,-0.33) rectangle (0.66,0.33);
+\draw[decorate, line width=0.06ex*\tkzsymbls@scl] (0.28,0) -- (0.5,0.25);
+\draw[decorate,line width=0.06ex*\tkzsymbls@scl] (0.28,0) -- (0.6,0.0);
+\draw[decorate,line width=0.06ex*\tkzsymbls@scl] (0.28,0) -- (0.5,-0.25);
+\draw[rotate=-20] (0.12,0.1) -- (0.2,0.05);
+\draw[rotate=-20] (0.27,-0.1) .. controls (0.2,-0.072) and (0.1,-0.06) .. (0.,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{rWalley#1#2#3}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dWalley}[2][1=1, 2=yellow, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dWalley#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.4288ex*\real{\tkzsymbls@Prmtr}}{1.6008ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1]
+\shade[ball color=orange!80!black] (0.298,-0.33) rectangle (0.692,0.337);
+\draw[line width=0.06ex*\tkzsymbls@scl] 
+(0.28,0) --++(0.05,0.07) --++(0.03,0.02) --+
++(0.03,-0.02) --++(0.03,0.1) --++(0.03,0.02) -- (0.5,0.25);
+\draw[line width=0.06ex*\tkzsymbls@scl] 
+(0.28,0) --++(0.06,-0.02) --++(0.04,0.06) --+
++(0.0,-0.08) --++(0.08,0.06) --++(0.03,-0.02) --+(0.08,0.02) -- (0.6,0.0);
+\draw[line width=0.06ex*\tkzsymbls@scl] 
+(0.28,0) --++(0.03,-0.02)  --++(0.03,-0.07)  --+
++(0.03,-0.01)  --++(0.01,-0.07)  --++(0.06,0.01)  --++(0.03,-0.08)   -- (0.5,0.-0.25);
+\shade[ball color=#2] (-0.01,0) circle (0.31);
+\draw[rotate=-20] (0.12,0.1) -- (0.2,0.05);
+\draw[rotate=-20] (0.283,-0.1) .. controls (0.2,-0.072) and (0.1,-0.06) .. (0,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dWalley#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{drWalley}[2][1=1, 2=yellow, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{drWalley#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.4288ex*\real{\tkzsymbls@Prmtr}}{1.6008ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1,
+decoration={random steps,segment length=0.15ex*\tkzsymbls@scl, amplitude=0.1ex*\tkzsymbls@scl}]
+\shade[ball color=orange!80!black] (0.298,-0.33) rectangle (0.692,0.337);
+\draw[decorate, line width=0.06ex*\tkzsymbls@scl] (0.298,0) -- (0.5,0.25);
+\draw[decorate,line width=0.06ex*\tkzsymbls@scl] (0.298,0) -- (0.6,0.0);
+\draw[decorate,line width=0.06ex*\tkzsymbls@scl] (0.298,0) -- (0.5,-0.25);
+\shade[ball color=#2, line width=0.08ex*\tkzsymbls@scl] (-0.01,0) circle (0.31);
+\draw[rotate=-20] (0.12,0.1) -- (0.2,0.05);
+\draw[rotate=-20] (0.283,-0.1) .. controls (0.2,-0.072) and (0.1,-0.06) .. (0.,-0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{drWalley#1#2}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%\begin{macro}{\Cat}
+% *Miau*
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Cat}[1][1=1,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Cat#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.899ex*\real{\tkzsymbls@Prmtr}}{1.957ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=2.33ex,y=2.33ex, line width=0.093ex*\tkzsymbls@scl,scale=#1]
+\draw (0,0) circle (0.3);
+\draw[rounded corners=0.163ex*\tkzsymbls@scl] (-0.3,0) -- (-0.35,0.5) -- (0,0.3);
+\draw[rounded corners=0.163ex*\tkzsymbls@scl] (0,0.3) -- (0.35,0.5) -- (0.3,0);
+\fill (-0.15,.15) circle (0.05);
+\fill (0.15,.15) circle (0.05);
+\draw[rounded corners=0.175ex*\tkzsymbls@scl,yshift=-0.12ex] 
+   (0,0) -- (0,-0.1) -- (-0.1,-0.095);
+\draw[rounded corners=0.175ex*\tkzsymbls@scl,yshift=-0.12ex] 
+   (0,0) -- (0,-0.1) -- (0.1,-0.095);
+\draw[rounded corners=.12ex*\tkzsymbls@scl,yshift=-.15ex,
+         line width=0.03em*\real{0.9}*\tkzsymbls@scl] 
+(-0.1,0.1) -- (0,0) -- (0.1,0.1) -- cycle ;
+\draw[line width=0.035ex*\tkzsymbls@scl]
+   (-0.1,-0.05)..controls(-0.25,0)and(-0.35,0).. (-0.4,-0.05);
+\draw[line width=0.035ex*\tkzsymbls@scl](-0.1,-0.05)..
+   controls(-0.25,-0.01)and(-0.35,-0.09).. (-0.4,-0.14);
+\draw[line width=0.035ex*\tkzsymbls@scl](-0.1,-0.05)..
+   controls(-0.25,-0.045)and(-0.35,-0.13).. (-0.4,-0.23);
+\draw[line width=0.035ex*\tkzsymbls@scl]
+   (0.1,-0.05)..controls(0.25,0)and(0.35,0).. (0.4,-0.05);
+\draw[line width=0.035ex*\tkzsymbls@scl]
+   (0.1,-0.05)..controls(0.25,-0.01)and(0.35,-0.09).. (0.4,-0.14);
+\draw[line width=0.035ex*\tkzsymbls@scl]
+   (0.1,-0.05)..controls(0.25,-0.045)and(0.35,-0.13).. (0.4,-0.23);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Cat#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Ninja \dNinja}
+% A Ninja.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Ninja}[4][1=1, 2=black, 3=red, 4=white, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Ninja#1#2#3#4}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.149ex*\real{\tkzsymbls@Prmtr}}{1.717ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\def\Black@is@Black{black}%
+\def\Black@or@not@Black{#2}%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1,
+decoration={random steps,segment length=0.1ex*\tkzsymbls@scl, amplitude=0.1ex*\tkzsymbls@scl}]
+\fill[#2] (0,0) circle (0.33);
+%\draw (-0.2,-0.125) -- ++(0.4,0);
+\fill[decoration={random steps,segment length=0.1ex*\tkzsymbls@scl,
+  amplitude=0.01ex*\tkzsymbls@scl}, decorate,#3] 
+(-0.33,0) -- (0.33,0)  -- (0.23,0.23) -- (-0.23,0.23) -- cycle;
+\ifx\Black@or@not@Black\Black@is@Black 
+   \draw[line width=0.08ex*\tkzsymbls@scl] (0,0) circle (0.33);\fi
+\fill[#3] (0,0.1) -- (-0.33,0) -- (-0.26,0.23);
+\fill[#3] (0.3465,0) arc (0:42:0.34 and 0.345)  -- 
+  (0.2,0.23)-- (0.31,0.0) -- cycle;
+\fill[#3] (-0.3465,0) arc (0:-42:-0.34 and -0.345)  -- 
+   (-0.2,0.23)-- (-0.31,0.0) -- cycle;
+\fill[#4] (0.129,0.1425) arc (55:-180:.05);
+\fill[#4] (-0.129,0.1425) arc (-55:180:-.05);
+\draw[decorate,decoration={snake,amplitude=.1ex*\tkzsymbls@scl,
+ segment length=0.55ex*\tkzsymbls@scl}, #3] 
+  (0.26,0.21) -- (0.5,0.35);
+\draw[decorate,decoration={snake,amplitude=.1ex*\tkzsymbls@scl,
+ segment length=0.55ex*\tkzsymbls@scl}, #3] 
+  (0.26,0.21) -- (0.53,0.1);
+\ifx\Black@or@not@Black\Black@is@Black
+\else\draw[line width=0.08ex*\tkzsymbls@scl] (0,0) circle (0.33);\fi
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Ninja#1#2#3#4}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Commandx{dNinja}[4][1=1, 2=black, 3=red, 4=white, usedefault]{%
+\tikzsymbols@ifsaveboxundefined{dNinja#1#2#3#4}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{2.1498ex*\real{\tkzsymbls@Prmtr}}{1.7178ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\def\Black@is@Black{black}%
+\def\Black@or@not@Black{#2}%
+\begin{tikzpicture}[x=2.4ex, y=2.4ex, line width=0.09ex*\tkzsymbls@scl,scale=#1,
+decoration={random steps,segment length=0.1ex*\tkzsymbls@scl, amplitude=0.1ex*\tkzsymbls@scl}]
+\draw[ decorate,decoration={snake,amplitude=.1ex*\tkzsymbls@scl,
+segment length=0.55ex*\tkzsymbls@scl},decorate, #3!50!black] 
+   (0.26,0.21) -- (0.5,0.35);
+\draw[ decorate,decoration={snake,amplitude=.1ex*\tkzsymbls@scl,
+segment length=0.5ex*\tkzsymbls@scl},decorate, #3!50!black] 
+   (0.26,0.21) -- (0.53,0.1);
+\shade[ball color=#2] (0,0) circle (0.347);
+%\draw (-0.2,-0.125) -- ++(0.4,0);
+\fill[decoration={random steps,segment length=0.1ex*\tkzsymbls@scl,
+ amplitude=0.01ex*\tkzsymbls@scl},ball color=#3] 
+decorate  {(-0.33,0) -- (0.3465,0)  }
+  	     {arc (0:42:0.34 and 0.345)}
+decorate  {-- (-0.25,0.24)}
+	     { arc (-42:0:-0.375 and -0.345)};
+\shade[ball color=#4] (0.129,0.1425) arc (55:-180:.05);
+\shade[ball color=#4] (-0.129,0.1425) arc (-55:180:-.05);
+\shade[top color=#4!80!black, bottom color=#4] (0.129,0.1425) arc (55:-180:.05);
+\shade[top color=#4!80!black, bottom color=#4] (-0.129,0.1425) arc (-55:180:-.05);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{dNinja#1#2#3#4}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%\begin{macro}{\NiceReapey}
+% Not very well made.
+% But it's better than nothing
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{NiceReapey}[2][1=1,2={black!20!white},usedefault]{%
+\tikzsymbols@ifsaveboxundefined{NiceReapey#1#2}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{(1.1067em+0.07ex)*\real{\tkzsymbls@Prmtr}}
+                     {(0.693em+0.07ex)*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.11em,y=0.11em, line width=0.07ex*\tkzsymbls@scl,scale=#1]
+\draw[] (1.7,-1) arc (360:180:1.7 and 2)
+   arc (260:110:1.5 and 2) .. controls (-1,3.3) and (1,3.3) .. (1.9,2.97)  
+   arc (260:100:-1.3 and -2) -- cycle;
+\fill[#2] (3,3) .. controls (5,3) and (6,2) .. (7,1.5) -- (3,1.5) -- cycle;
+\draw (3,-3) -- (3,3) .. controls (5,3) and (6,2) .. (7,1.5) -- (3,1.5);
+\draw (0,-1.5) circle (1 and 0.5);
+\draw[line width=0.04ex*\tkzsymbls@scl] (-0.2,-1) -- (-0.2,-2);
+\draw[line width=0.04ex*\tkzsymbls@scl] (0.2,-1) -- (0.2,-2);
+\draw[line width=0.04ex*\tkzsymbls@scl] (0.6,-1) -- (0.6,-2);
+\draw[line width=0.04ex*\tkzsymbls@scl] (-0.6,-1) -- (-0.6,-2);
+\draw[line width=0.04ex*\tkzsymbls@scl] (-1,-1.5) -- (1,-1.5);
+\fill (1.25,1.25) circle ( 0.5 and 0.75);
+\fill (-1.25,1.25) circle ( 0.5 and 0.75);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{NiceReapey#1#2}
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+% \subsection{Other symbols(s)}
+%
+%\begin{macro}{\tikzsymbols@Strichmaxerl@XCheck}
+% \changes{v3.0}{2013/07/21}{New macro. Is needed for \cs{Strichmaxerl}}
+% This macro is needed for \verb|\Strichmaxerl|. 
+% It's not easy to explain  why it does what it does, but \dots uhm \dots it has something to do with mathematics and why the plain vanilla rectangle has always the correct proportions.
+%
+% It is important for having \Makro{Strichmaxerl}'s plain vanilla rectangle the correct size.
+% Well, at first this macro checks if \verb|#1| is greater than 0.
+% If it is, it checks if \verb|#1| is smaller than $0.18$ (radius of the Strichmaxerl's head). If it is, it sets \verb|#1| to $0$ (it is smaller than the head-radius and is therefore not needed). 
+% If it is not, it subtracts $0.18$ from \verb|#1| (we only want the length which overhangs the head).
+% Else \dots
+%    \begin{macrocode}
+\newcommand{\tikzsymbols@Strichmaxerl@XCheck}[1]{%
+\ifdim #1 pt > 0pt%
+   \ifdim #1 pt < 0.18pt%
+      \pgfmathsetmacro{#1}{0}%
+    \else%
+      \pgfmathsetmacro{#1}{#1-0.18}%
+   \fi%
+ \else%
+   \ifdim #1 pt >-0.18pt%
+      \pgfmathsetmacro{#1}{0}%
+    \else%
+      \pgfmathsetmacro{#1}{#1+0.18}%
+   \fi%
+\fi%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\tikzsymbols@Strichmaxerl@ifSmallerZero}
+% \changes{v3.0}{2013/07/21}{New macro. Is needed for \cs{Strichmaxerl}. Checks if something is smaller than 0}
+% Checks if something is smaller than zero ($<0$).
+%    \begin{macrocode}
+\newcommand{\tikzsymbols@Strichmaxerl@ifSmallerZero}[1]{%
+\ifdim #1 pt < 0pt%
+      \pgfmathsetmacro{#1}{0}%
+\fi%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Strichmaxerl}
+% \changes{v3.0}{2013/07/21}{Renamed \cs{Person} to \cs{Strichmaxerl} and  added great parts of code}
+% My first symbol: a Strichmaxerl.
+% And one of the most complex symbols in this package.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Strichmaxerl}[5][1=1,2=-22,3=22,4=27,5=-27,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Strichmaxerl#1#2#3#4#5}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+%    \end{macrocode}
+%
+% Now we have to calculate the length and the height of the separate parts of the \verb|\Strichmaxerl|.
+% At first the lengths (they have all an \verb|x| in the name). \par
+% \verb|LA| for \enquote{linker Arm} (\emph{left arm}). \par
+% \verb|RA| for \enquote{rechter Arm} (\emph{right arm}). \par
+% \verb|LB| for \enquote{linkes Bein} (\emph{left leg}). \par
+% \verb|RB| for \enquote{rechtes Bein} (\emph{right leg}). \par
+%    \begin{macrocode}
+\pgfmathsetmacro{\tikzsymbols@x@LA}{-0.27*cos(#2)}% 
+\pgfmathsetmacro{\tikzsymbols@x@RA}{0.27*cos(#3)}% 
+\pgfmathsetmacro{\tikzsymbols@x@LB}{0.34*sin(#4)}% 
+\pgfmathsetmacro{\tikzsymbols@x@RB}{0.34*sin(#5)}%
+%    \end{macrocode}
+%
+% Now the height (\verb|y|): \par
+% \verb|LA| for \enquote{linker Arm} (\emph{left arm}). \par
+% \verb|RA| for \enquote{rechter Arm} (\emph{right arm}). \par
+% \verb|LB| for \enquote{linkes Bein} (\emph{left leg}). \par
+% \verb|RB| for \enquote{rechtes Bein} (\emph{right leg}). \par
+%    \begin{macrocode}
+\pgfmathsetmacro{\tikzsymbols@y@LA}{0.27*sin(#2)}% 
+\pgfmathsetmacro{\tikzsymbols@y@RA}{-0.27*sin(#3)}% 
+\pgfmathsetmacro{\tikzsymbols@y@LB}{0.34*cos(#4)}% 
+\pgfmathsetmacro{\tikzsymbols@y@RB}{0.34*cos(#5)}% 
+%    \end{macrocode}
+% Well then, lets start our calculations. Firstly the length.
+%
+%^^A  X
+%
+% We use the \verb|\tikzsymbols@Strichmaxerl@XCheck| to check if \dots (see above).
+%    \begin{macrocode}
+\tikzsymbols@Strichmaxerl@XCheck{\tikzsymbols@x@LA}%
+\tikzsymbols@Strichmaxerl@XCheck{\tikzsymbols@x@RA}%
+\tikzsymbols@Strichmaxerl@XCheck{\tikzsymbols@x@LB}%
+\tikzsymbols@Strichmaxerl@XCheck{\tikzsymbols@x@RB}%
+%    \end{macrocode}
+% We want the greatest and the smallest length for our rectangle. 
+% To evaluate them, we define \verb|\tikzsymbols@x@max| and \verb|\tikzsymbols@x@min| using \Package{tikz} \verb|max()| and \verb|min()|.
+% The 0 is very important: if for example all lengths are negative, the greatest number is 0. (Sorry, I don't want to explain it, it has something to do with math). 
+%    \begin{macrocode}
+\pgfmathsetmacro{\tikzsymbols@x@max}
+    {max(0,\tikzsymbols@x@LA,\tikzsymbols@x@RA,\tikzsymbols@x@LB,\tikzsymbols@x@RB)}%
+\pgfmathsetmacro{\tikzsymbols@x@min}
+    {min(0,\tikzsymbols@x@LA,\tikzsymbols@x@RA,\tikzsymbols@x@LB,\tikzsymbols@x@RB)}%
+%    \end{macrocode}
+%
+%^^A  Y
+%
+% Finished the length. Now we calculate our height. Arms and legs more or less separate.
+%
+% Arms: First we subtract $0.2$ (= adding $-0.2$) (torso length)
+%
+%    \begin{macrocode}
+  \pgfmathsetmacro{\tikzsymbols@y@LA}{\tikzsymbols@y@LA-0.2}% 
+  \pgfmathsetmacro{\tikzsymbols@y@RA}{\tikzsymbols@y@RA-0.2}% 
+%    \end{macrocode}
+% Arms and Legs: if they are smaller than $0$, make them $0$.
+%    \begin{macrocode}
+\tikzsymbols@Strichmaxerl@ifSmallerZero{\tikzsymbols@y@LA}%
+\tikzsymbols@Strichmaxerl@ifSmallerZero{\tikzsymbols@y@RA}%
+\tikzsymbols@Strichmaxerl@ifSmallerZero{\tikzsymbols@y@LB}%
+\tikzsymbols@Strichmaxerl@ifSmallerZero{\tikzsymbols@y@RB}%
+%    \end{macrocode}
+%
+% And find the greatest number.
+%    \begin{macrocode}
+\pgfmathsetmacro{\tikzsymbols@y@max}
+{max(\tikzsymbols@y@LA,\tikzsymbols@y@RA,\tikzsymbols@y@LB,\tikzsymbols@y@RB)}%
+%    \end{macrocode}
+% For the box-length we calculate: 
+%\begin{equation}
+%(0.606ex + 1.35ex(\text{x=1.35ex})*\text{(greatest (positive) length)} - 1.35*\text{(smallest (negative) length})) * \text{scale}
+%\end{equation}
+%For the height:
+%\begin{equation}
+%(1.173ex+1.35ex*\text{greatest height})*\text{scale}
+%\end{equation}
+%    \begin{macrocode}
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{(0.606ex+1.35ex*\real{\tikzsymbols@x@max}
+   -1.35ex*\real{\tikzsymbols@x@min})*\real{\tkzsymbls@Prmtr}}%
+{(1.173ex+1.35ex*\real{\tikzsymbols@y@max})*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+ \begin{tikzpicture}[line width=0.12ex*\tkzsymbls@scl, scale=#1, x=1.35ex, y=1.35ex]
+ \draw[rotate around={#5:(0.15,0.2)}]  (0.15,0.2) -- (0.15,-0.14);
+ \draw[rotate around={#4:(0.15,0.2)}]  (0.15,0.2) -- (0.15,-0.14);
+ \draw (.15,.2) -- (.15,.4);
+ \draw[rotate around={#3:(.15,.4)}] (0.15,0.4) -- (0.42,0.4);
+ \draw[rotate around={#2:(.15,.4)}] (0.15,0.4) -- (-0.12,0.4);
+ \draw (.15, .4) -- (.15, .53);
+ \draw (.15,.8) circle (0.18);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Strichmaxerl#1#2#3#4#5}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Command{Person}{%
+\PackageWarning{tikzsymbols}{Command '\protect\Person' is obsolete, 
+\MessageBreak Please use '\protect\Strichmaxerl' instead.\MessageBreak}%
+\Strichmaxerl%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\Candle}
+% A burning candle
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Candle}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Candle#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{0.64ex*\real{\tkzsymbls@Prmtr}}{(1.255ex+2.2pt)*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex, y=1ex, scale=#1, line width=0.07ex*\tkzsymbls@scl]
+\draw[rounded corners=0.04ex*\tkzsymbls@scl] (0,0) -- (0.2,0) -- +(0,1) -- (0,1) -- cycle;
+\draw[line width=0.05ex*\tkzsymbls@scl] (0.1,1) -- (0.1,1.2);
+\draw[xshift=0.95, yshift=2.2, line width=0.04ex*\tkzsymbls@scl] 
+   (-0.1,0.6) .. controls (-0.4,0.8) and (-0.1,1) ..  (-0.1,1.2);
+\draw [xshift=0.95, yshift=2.2, line width=0.04ex*\tkzsymbls@scl] 
+   (-0.1,0.6) .. controls (0.2,0.8) and (-0.1,1) ..  (-0.1,1.2);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Candle#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Fire}
+% Just a fire.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Fire}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Fire#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.576ex*\real{\tkzsymbls@Prmtr}}{1.639ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex,  line width=0.07ex*\tkzsymbls@scl,rotate=45, scale=#1]
+\fill (-0.05,0) -- (0.05,0) -- (0.05,0.95) -- (-0.05,0.95) -- cycle;
+\fill (-0.74,0.7) -- (0.19,0.7) -- (0.19,0.8) -- (-0.74,0.8) -- cycle;
+\fill[rotate=-20, xshift=-1.3, yshift=-0.1] 
+  (-0.05,0.07) -- (0.05,0.07) -- (0.05,0.9) -- (-0.05,0.9) -- cycle;
+\fill[rotate=-70, xshift=-3.3, yshift=-2.3]
+  (-0.05,0.07) -- (0.05,0.07) -- (0.05,0.9) -- (-0.05,0.9) -- cycle;
+\fill[rotate=135, xshift=2.5, yshift=-3.8] 
+  (-0.05,0.07) -- (0.05,0.07) -- (0.05,0.9) -- (-0.05,0.9) -- cycle;
+\draw[rotate=-45, xshift=-2.6, yshift=1.5,line width=0.04ex*\tkzsymbls@scl, x=0.5ex, y=0.5ex] 
+(-0.1,0.29) .. controls (-0.7,0.6) and (0,1.2) ..  (0.05,1.7);
+\draw[rotate=-45, xshift=-2.1,yshift=1.5,line width=0.04ex*\tkzsymbls@scl, x=0.5ex, y=0.5ex] 
+(-0.1,0.29) .. controls (0.7,0.6) and (-0.1,1.2) ..  (-0.15,1.7);
+\draw[rotate=-45, xshift=-2.5] (-0.1,0.29) .. controls (-0.7,0.6) and (0,1.2) ..  (0,1.5);
+\draw[rotate=-45, xshift=-2] (-0.1,0.29) .. controls (0.7,0.6) and (-0.1,1.2) ..  (-0.1,1.5);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Fire#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Cofeecup}
+% \changes{v3.0}{2013/07/21}{Changed angle of arc a bit. Changed a length.}
+% Just a cup of coffee.
+%    \begin{macrocode}
+\ifKV@tikzsymbols@marvosym \else%
+\tkzsymbls@Declare@Robust@Command{Coffeecup}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Coffeecup#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.82ex*\real{\tkzsymbls@Prmtr}}{1.705ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.7ex,y=0.7ex, scale=#1, line width=0.07ex*\tkzsymbls@scl,
+decoration={snake,amplitude=.05ex*\tkzsymbls@scl,segment length=0.408ex*\tkzsymbls@scl}]
+\draw (0,0) arc (180:270:0.8 and 1) -- ++(0.5,0) arc (270:360:0.8 and 1) -- cycle;
+\draw (2.1,-0.15) -- (2.2,-0.15) arc (90:-90:0.3) -- (1.85, -0.75);
+\draw[line width=0.05ex*\tkzsymbls@scl, decorate]
+   (0.4,0.3) -- +(0,1);
+\draw[line width=0.05ex*\tkzsymbls@scl, decorate]
+   (1,0.3) -- +(0,1);
+\draw[line width=0.05ex*\tkzsymbls@scl, decorate]
+   (1.6,0.3) -- +(0,1);
+\draw (0,-1.05) -- (2.1,-1.05);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Coffeecup#1}%
+\tikzsymbolsaftersymbolinput%
+}%
+\fi
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\Chair}
+% A chair.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Chair}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Chair#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{0.97ex*\real{\tkzsymbls@Prmtr}}{1.69ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\@tkzssmbls@negtrue\fi%
+\begin{tikzpicture}[x=0.9ex,y=0.9ex, scale=#1, line width=0.07ex*\tkzsymbls@scl]
+\draw (0,-0.5) -- (0,0.7) -- (0.5,1) -- (0.5,0.25);
+\draw[line width=0.06ex*\tkzsymbls@scl] (0,0.4) -- (0.5,0.7);
+\draw (0,0) -- (0.5,0.3) -- (1,0) --(1,-0.5);
+\if@tkzssmbls@neg\draw (0.5,0.3) -- +(0,-0.5);\fi%
+\draw (0.5,-0.3) -- (0.5,-0.8);
+\draw (1,0) -- (0.5,-0.3) -- (0,0);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Chair#1}%
+\@tkzssmbls@negfalse%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\Bed}
+% A bed.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Bed}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Bed#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{3.08ex*\real{\tkzsymbls@Prmtr}}{1.68ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex, scale=#1, line width=0.08ex*\tkzsymbls@scl]
+\draw (0,0) -- (0,1.6);
+\draw (3,0) -- (3,1.2);
+\draw (0,0.5) -- (3,0.5);
+\draw (0,0.35) -- (3,0.35);
+\draw (0.7,0.5) arc (0:90:0.7);
+\draw (0.7,0.5) arc(180:30:1.231 and 0.6);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Bed#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\Tribar}
+% Also called Penrose-Triangle
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Tribar}[4]
+[1=1,2={opacity=0},3={opacity=0},4={opacity=0},usedefault]
+{%
+\tikzsymbols@ifsaveboxundefined{Tribar#1#2#3#4}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.7175ex*\real{\tkzsymbls@Prmtr}}{1.685ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.65ex,y=0.65ex,scale=#1,
+   rounded corners=0.03ex*\tkzsymbls@scl, line width=0.06ex*\tkzsymbls@scl]
+\fill[#2] (0.15,0.3) -- (-0.15,-0.3) -- (1.75,-0.3) -- ++ (-0.15,-0.3) 
+   -- (-0.65,-0.6) -- (0.35,1.3) -- +(0.15,-0.3);
+\fill[#3] (0,0) -- (1.3,0) -- (0.35,1.9) -- (0.65,1.9) -- (1.75,-0.3) -- (-0.1,-0.3);
+\fill[#4]  (1,0) -- (0.35,1.3) --  (-0.65,-0.6) -- ++ (-0.15,0.3) -- (0.35,1.9) -- (1.3,0);
+\draw (0,0) -- (1,0) -- (0.5,1) -- cycle;
+\draw (0.15,0.3) -- (-0.15,-0.3) -- (1.75,-0.3) -- ++ (-0.15,-0.3) 
+   -- (-0.65,-0.6) -- (0.35,1.3) -- (0.8,.4);
+\draw (0.9,0) -- (1.3,0) -- (0.35,1.9) -- (0.65,1.9) -- (1.75,-0.3) -- +(-0.05,-0.1);
+\draw (-0.6,-0.6) -- (-0.65,-0.6) -- ++ (-0.15,0.3) -- (0.35,1.9) -- (0.4,1.9);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Tribar#1#2#3#4}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\tikzsymbolsMoaithickness}
+% You may already thought it: the line width of the \verb|\Moai|.
+%    \begin{macrocode}
+\newcommand{\tikzsymbolsMoaithickness}{}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\Moai}
+% From the Easter Island: a Moai.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Moai}[1][1=1,usedefault]{%
+\tikzsymbols@ifsaveboxundefined{Moai#1}{%
+\set@tkzsymblsscl{#1}%
+\tksymbls@bx@Prmtrstore{#1}%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\ifdim \tkzsymbls@scl<2pt%
+\def\tikzsymbolsMoaithickness{0.05ex}%
+\else%
+\ifdim \tkzsymbls@scl<5pt%
+\def\tikzsymbolsMoaithickness{0.035ex}%
+\else%
+\def\tikzsymbolsMoaithickness{0.03ex}%
+\fi\fi%
+\iftikzymbols@draftabsolute%
+\tikzsymbols@draftbox{(1.001ex+\tikzsymbolsMoaithickness)*\real{\tkzsymbls@Prmtr}}
+    {(1.664ex+\tikzsymbolsMoaithickness)*\real{\tkzsymbls@Prmtr}}%
+\else%
+\begin{tikzpicture}[x=.13ex, y=.13ex, rounded corners=0.01ex*\tkzsymbls@scl, scale=#1, 
+    line width=\tikzsymbolsMoaithickness*\tkzsymbls@scl]
+\draw  (-2.6,-4.25) --  (-2.5,-5.8) 
+..controls (-2,-6.8) and (1.5,-6.8) ..  (2.2,-5.8) -- (2.4,-3.95);
+\draw(-2.5,2.5) .. controls (-2.9,4.6) and (2,5) .. (3.3,2.5) -- (2.9,-3.4)
+.. controls (2,-5) and (-4,-5) .. (-3.1,-3) -- cycle;
+\draw (-2.5,3) -- (-2,5) .. controls (0,6) and (2,5.8) .. (3.1,4.7) -- (3.3,2.5);
+\draw[line width=0.02ex*\tkzsymbls@scl] 
+   (-2.2,-1.8) .. controls (-1,-1.3) and (0,-1.7) .. (1,-2);
+\draw[line width=0.02ex*\tkzsymbls@scl] 
+   (-2.2,-1.8) .. controls (-1,-1) and (0,-1.4) .. (1,-2);
+\draw[line width=0.02ex*\tkzsymbls@scl] 
+   (-2.2,-1.8) .. controls (-1,-2) and (0,-2) .. (1,-2);
+\draw (-0.8,4) .. controls (-0.8,3) and (-0.8,2) ..  (-1.6,0.5) -- (-1.8,-0.4)
+   .. controls (-1,0.2) and (0,0.2) ..  (0.6,-0.4) -- (0.7,0.4)
+   .. controls (0,1) and (0,2) .. (0.8,4);
+\draw (-1.8,-0.36) .. controls (-0.5,-0.5) and (0,-0.5) .. (0.6,-0.36);
+\draw (3.2,3.5) -- (3.7,3.5) .. controls (3.5,2) and (3.5,2) .. (3.6,-1.5) -- (3,-1.9);
+\draw (-2.5,3) .. controls (-2.7,2) and (-3,1) .. (-2.88,-1);
+\draw (-2.5,2.8) .. controls (-2,2.5) and (-1,3) .. (-0.8,3.1);
+\draw (0.5,3.3) .. controls (1,3) and (1,2.5) .. (3.3,2.4);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Moai#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\Snowman}
+% A snowman. I think its smile is scary.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{Snowman}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{Snowman#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.545ex*\real{\tkzsymbls@Prmtr}}{1.772ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=0.9ex,y=0.9ex,line width=0.07ex*\tkzsymbls@scl, scale=#1]
+\draw (0,0) circle (0.4 and 0.35);
+\draw[line width=0.06ex*\tkzsymbls@scl] (0,0.64) circle (0.3 and 0.28);
+\draw[line width=0.05ex*\tkzsymbls@scl] (0,1.14) circle (0.2 and 0.2);
+\draw[rounded corners=0.1ex*\tkzsymbls@scl,line width=0.05ex*\tkzsymbls@scl,
+   rotate around={-30:(0,1.14)}] 
+   (-0.2,1.15) -- ++(0,0.35) -- +(0.4,0) -- (0.2,1.14);
+\draw[rounded corners=0.07ex*\tkzsymbls@scl,line width=0.05ex*\tkzsymbls@scl,
+    rotate around={-30:(0,1.14)}]
+    (-0.2,1.19) arc (270:90:0.1);
+\fill (0,0.78) circle (0.04);
+\fill (0,0.63) circle (0.04);
+\fill (0,0.48) circle (0.04);
+\fill (0,0.2) circle (0.05);
+\fill (0,0) circle (0.05);
+\fill (0,-0.2) circle (0.05);
+\fill (-0.06,1.18) circle (0.045);
+\fill (0.06,1.18) circle (0.045);
+\fill (0.1,1.08) circle (0.015);
+\fill (-0.1,1.08) circle (0.015);
+\fill (0.06,1.055) circle (0.015);
+\fill (-0.06,1.055) circle (0.015);
+\fill (0.02,1.039) circle (0.015);
+\fill (-0.02,1.039) circle (0.015);
+\draw (-0.3,0.7) -- (-0.6,0.8); 
+\draw (-0.6,0.8) -- (-0.75,0.7);
+\draw (-0.6,0.8) -- (-0.55,1);
+\draw (-0.6,0.8) -- (-0.8,0.9);
+\draw[line width=0.06ex*\tkzsymbls@scl] (-0.65,0) -- (-0.65,1);
+\foreach\x in {-0.85, -0.75,-0.65,-0.55,-0.45}
+\draw[line width=0.05ex*\tkzsymbls@scl] (-0.65,1) -- (\x,1.3);
+\draw (0.3,0.7) -- (0.6,0.8); 
+\draw (0.6,0.8) -- (0.75,0.7);
+\draw (0.6,0.8) -- (0.6,1);
+\draw (0.6,0.8) -- (0.8,0.9);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{Snowman#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+% \subsection{Trees}
+% Many great ideas are stolen.
+% Don't know who said that, but it's true.
+%
+%
+%
+%\begin{macro}{\BasicTree}
+% We define our \verb|\BasicTree|. We check if the last parameter is \enquote{leaf}, if not we check if the last parameter is empty, if not: we generate an error message:
+%    \begin{macrocode}
+\tkzsymblsnewcommand{BasicTree}[5][1]{%
+\tikzsymbols@ifsaveboxundefined{BasicTree#1#2#3#4#5}{%
+\def\leaf@or@not@leaf{#5}%
+\ifx\leaf@or@not@leaf\@leaf@is@leaf%
+\Basic@Tree[#1]{#2}{#3}{#4}{#5}%
+\else%
+\ifx\\#5\\%
+\Basic@Tree[#1]{#2}{#3}{#4}{#5}%
+\else%
+\PackageError{tikzsymbols}{The last\MessageBreak parameter has either to be \MessageBreak 
+'leaf' or has to be empty}{See the tikzsymbols documentation. Section 'Trees'.}%
+\fi\fi%
+}%
+\tikzsymbols@use@box{BasicTree#1#2#3#4#5}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\begin{macro}{\WorstTree}
+% It's not that bad.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Command{WorstTree}[1][1]{%
+\tikzsymbols@ifsaveboxundefined{WorstTree#1}{%
+\set@tkzsymblsscl{#1}%
+\iftikzymbols@draftabsolute%
+\tksymbls@bx@Prmtrstore{#1}%
+\tikzsymbols@draftbox{1.64ex*\real{\tkzsymbls@Prmtr}}{1.84ex*\real{\tkzsymbls@Prmtr}}%
+\else%
+\ifdim\tkzsymbls@scl<0pt\set@tkzsymblsscl{-#1}\fi%
+\begin{tikzpicture}[x=1ex,y=1ex, line width=0.04ex*\tkzsymbls@scl,scale=#1]
+\fill[brown] (-0.3,0) .. controls (0.2,0.3) and (0.2,0.7) .. (0.2,1) -- (0.5,1) .. 
+   controls (0.5,0.7) and (0.5,0.3) .. (1,0);
+\draw (-0.3,0) .. controls (0.2,0.3) and (0.2,0.7) .. (0.2,1) -- (0.5,1) .. 
+    controls (0.5,0.7) and (0.5,0.3) .. (1,0) ;
+\fill[green] (0.2,0.8) --  (0,0.8) .. controls (-0.4,0.7) and (-0.4,1) ..  (-0.3,1.2) ..
+    controls (-0.3, 1.6) and (-0.1,1.6) .. (0.1,1.5) .. 
+    controls (0.3,1.8) and (0.6,1.6) ..  (0.7,1.5) .. 
+    controls (1.1, 1.6) and (1,1.4) ..  (1,1.2) .. 
+    controls (1.2,1) and (1.2,0.7) .. (0.8,0.8) -- (0.5,0.8);
+\draw (0.214,0.8) --  (0,0.8) .. controls (-0.4,0.7) and (-0.4,1) ..  (-0.3,1.2) .. 
+   controls (-0.3, 1.6) and (-0.1,1.6) .. (0.1,1.5) .. 
+   controls (0.3,1.8) and (0.6,1.6) ..  (0.7,1.5) .. controls (1.1, 1.6) and (1,1.4) ..
+   (1,1.2) .. controls (1.2,1) and (1.2,0.7) .. (0.8,0.8) -- (0.486,0.8);
+\fill[red] (0,1) circle (0.1);
+\fill[red] (0.4,1.2) circle (0.1);
+\fill[red] (0.8,1.1) circle (0.1);
+\end{tikzpicture}%
+\fi%
+}%
+\tikzsymbols@use@box{WorstTree#1}%
+\tikzsymbolsaftersymbolinput%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%
+%
+%
+%
+%\begin{macro}{\Springtree}
+% \changes{v3.0}{2013/07/21}{Replaced \cs{BasicTree} by \cs{tikzsymbolsuse\{BasicTree\}} }
+%\begin{macro}{\Summertree}
+% \changes{v3.0}{2013/07/21}{Replaced \cs{BasicTree} by \cs{tikzsymbolsuse\{BasicTree\}} }
+%\begin{macro}{\Autumntree}
+% \changes{v3.0}{2013/07/21}{Replaced \cs{BasicTree} by \cs{tikzsymbolsuse\{BasicTree\}} }
+%\begin{macro}{\Wintertree}
+% \changes{v3.0}{2013/07/21}{Replaced \cs{BasicTree} by \cs{tikzsymbolsuse\{BasicTree\}} }
+% Some predefined Trees.
+% 
+% \enquote{Hey that look  like the trees in the \dots} -- \enquote{Yes, Yes, I know!}.
+%
+% We don't need \verb|\tikzsymbolsaftersymbolinput| because it is already used in \verb|\BasicTree|.
+%    \begin{macrocode}
+\tkzsymbls@Declare@Robust@Commandx{Springtree}[1][1=1, usedefault]%
+  {\tikzsymbolsuse{BasicTree}[#1]{brown!70!black}{green!90!black}{green!80!black}{leaf}}
+\tkzsymbls@Declare@Robust@Commandx{Summertree}[1][1=1, usedefault]%
+  {\tikzsymbolsuse{BasicTree}[#1]{brown!50!black}{green!80!black}{red!80!green}{leaf}}
+\tkzsymbls@Declare@Robust@Commandx{Autumntree}[1][1=1, usedefault]%
+  {\tikzsymbolsuse{BasicTree}[#1]{red!30!black}{red!75!black}{orange}{leaf}} 
+\tkzsymbls@Declare@Robust@Commandx{Wintertree}[1][1=1, usedefault]%
+  {\tikzsymbolsuse{BasicTree}[#1]{black!80!}{black!50}{black!25}{}}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}\end{macro}\end{macro}
+%
+%\begin{macro}{Error Message}
+% If option \Option{marvosym} is active, but the package not loaded, there will be an error message.
+%    \begin{macrocode}
+\AtBeginDocument{%
+\ifKV@tikzsymbols@marvosym
+\@ifpackageloaded{marvosym}{}{%
+\PackageError{tikzsymbols}{Use option 'marvosym' only\MessageBreak 
+if you load package 'marvosym'}
+{Either load package 'marvosym' or\MessageBreak 
+delete the tikzsymbols option 'marvosym'}}
+\fi
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\iffalse
+%<*ignore>
+\tkzsymbls@Declare@Robust@Command{@@@@@@@@Keep@Cool@@@@I}{%
+\begin{tikzpicture}[x=1em, y=1em, line width=0.03em]
+\fill[decorate,decoration={snake,amplitude=.02em,segment length=0.4em},cyan!20!] 
+(0,0) -- (0,1) -- (1,1) -- (1,0) -- cycle;
+\draw (0.3,0.3) -- (0.55,0.7);% Kšrper
+\draw (0.05,0.4) -- (0.3,0.3) -- (0.1,0.1);
+\draw (0.3,0.8) -- (0.5,0.61);
+\draw (0.49,0.61) -- (0.8,0.65);
+\draw (0.65,0.9) circle (0.17);
+\end{tikzpicture}%
+\tikzsymbolsaftersymbolinput%
+}
+\tkzsymbls@Declare@Robust@Command{@@@@@@@@@@@Keep@Cool@@@@@II}{%
+\begin{tikzpicture}[x=1em,y=1em]
+\fill[decorate,decoration={snake,amplitude=.02em,segment length=0.6em},cyan!20!]  (-0.3,-0.3) rectangle (0.5,1);
+\draw (0,-0.1) -- (0.15,0.2) -- (0.3,-0.1);% Beine
+\draw (.15,.2) -- (.15,.4);% Kšrper
+\draw (.15,.4) -- (.4,.5);% Rechter Arm
+\draw (.15,.4) -- (-0.1,.5);% Linker Arm
+\draw (.15, .4) -- (.15, .53);% Hals
+\draw (.15,.8) circle (0.18);% Kopf
+\end{tikzpicture}%
+\tikzsymbolsaftersymbolinput%
+}
+%</ignore>
+%\fi
+%
+%
+%
+%
+%
+%
+%
+%
+%
+% \PrintChanges \PrintIndex
+%
+%
+%
+%
+%\Finale
+%
+% \iffalse meta-comment
+%: Final
+% \fi
+%

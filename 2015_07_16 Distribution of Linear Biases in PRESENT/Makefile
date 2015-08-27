@@ -34,3 +34,5 @@ main.pdf: main.tex slides.tex
 
 clean:
 	latexmk -c
+	$(RM) main.nav
+	$(RM) main.snm
