@@ -1,0 +1,29 @@
+\documentclass{standalone}
+\usepackage{palatino}
+\usepackage{euler}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{xcolor}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{RoyalBlue}{cmyk}{1,0.5,0,0}
+\definecolor{Black}{cmyk}{0,0,0,0}
+\definecolor{alertred}{rgb}{0.80,0.12,0.12}
+\definecolor{linkgreen}{RGB}{0,166,0}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+		no markers,
+		ymin=0,
+		xmin=-0.02, xmax=0.02,
+		height=6cm, width=10cm,
+		]
+		\addplot+[very thick,alertred]           table {data/plots/aes_r2_4r_histo_indp.dat};
+		\addplot+[very thick,RoyalBlue!75!Black] table {data/plots/aes_r2_4r_histo_const.dat};
+		\addlegendentry{\sf Indp Keys}
+		\addlegendentry{\sf Key schedule}
+	\end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass{standalone}
+\usepackage{palatino}
+\usepackage{euler}
+
+\usepackage{tikz}
+
+%%% Public TikZ libraries
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+%% Document
+\begin{document}
+\begin{tikzpicture}
+	%% Subkey XORs
+	\foreach \z in {0,...,15} {
+		\node[XOR, scale=0.7] (xor\z) at ($\z*(0.75em, 0)$) {};
+	}
+
+	%% Nodes positions
+	\foreach \z in {0,...,15} {
+		\node (i\z) [above = 0.75em of xor\z] {};
+		\node (o\z) [below = 2.5em of xor\z] {};
+		\node (ii\z) [below = 5.5em of xor\z] {};
+	}
+
+	%% Permutation layer
+	\foreach \z [evaluate=\z as \zz using {int(mod(4*\z,15))}] in {0,...,14} {
+		\draw[thick] (i\z)  -- (o\z.center)  -- (ii\zz.center) -- +(0,-0.5em);
+	}
+	\draw[thick] (i15) -- (o15.center) -- (ii15.center) -- +(0,-0.5em);
+
+	%% SBoxes
+	\foreach \z in {0,...,3} {
+		\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white] (p4) at ($\z*(3em,0) + (1.1em,-2em)$) {$S$};
+	}
+
+	\node[left = 0em of xor0] {$k_{i}$};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,251 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'data/plots/sbox_serpent0_16n_10r_graph.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{946.50884163bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,2.42892607)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.41256878,2.40547228){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{21}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.46856403,2.40547228){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.47912917,2.31355555){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{37}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.45799889,2.35951391){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.33861279,2.03780535){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{53}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.34600839,2.22163881){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.4062297,2.12972208){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{22}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.41785135,2.26759718){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.45799889,2.22163881){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.38298639,2.08376372){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.85207868,0.01563724){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{23}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.988369,1.21055476){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.94505192,1.02672129){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.57949802,2.22163881){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{25}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.5108246,2.17568045){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.63443676,0.84288783){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{38}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.64394538,1.53226332){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.37559079,1.21055476){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{54}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.46433798,1.71609679){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.50131597,0.93480456){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{26}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.50448551,1.53226332){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.58372408,0.88884619){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.45482935,1.07267966){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.27733497,1.30247149){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{27}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.39355153,1.71609679){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.33333022,1.25651312){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.24775257,1.94588862){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{29}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.00052826,0.98076293){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.69360155,1.85397188){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{39}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.50554203,1.89993025){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.21922669,1.57822169){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{55}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.19809641,1.76205515){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.78023571,1.67013842){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{30}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.85524822,0.84288783){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.71790138,1.76205515){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.52138974,1.62418005){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.16217492,0.10755397){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{31}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.55625471,0.0615956){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.04912791,0.84288783){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.54357654,2.26759718){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.57632848,0.7509711){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{41}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.54463305,1.53226332){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.76121846,1.76205515){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{57}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.80030948,2.03780535){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.60379785,1.53226332){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.61647602,0.79692946){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.73163606,1.30247149){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.69994064,2.03780535){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.73903166,1.80801352){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.55414168,0.84288783){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.4960334,0.65905436){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{42}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.54885911,0.70501273){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.48335523,0.56713763){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{58}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.58583711,0.65905436){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.50659854,0.79692946){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.55202865,0.65905436){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.49814643,0.613096){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.38509941,1.02672129){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{43}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.45799889,0.98076293){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.43158604,0.79692946){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.37559079,1.11863802){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{45}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.33755628,1.21055476){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=63]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.38932547,1.07267966){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=64]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.30163479,0.38330417){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{59}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=65]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.31642599,0.7509711){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=66]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.35974307,0.4752209){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{46}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=67]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.26782634,0.88884619){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=68]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.36396913,0.7509711){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=69]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.34283885,0.42926253){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=70]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.21922669,1.39438822){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{47}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=71]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.26043074,1.34842986){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=72]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.2276788,0.88884619){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=73]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.30163479,1.99184698){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=74]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.42207741,1.57822169){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=75]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.21922669,1.48630495){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{61}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=76]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.31959554,1.76205515){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=77]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.3692517,1.57822169){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=78]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.3840429,1.16459639){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=79]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.31219994,1.34842986){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=80]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.24458303,1.76205515){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=81]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.2276788,1.53226332){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=82]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.78023571,1.71609679){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=83]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.6228151,1.11863802){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=84]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.26782634,0.29138743){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{62}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=85]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.89962181,1.02672129){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=86]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.764388,1.11863802){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=87]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.43898164,0.52117926){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=88]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.40411667,0.42926253){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=89]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.80770508,1.02672129){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=90]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.29529571,0.3373458){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=91]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.08927545,0.79692946){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=92]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.2276788,1.44034659){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=93]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.21817018,0.1994707){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{63}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=94]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.1378751,0.84288783){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=95]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.18013567,0.1994707){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=96]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.18436172,0.84288783){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=97]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.25514817,0.24542907){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=98]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.20232246,0.15351233){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{-4}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=99]{data/plots/sbox_serpent0_16n_10r_graph.pdf}}%
+    \put(0.27416543,0.1994707){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+  \end{picture}%
+\endgroup%

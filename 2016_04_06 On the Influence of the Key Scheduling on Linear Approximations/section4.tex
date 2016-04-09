@@ -1,0 +1,143 @@
+\section{Results}
+\begin{frame}{Distributions}{Results}
+	\only<1>{%
+		\begin{block}{\spresent/-$\bracket*{16}$ with $R_0$, 10 rounds}
+			\centering
+			\vspace{1em}
+			\includegraphics[width=\maxwidth{\textwidth},
+			height=\maxheight{.55\textheight},
+			keepaspectratio]%
+			{data/plots/sbox_serpent0_16n_10r.pdf}
+			\vspace{1em}
+		\end{block}
+	}
+
+	\only<2>{%
+		\begin{block}{\spresent/-$\bracket*{16}$ with $R_1$, 10 rounds}
+			\centering
+			\vspace{1em}
+			\includegraphics[width=\maxwidth{\textwidth},
+			height=\maxheight{.55\textheight},
+			keepaspectratio]%
+			{data/plots/sbox_serpent1_16n_10r.pdf}
+			\vspace{1em}
+		\end{block}
+	}
+
+	\only<3>{%
+		\begin{block}{\spresent/-$\bracket*{16}$ with $R_2$, 10 rounds}
+			\centering
+			\vspace{1em}
+			\includegraphics[width=\maxwidth{\textwidth},
+			height=\maxheight{.55\textheight},
+			keepaspectratio]%
+			{data/plots/sbox_serpent2_16n_10r.pdf}
+			\vspace{1em}
+		\end{block}
+	}
+
+	\only<4>{%
+		\begin{block}{\spresent/-$\bracket*{16}$ with $R_2$, 11 rounds}
+			\centering
+			\vspace{1em}
+			\includegraphics[width=\maxwidth{\textwidth},
+			height=\maxheight{.55\textheight},
+			keepaspectratio]%
+			{data/plots/sbox_serpent2_16n_11r.pdf}
+			\vspace{1em}
+		\end{block}
+	}
+\end{frame}
+
+\begin{frame}{More Distributions for $R_1$}{Results}
+	\foreach \plotindex in {10,...,25}{%
+		\pgfmathparse{\plotindex-9}
+		\pgfmathroundto{\pgfmathresult}
+		\only<\pgfmathresult>{%
+			\begin{block}{\spresent/-$\bracket*{16}$ with $R_1$, \plotindex\ rounds}
+				\centering
+				\vspace{1em}
+				\includegraphics[width=\maxwidth{\textwidth},
+				height=\maxheight{.55\textheight},
+				keepaspectratio]%
+				{data/plots/sbox_R1_0\plotindex_256keys.pdf}
+				\vspace{1em}
+			\end{block}
+		}
+	}
+\end{frame}
+
+\begin{frame}{Behaviour over more rounds}{Results}
+	\begin{block}{Min/Max correlation with \subbox/ $R_1$, normalised to standard deviations}
+		\centering
+		\vspace{1em}
+		\includegraphics[width=\maxwidth{\textwidth},
+		height=\maxheight{.55\textheight},
+		keepaspectratio]%
+		{data/plots/convergence_r1.pdf}
+		\vspace{1em}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Induced Graph}{Results}
+	\only<-1>{%
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{\spresent/-$\bracket*{4}$}
+				\centering
+				\vspace{1em}
+				\includegraphics[width=\maxwidth{\textwidth},
+				height=\maxheight{.55\textheight},
+				keepaspectratio]%
+				{data/plots/smallpresent4.pdf}
+				\vspace{1em}
+			\end{block}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item adjacency matrix from ciphers round function
+				\item each bit is a vertex
+				\item each non-zero entry in the LAT is an edge
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	}
+	\only<2->{%
+	\begin{columns}
+		\begin{column}{0.3\textwidth}
+			\begin{block}{\subbox/ $R_0$}
+				\centering
+				\vspace{1em}
+				\includegraphics[width=\maxwidth{\textwidth},
+				height=\maxheight{.65\textheight},
+				keepaspectratio]%
+				{data/plots/sbox_serpent0_16n_10r_graph_inkscape.pdf}
+				\vspace{1em}
+			\end{block}
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\begin{block}{\subbox/ $R_1$}
+				\centering
+				\vspace{1em}
+				\includegraphics[width=\maxwidth{\textwidth},
+				height=\maxheight{.65\textheight},
+				keepaspectratio]%
+				{data/plots/sbox_serpent1_16n_10r_graph_inkscape.pdf}
+				\vspace{1em}
+			\end{block}
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\begin{block}{\subbox/ $R_2$}
+				\centering
+				\vspace{1em}
+				\includegraphics[width=\maxwidth{\textwidth},
+				height=\maxheight{.65\textheight},
+				keepaspectratio]%
+				{data/plots/sbox_serpent2_16n_10r_graph_inkscape.pdf}
+				\vspace{1em}
+			\end{block}
+		\end{column}
+	\end{columns}
+	}
+\end{frame}
+

@@ -1,0 +1,101 @@
+\documentclass{standalone}
+\usepackage{palatino}
+\usepackage{euler}
+
+\usepackage{tikz}
+
+\usepackage{xcolor}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{RoyalBlue}{cmyk}{1,0.5,0,0}
+\definecolor{Black}{cmyk}{0,0,0,0}
+\definecolor{alertred}{rgb}{0.80,0.12,0.12}
+\definecolor{linkgreen}{RGB}{0,166,0}
+
+%%% Public TikZ libraries
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+%% Document
+\begin{document}
+\begin{tikzpicture}
+	%% Subkey XORs
+	\foreach \z in {1,...,15} {
+		\node[XOR, scale=0.7] (xor\z) at ($\z*(0.75em, 0)$) {};
+		\node[XOR, scale=0.7] (xor3\z) at ($\z*(0.75em, 0)+(0,-16em)$) {};
+	}
+	\foreach \z in {1,2,3,5,6,7,9,10,11,13,14,15} {
+		\node[XOR, scale=0.7] (xorr\z) at ($\z*(0.75em, 0)+(0,-6em)$) {};
+	}
+	\foreach \z in {4,...,15} {
+		\node[XOR, scale=0.7] (xor2\z) at ($\z*(0.75em, 0)+(0,-12em)$) {};
+	}
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xor0) at ($0*(0.75em, 0)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xorr0) at ($0*(0.75em, 0)+(0,-6em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xorr4) at ($4*(0.75em, 0)+(0,-6em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xorr8) at ($8*(0.75em, 0)+(0,-6em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xorr12) at ($12*(0.75em, 0)+(0,-6em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xor20) at ($0*(0.75em, 0)+(0,-12em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xor21) at ($1*(0.75em, 0)+(0,-12em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xor22) at ($2*(0.75em, 0)+(0,-12em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xor23) at ($3*(0.75em, 0)+(0,-12em)$) {};
+	\node[style={thick,draw,circle,append after command={[shorten >=\pgflinewidth, shorten <=\pgflinewidth,] (\tikzlastnode.north) edge[thick,alertred] (\tikzlastnode.south) (\tikzlastnode.east) edge[thick,alertred] (\tikzlastnode.west)}},scale=0.7,color=alertred] (xor30) at ($0*(0.75em, 0)+(0,-16em)$) {};
+
+	%% Nodes positions
+	\foreach \z in {0,...,15} {
+		\node (i\z) [above = 0.75em of xor\z] {};
+		\node (o\z) [below = 2.5em of xor\z] {};
+		\node (ii\z) [above = 0.25em of xorr\z] {};
+		\node (oo\z) [below = 2.75em of xorr\z] {};
+		\node (i2\z) [above = 0.25em of xor2\z] {};
+		\node (o2\z) [below = 2.5em of xor2\z] {};
+		\node (i3\z) [above = 0.25em of xor3\z] {};
+	}
+	\draw[alertred,thick] (i0) -- (xor0);
+	\foreach \z in {1,...,15} {
+		\draw[thick] (i\z) -- (xor\z);
+		\draw[thick] (xor\z) -- (o\z);
+		\draw[thick] (i3\z.north) -- (xor3\z.north);
+		\draw[thick] (xor3\z.south) -- +(0,-0.5em);
+	}
+
+	%% Permutation layer
+	\foreach \z [evaluate=\z as \zz using {int(mod(4*\z,15))}] in {4,...,14} {
+		\draw[thick] (xor\z)  -- (o\z.south)  -- (ii\zz.center) -- (xorr\zz);
+	}
+	\foreach \z [evaluate=\z as \zz using {int(mod(4*\z,15))}] in {1,2,3,5,6,7,9,10,11,13,14} {
+		\draw[thick] (xorr\z)  -- (oo\z.center)  -- (i2\zz.center) -- (xor2\zz);
+	}
+	\foreach \z [evaluate=\z as \zz using {int(mod(4*\z,15))}] in {4,...,14} {
+		\draw[thick] (xor2\z.south)  -- (xor3\z.south) -- +(0,-0.5em);
+	}
+	\draw[thick] (xor15) -- (o15.center) -- (ii15.center) -- (xorr15);
+	\draw[thick] (xorr15) -- (oo15.center) -- (i215.center) -- (xor215);
+	\draw[thick] (xor215.north) -- (xor315.south) -- +(0,-0.5em);
+
+	\node[left = 0em of xor0] {$k_0$};
+	\node[left = 0em of xorr0] {$k_1$};
+	\node[left = 0em of xor20] {$k_2$};
+	\node[left = 0em of xor30] {$k_3$};
+
+	%% Highlighting 4 paths over 2 rounds
+	%\draw[thick,color=RoyalBlue!75!Black] (i0) -- (xor0) -- +(0,-1.2em) -- (o3.north) -- (o3.center) -- (ii12.center) -- (xorr12) -- (oo12.center) -- (i23.center) -- (xor23) -- +(0,-1.2em) -- (i30.north) -- (xor30.south) -- +(0,-0.5em);
+	\draw[thick,color=alertred] (i0) -- (xor0) -- +(0,-1.2em) -- (o3.north) -- (o3.south) -- (ii12.center) -- (xorr12) -- (oo12.center) -- (i23.center) -- (xor23) -- +(0,-1.2em) -- (i30.north) -- (xor30.south) -- +(0,-0.5em);
+	\draw[thick,color=alertred] (i0) -- (xor0) -- +(0,-1.2em) -- (o2.north) -- (o2.south) --  (ii8.center) --  (xorr8) --  (oo8.center) -- (i22.center) -- (xor22) -- +(0,-1.2em) -- (i30.north) -- (xor30.south) -- +(0,-0.5em);
+	\draw[thick,color=alertred] (i0) -- (xor0) -- +(0,-1.2em) -- (o1.north) -- (o1.south) --  (ii4.center) --  (xorr4) --  (oo4.center) -- (i21.center) -- (xor21) -- +(0,-1.2em) -- (i30.north) -- (xor30.south) -- +(0,-0.5em);
+	\draw[thick,color=alertred] (i0) -- (xor0) -- +(0,-1.2em) -- (o0.north) -- (o0.south) --  (ii0.center) --  (xorr0) --  (oo0.center) -- (i20.center) -- (xor20) -- +(0,-1.2em) -- (i30.north) -- (xor30.south) -- +(0,-0.5em);
+
+	%% SBoxes
+	\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white,draw=alertred,text=alertred] (p4) at ($0*(3em,0) + (1.1em,-2em)$) {$S$};
+	\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white,draw=alertred,text=alertred] (p4) at ($0*(3em,0) + (1.1em,-8em)$) {$S$};
+	\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white,draw=alertred,text=alertred] (p4) at ($0*(3em,0) + (1.1em,-14em)$) {$S$};
+	\foreach \z in {1,...,3} {
+		\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white] (p4) at ($\z*(3em,0) + (1.1em,-2em)$) {$S$};
+		\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white,draw=alertred,text=alertred] (p4) at ($\z*(3em,0) + (1.1em,-8em)$) {$S$};
+		\node[draw,thick,minimum width=2.75em,minimum height=2em,fill=white] (p4) at ($\z*(3em,0) + (1.1em,-14em)$) {$S$};
+	}
+\end{tikzpicture}
+\end{document}

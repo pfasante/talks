@@ -1,0 +1,39 @@
+\documentclass{standalone}
+\usepackage{palatino}
+\usepackage{euler}
+\usepackage{dsfont}
+
+\usepackage{tikz}
+
+\usepackage{xcolor}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{RoyalBlue}{cmyk}{1,0.5,0,0}
+\definecolor{Black}{cmyk}{0,0,0,0}
+\definecolor{alertred}{rgb}{0.80,0.12,0.12}
+\definecolor{linkgreen}{RGB}{0,166,0}
+
+%%% Public TikZ libraries
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+%% Document
+\begin{document}
+\begin{tikzpicture}
+	\draw (-0.75, 3.5) rectangle (0.75, -0.5);
+
+	\node (k)    at (0, 4)       {$k \in \mathds{F}_2^n$};
+	\node (k0)   [below of=k]    {$k$};
+	\node (k1)   [below of=k0]   {$k$};
+	\node (dots) [below of=k1]   {$\vdots$};
+	\node (kr)   [below of=dots] {$k$};
+
+	\draw[->] (k) -- (k0);
+	\draw[->] (k0) -- +(1.25, 0) node [label=east:$k_0$] {};
+	\draw[->] (k1) -- +(1.25, 0) node [label=east:$k_1$] {};
+	\draw[->] (kr) -- +(1.25, 0) node [label=east:$k_r$] {};
+\end{tikzpicture}
+\end{document}

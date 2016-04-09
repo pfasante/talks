@@ -1,0 +1,239 @@
+\section{Introduction}
+\begin{frame}{\spresent/}{Introduction}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{block}{\spresent/-$\bracket*{4}$}
+				\centering
+				\vspace{1em}
+				\includegraphics[width=\maxwidth{\textwidth},
+				height=\maxheight{.55\textheight},
+				keepaspectratio]%
+				{data/plots/smallpresent4.pdf}
+				\vspace{1em}
+			\end{block}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item SPN
+				\item \present/'s $4$~bit \subbox/ %choose an \subbox/
+				\item Blocksize is $4 \cdot n$
+				\item last round omits permutation
+			\end{itemize}
+			\vspace{1em}
+			\begin{itemize}
+				\item standard \present/: $n = 16$
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{4~bit \subboxes/}{Introduction}
+	\begin{block}{Representatives of Serpent-type Equivalence Classes}
+		\centering
+		\vspace{1em}
+		\setlength{\tabcolsep}{4pt}
+		\begin{tabular}{ccccccccccccccccc}
+			\toprule
+			$x$      & 0& 1& 2& 3& 4& 5& 6& 7& 8& 9&10&11&12&13&14&15\\\midrule
+			$R_0(x)$ & 0& 3& 5& 6& 7&10&11&12&13& 4&14& 9& 8& 1& 2&15\\
+			$R_1(x)$ & 0& 3& 5& 8& 6& 9&10& 7&11&12&14& 2& 1&15&13& 4\\
+			$R_2(x)$ & 0& 3& 5& 8& 6& 9&11& 2&13& 4&14& 1&10&15& 7&12\\
+			$\vdots$ & & & & & & & & & $\cdots$ & & & & & & & $\vdots$\\
+			\bottomrule
+		\end{tabular}
+		\vspace{1em}
+	\end{block}
+	\begin{itemize}
+		\item all $4$~bit \subboxes/ are classified
+		\item 16 \emph{optimal} and 20 \emph{Serpent-type} equivalence classes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear Cryptanalysis (LC)}{Introduction}
+	\begin{columns}[T]
+		\begin{column}{.58\textwidth}
+			\begin{itemize}
+				\item invented by Matsui 1993--1994
+				\item broke DES
+				\item together with Differential Cryptanalysis (DC) most used attack on block ciphers
+			\end{itemize}
+			\vspace{1em}
+			\begin{itemize}
+				\item advanced techniques: multidimensional LC, zero-correlation LC, \ldots
+				\item links to DC%~\cite{blondeau_nyberg/links}
+			\end{itemize}
+		\end{column}
+		\hfill
+		\begin{column}{.38\textwidth}
+			\begin{figure}[!ht]
+				\includegraphics[height=50mm]{data/matsui.jpg}
+			\end{figure}
+		\end{column}
+	\end{columns}\blfootnote{\scriptsize Image: \url{http://www.isce2009.ryukoku.ac.jp/eng/keynote_address.html}}
+\end{frame}
+
+\begin{frame}{Linear Approximations}{Introduction}
+	\vspace{-10pt}
+	\visible<1->{%
+	\begin{itemize}
+		\item We want to linear approximate a function $F : \mathbb{F}_2^n \rightarrow \mathbb{F}_2^n$
+	\end{itemize}
+	}
+
+	\vspace{-10pt}
+	\begin{columns}[T]
+	\visible<2->{%
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Dot-Product}
+				\begin{equation*}
+				\vspace{-2pt}
+					\langle \alpha, x \rangle = \bigoplus_{i=0}^{n-1} \alpha_i x_i
+				\end{equation*}
+			\end{block}
+		\end{column}
+	}
+	\visible<3->{%
+		\begin{column}{0.48\textwidth}
+			\begin{block}{Mask}
+				Let $\alpha, \beta, x \in \mathbb{F}_2^n$ and
+				%\vspace{-6pt}
+				\begin{equation}
+					\langle \alpha, x \rangle = \langle \beta, F(x) \rangle \label{equ:masks}
+				\end{equation}
+			\end{block}
+		\end{column}
+	}
+	\end{columns}
+
+	\visible<3->{%
+	\begin{itemize}
+		\item We say $\alpha$ is an \emph{input mask} and $\beta$ is an \emph{output mask}.
+		\item Equation~\ref{equ:masks} does not hold for every input/output masks.
+	\end{itemize}
+	}
+	\vspace{1em}
+	\visible<4->{%
+	\begin{itemize}
+		\item It is \emph{correlated}, i.e., $\text{Pr}[\langle \alpha, x \rangle = \langle
+			\beta, F(x) \rangle] = \frac{c(\alpha, \beta) - 1}{2}$.
+	\end{itemize}
+	}
+\end{frame}
+
+\begin{frame}{LC Example: \spresent/}{Introduction}
+	\only<-4>{%
+		\begin{columns}[T]
+			\begin{column}{0.50\textwidth}
+			\only<-2>{%
+				\begin{block}{\spresent/-$\bracket*{4}$ over 3 Rounds}
+					\centering
+					\includegraphics[width=\maxwidth{.75\textwidth},
+									height=\maxheight{.75\textheight},
+									keepaspectratio]%
+									{data/plots/smallpresent4_3r.pdf}
+				\end{block}
+			}
+			\only<3-4>{%
+				\begin{block}{\spresent/-$\bracket*{4}$ over 3 Rounds}
+					\centering
+					\includegraphics[width=\maxwidth{.75\textwidth},
+									height=\maxheight{.75\textheight},
+									keepaspectratio]%
+									{data/plots/smallpresent4_3r_hl.pdf}
+				\end{block}
+			}
+			\end{column}
+			\begin{column}{0.48\textwidth}
+			\vspace{1cm}
+			\visible<2-4>{%
+				Basically approximate:
+				\begin{itemize}
+						\item the \subbox/
+						\item the linear layer
+				\end{itemize}
+			}
+			\vspace{1em}
+			\visible<4>{%
+				\begin{itemize}
+						\item the linear layer \enquote{is easy}
+						\item for the \subboxes/ use \emph{Linear Approximation Table (LAT)}
+				\end{itemize}
+			}
+			\end{column}
+		\end{columns}
+	}
+
+	\only<5->{%
+		\begin{block}{LAT}
+			\robustify\diagbox
+			\robustify\hphantom
+			\centering
+			\scriptsize
+			\vspace{1em}
+			\tabcolsep=-2pt
+			\begin{tabular}{SSSSSSSSSSSSSSSSS}
+				\toprule
+				\diagbox{$\beta$\hphantom{.}}{\hphantom{.}$\alpha$}&
+				    1& 2& 3& 4& 5& 6& 7& 8& 9&10&11&12&13&14&15 \\
+				1 &  &  &  &  &-8&  &-8&  &  &  &  &  &-8&  & 8 \\
+				2 &  & 4& 4&-4&-4&  &  & 4&-4&  & 8&  & 8&-4&-4 \\
+				3 &  & 4& 4& 4&-4&-8&  &-4& 4&-8&  &  &  &-4& 4 \\
+				4 &  &-4& 4&-4&-4&  & 8&-4&-4&  &-8&  &  &-4&   \\
+				5 &  &-4& 4&-4& 4&  &  & 4& 4&-8&  & 8&  & 4&   \\
+				6 &  &  &-8&  &  &-8&  &  &-8&  &  & 8&  &  &-4 \\
+				7 &  &  & 8& 8&  &  &  &  &-8&  &  &  &  & 8&-4 \\
+				8 &  & 4&-4&  &  &-4& 4&-4& 4&  &  &-4& 4& 8&-4 \\
+				9 & 8&-4&-4&  &  & 4&-4&-4&-4&-8&  &-4& 4&  & 4 \\
+				10&  & 8&  & 4& 4& 4&-4&  &  &  &-8& 4& 4&-4& 8 \\
+				11&-8&  &  &-4&-4& 4&-4&-8&  &  &  & 4& 4& 4&   \\
+				12&  &  &  &-4&-4&-4&-4& 8&  &  &-8&-4& 4& 4& 4 \\
+				13& 8& 8&  &-4&-4& 4& 4&  &  &  &  & 4&-4& 4& 4 \\
+				14&  & 4& 4&-8& 8&-4&-4&-4&-4&  &  &-4&-4&  &   \\
+				15& 8& 4&-4& 4& 4&  &  & 8&  & 4&-4&-4&-4&  &   \\
+				\bottomrule
+			\end{tabular}
+			\vspace{1em}
+		\end{block}
+	}
+\end{frame}
+
+\begin{frame}{Linear Hull}{Introduction}
+	\visible<1->{%
+		\begin{itemize}
+			\item Our example exhibits more than one trail for $(\alpha, \beta) = (15, 15)$
+			\item Key dependency
+		\end{itemize}
+	}
+	\visible<2->{%
+		\begin{block}{Linear Hull}
+			Let $F : \mathbb{F}_2^n \rightarrow \mathbb{F}_2^n$ be a block cipher over $r$~rounds,\newline
+			and $E : \mathbb{F}_2^m \rightarrow {\left(\mathbb{F}_2^n\right)}^{r+1}$ a key schedule.
+			The \emph{linear hull} $c_F^k(\alpha,\beta)$ is
+			\begin{equation*}
+				c_F^k(\alpha,\beta) := \sum_{\theta|\theta_0=\alpha,\theta_r=\beta} {(-1)}^{\langle \theta, E(k) \rangle} c_\theta
+			\end{equation*}
+		\end{block}
+	}
+\end{frame}
+
+\begin{frame}{Distributions}{Introduction}
+	\visible<1->{%
+	\begin{itemize}
+		\item Attack complexity of linear cryptanalysis is proportional to $\left(c_\theta\right)^{-2}$.
+	\end{itemize}
+	}
+	\vspace{1em}
+	\visible<2->{%
+	\begin{itemize}
+		\item We assume the \emph{Hypothesis of Stochastic equivalence}.
+		\item Thus, distribution of linear biases follows a normal distribution.
+		\item Its width is defined by the variance.
+	\end{itemize}
+	}
+	\vspace{1em}
+	\visible<3->{%
+	\begin{itemize}
+		\item What happens with different key schedules?
+	\end{itemize}
+	}
+\end{frame}
