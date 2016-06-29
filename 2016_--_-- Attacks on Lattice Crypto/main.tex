@@ -1,0 +1,132 @@
+\documentclass[12pt,mathserif,professionalfont]{beamer}
+
+\mode<presentation>
+{%
+	\usetheme[alternativetitlepage=bild]{Rub}
+	\titlegraphic{data/flickr/img-bg.jpg}
+    \sponsorlogo[height=15mm]{img-gdata.pdf}
+
+	\setbeamercovered{transparent}
+}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{rubfonts2009}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{eulervm}
+%\usefonttheme[onlymath]{serif}
+
+\usepackage[english]{babel}
+\usepackage[babel,english=british]{csquotes}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{etoolbox,siunitx}
+\sisetup{binary-units}
+
+\usepackage{booktabs}
+\usepackage{diagbox}
+
+\usepackage[%
+	backend=biber,
+	bibencoding=ascii,
+	style=numeric,
+	sortcites,
+	maxbibnames=10,
+	maxcitenames=2,
+	backref=true,
+	firstinits=true,
+]{biblatex}
+\DefineBibliographyStrings{english}{%
+	andothers = {\em et\addabbrvspace{}al\adddot}
+}
+\DeclareFieldFormat{eprint:iacr}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://eprint.iacr.org/#1}{\nolinkurl{#1}}
+}
+\DeclareFieldFormat{eprint:iacrconf}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
+}
+\renewcommand\bibfont{\scriptsize}
+\bibliography{bibliography}
+
+\newcommand{\blfootnote}[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\angleb{\langle}{\rangle}
+\DeclarePairedDelimiter\parens{(}{)}
+\DeclarePairedDelimiter\bracket{[}{]}
+\DeclarePairedDelimiter\curly{\{}{\}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\makeatletter
+\def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
+\def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
+\makeatother
+
+% correct abbreviations http://stackoverflow.com/a/3285603
+\usepackage{expl3}
+\ExplSyntaxOn{}
+\newcommand\latinabbrev[1]{
+  \peek_meaning:NTF . {% Same as \@ifnextchar
+    #1\@}%
+  { \peek_catcode:NTF a {% Check whether next char has same catcode as \'a, i.e., is a letter
+      #1.\@ }%
+    {#1.\@}}}
+\ExplSyntaxOff{}
+
+\def\cf/{\latinabbrev{cf},}
+\def\eg/{\latinabbrev{e.\,g},}
+\def\etal/{\latinabbrev{\textit{et~al}}}
+\def\etc/{\latinabbrev{etc}}
+\def\ie/{\latinabbrev{i.\,e},}
+\def\resp/{\latinabbrev{resp}}
+\def\st/{\latinabbrev{s.\,t}}
+
+\title{Attacks on Lattice Crypto}
+\subtitle{}
+\author[Friedrich~Wiemer]{Friedrich~Wiemer}
+\institute{%
+    FluxFingers\\[0.5em]
+    Workgroup Symmetric Cryptography\\
+    Ruhr University Bochum
+}
+
+\date{July 20th, 2016}
+
+\AtBeginSection[]
+
+\begin{document}
+
+\begin{frame}
+	\titlepage{}
+\end{frame}
+
+\begin{frame}{Outline}
+	\tableofcontents
+\end{frame}
+
+\input{slides.tex}
+
+\begin{frame}{Questions?}{Thank you for your attention!}
+	\begin{figure}[!htb]
+		\includegraphics[height=50mm]{data/flickr/questionmark.png}\blfootnote{\scriptsize Mainboard \& Questionmark Images: flickr}
+	\end{figure}
+\end{frame}
+
+%\begin{frame}{References}
+%	\tiny
+%	\printbibliography{}
+%\end{frame}
+
+\end{document}
