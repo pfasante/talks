@@ -1,0 +1,42 @@
+\documentclass{standalone}
+%\usepackage{palatino}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, thmtools, mathtools}
+\usepackage{eulervm}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+\usepackage{xcolor}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+
+\DeclarePairedDelimiter\bracket{[}{]}
+
+\begin{document}
+	\begin{tikzpicture}
+		\begin{axis}[
+				axis x line=left,
+				axis y line=left,
+				no markers,
+				ymin=0,
+				ymax=1.3,
+				xmin=-4.5,
+				xmax=4.5,
+				height=6cm,
+				width=12cm,
+				xlabel={$\vphantom{10}$},
+				ylabel={Pr$\bracket*{\frac{c_\theta}{\sigma}}$},
+				ytick={0.3125, 0.9375},
+				yticklabels={$\frac{1}{32}$, $\frac{15}{16}$},
+%				title={Convergence distributon},
+			]
+			\addplot+[color=saphierblau, ybar, ybar legend, bar shift=-1pt, bar width=2pt, fill=saphierblau]
+			table {%
+				x	y
+				-4	0.3125
+				0	0.9375
+				4	0.3125
+			}; %0.03125
+		\end{axis}
+	\end{tikzpicture}
+\end{document}

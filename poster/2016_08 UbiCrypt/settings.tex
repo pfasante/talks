@@ -1,0 +1,30 @@
+\usepackage{tikz}
+
+%%% Public TikZ libraries
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+\tikzset{%
+	every path/.style={line width=3pt},
+	every node/.style={line width=3pt},
+}
+
+\bibliography{biblio}
+
+\usepackage{delimiters}
+
+\newcommand\tower[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
+\newcommand{\F}{\mathbb{F}}
+\def\present/{PRESENT}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{On the Design of Key Schedules}
+\author[shortname]{Friedrich Wiemer}
+\advisors{Prof.~Dr.~Gregor~Leander}{Prof.~Dr.~Alexander~May}

@@ -1,0 +1,37 @@
+\documentclass{standalone}
+%\usepackage{palatino}
+\usepackage{eulervm}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{xcolor}
+\definecolor{gelbgruen}{cmyk}{0.5,0,1,0}
+\definecolor{lichtgrau}{cmyk}{0.03,0.03,0.03,0.1}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{ucorange}{cmyk}{0,0.45,0.93,0.04}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+			axis x line=left,
+			axis y line=left,
+			no markers,
+			ymin=0,
+			xmin=-0.00005,
+			xmax=0.00005,
+			height=6cm,
+			width=12cm,
+		]
+		\addplot+[color=lichtgrau, ybar, ybar legend, bar shift=-1pt, bar width=1pt, fill=lichtgrau]
+			table {sbox_serpent1_16n_10r_20000keys_histo_id_2ca39c25.dat};
+		\addplot+[color=saphierblau, very thick, dashed] table {sbox_serpent1_16n_10r_20000keys_histo_indp_2ca39c25.dat};
+		\addplot+[color=green!50!lichtgrau, very thick]	table {sbox_serpent1_16n_10r_id_est_2ca39c25.dat};
+		\addplot+[color=red!50!lichtgrau, very thick]	table {sbox_serpent1_16n_10r_est_2ca39c25.dat};
+		\addlegendentry{ident}
+		\addlegendentry{indp}
+		\addlegendentry{$\mathcal{N}$ ident}
+		\addlegendentry{$\mathcal{N}$ indp}
+	\end{axis}
+\end{tikzpicture}
+\end{document}

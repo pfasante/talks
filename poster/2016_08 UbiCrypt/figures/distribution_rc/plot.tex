@@ -1,0 +1,44 @@
+\documentclass{standalone}
+\usepackage{eulervm}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+
+\usepackage{xcolor}
+\definecolor{gelbgruen}{cmyk}{0.5,0,1,0}
+\definecolor{lichtgrau}{cmyk}{0.03,0.03,0.03,0.1}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{ucorange}{cmyk}{0,0.45,0.93,0.04}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+			axis x line=left,
+			axis y line=left,
+			no markers,
+			forget plot style={opacity=0.2},
+			ymin=0,
+			xmin=-0.0002,
+			xmax=0.0002,
+			height=6cm,
+			width=12cm,
+			cycle list name=color list,
+		]
+
+		\addplot+[color=lichtgrau, ybar, ybar legend, bar shift=-1pt, bar width=1pt, fill=lichtgrau] table {data/sbox_serpent19_16n_10r_histo_indp.dat};
+		\addlegendentry{indp}
+
+		\addplot+[thin,opacity=0.2] table {data/sbox_serpent19_16n_10r_20000keys_histo_1.dat};
+		\addlegendentry{rc}
+		\foreach \plotindex in {2,...,256}{%
+			\pgfplotsset{cycle list shift=\plotindex}
+			\addplot+[thin,forget plot] table {data/sbox_serpent19_16n_10r_20000keys_histo_\plotindex.dat};
+		}
+
+		\addplot+[color=saphierblau, very thick, densely dashed] table {data/sbox_serpent19_16n_10r_histo_const.dat};
+		\addlegendentry{const}
+
+	\end{axis}
+\end{tikzpicture}
+\end{document}

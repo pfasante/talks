@@ -1,0 +1,69 @@
+\documentclass{standalone}
+\usepackage{eulervm}
+\usepackage{tikz}
+
+%%% Public TikZ libraries
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+\definecolor{gelbgruen}{cmyk}{0.5,0,1,0}
+%% Document
+\begin{document}
+\begin{tikzpicture}
+
+\tikzstyle{every node}=[transform shape];
+\tikzstyle{every node}=[node distance=1.2cm];
+
+\draw [fill=green, opacity=0.5] (-2.25,-0.85) [rounded corners=10pt] -- (-2.25,1) -- (10.5,1) [rounded corners=10pt] -- (10.5,-0.85);
+\draw [fill=red, opacity=0.5] (-2.25,-0.85) [rounded corners=10pt] -- (-2.25,-3.5) -- (10.5,-3.5) [rounded corners=10pt] -- (10.5,-0.85);
+
+% data path
+\node (XOR-1)[XOR,scale=1.2,fill=white] {};
+\node [left of=XOR-1] (p) {$P=s_{0}$};
+\node (f-1) [right of=XOR-1,draw,rectangle,thick,fill=white] {$f$};
+\path[line] (p) edge (XOR-1);
+\path[line] (XOR-1) edge (f-1);
+
+\node (XOR-2)[right of=f-1,XOR,scale=1.2,fill=white] {};
+\path[line] (f-1) edge node[below] {$s_{1}$} (XOR-2);
+\node (f-2) [right of=XOR-2] {};
+\path[line] (XOR-2) edge (f-2) ;
+\node (dots)[right of=XOR-2,node distance=1.5cm] {$\dots$};
+
+\node (XOR-3)[right of=dots,XOR,scale=1.2,node distance=1.5cm,fill=white] {};
+\path[line] (dots) edge (XOR-3) ;
+\node (f-3) [right of=XOR-3,draw,rectangle,thick,fill=white] {$f$};
+\path[line] (XOR-3) edge (f-3);
+
+\node (XOR-4)[right of=f-3,XOR,scale=1.2,fill=white] {};
+\path[line] (f-3) edge node[below] {$s_{r}$} (XOR-4);
+\node [right =0.5cm of XOR-4] (c) {$s_{r+1}=C$};
+\path[line] (XOR-4) edge (c);
+
+% Expansion Algorithm
+\node (KS) [draw, fill=white, trapezium, trapezium left angle=-45,
+trapezium right angle=-45, minimum width=10cm, minimum height=1.25em,
+thick,shift={(3.9,-2)}] {\small Key Scheduling Algorithm};
+
+\node (k) [below=1em of KS] {$K$};
+\path[line] (k) edge (KS);
+
+%% Subkeys
+\node (k-0) [below=3.75em of XOR-1] {};
+\path[line] (k-0) edge node[right] {\small $K_{0}$} (XOR-1);
+
+\node (k-1) [below=3.75em of XOR-2] {};
+\path[line] (k-1) edge node[right] {\small $K_{1}$} (XOR-2);
+
+\node (k-2) [below=3.75em of XOR-3] {};
+\path[line] (k-2) edge node[right] {\small $K_{r-1}$} (XOR-3);
+
+\node (k-3) [below=3.75em of XOR-4] {};
+\path[line] (k-3) edge node[right] {\small $K_{r}$} (XOR-4);
+
+\end{tikzpicture}
+\end{document}

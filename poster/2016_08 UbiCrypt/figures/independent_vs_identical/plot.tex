@@ -1,0 +1,61 @@
+\documentclass{standalone}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, thmtools, mathtools}
+\usepackage{eulervm}
+\usepackage{tikz}
+
+%%% Public TikZ libraries
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+%%% Custom TikZ addons
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+%% Document
+\begin{document}
+\begin{tikzpicture}
+
+\tikzstyle{every node}=[transform shape];
+\tikzstyle{every node}=[node distance=1.2cm];
+
+% data path
+\node (XOR-1)[XOR,scale=1.2,fill=white] {};
+\node [left of=XOR-1] (p) {$\langle \alpha, s_{0} \rangle$};
+\node (f-1) [right=2em of XOR-1,draw,rectangle,dashed,thick,fill=white,rounded corners] {\begin{tikzpicture}
+		\node [draw,rectangle,solid,thick,fill=gray!50,rounded corners] (s) {S-box};
+		\node [right=2em of s,draw,rectangle,solid,thick,fill=white,rounded corners,text width=1cm,align=center] (lin) {Linear Layer};
+		\path[line,solid] (s) edge (lin);
+	\end{tikzpicture}};
+\path[line] (p) edge (XOR-1);
+\path[line] (XOR-1) edge (f-1);
+\node(k-0) [above=2em of XOR-1,fill=gray!50,rounded corners] {\small $k_{0} \in_R \mathbb{F}_2^n$};
+\path[line] (k-0) edge (XOR-1);
+
+\node(dots)[right=2em of f-1] {$\dots$};
+\node(c)[right=2em of dots] {$\langle \beta, s_{r+1} \rangle$};
+
+\path[line] (f-1) edge (dots);
+\path[line] (dots) edge (c);
+
+\node(vs)[below=1em of XOR-1] {vs.};
+
+\node(XOR-11)[below=1em of vs,XOR,scale=1.2,fill=white] {};
+\node(p1)[left of=XOR-11] {$\langle \alpha, s_{0} \rangle$};
+\node(f-11)[right=2em of XOR-11,draw,rectangle,dashed,thick,fill=white,rounded corners] {\begin{tikzpicture}
+		\node(s1)[draw,rectangle,solid,thick,fill=gray!50,rounded corners] {S-box};
+		\node(lin1)[right=2em of s1,draw,rectangle,solid,thick,fill=white,rounded corners,text width=1cm,align=center] {Linear Layer};
+		\path[line,solid] (s1) edge (lin1);
+	\end{tikzpicture}};
+\path[line] (p1) edge (XOR-11);
+\path[line] (XOR-11) edge (f-11);
+\node(k-01) [below=2em of XOR-11,fill=gray!50,rounded corners] {\small $k_{0} = k$};
+\path[line] (k-01) edge (XOR-11);
+
+\node(dots1)[right=2em of f-11] {$\dots$};
+\node(c1)[right=2em of dots1] {$\langle \beta, s_{r+1} \rangle$};
+
+\path[line] (f-11) edge (dots1);
+\path[line] (dots1) edge (c1);
+
+\end{tikzpicture}
+\end{document}

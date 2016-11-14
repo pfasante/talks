@@ -1,0 +1,117 @@
+\documentclass[final]{beamer}
+
+\usepackage[size=a0, orientation=portrait, scale=1.24]{beamerposter}
+\usetheme{confposter}
+
+% fonts
+\usepackage[T1]{fontenc}
+\usepackage{eulervm}
+%\usepackage{palatino}
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm, thmtools, mathtools}
+
+\usepackage[%
+	backend=biber,
+	bibencoding=ascii,
+	style=numeric,
+	sortcites,
+	maxbibnames=10,
+	maxcitenames=2,
+	firstinits=true,
+]{biblatex}
+
+\usepackage{graphicx}
+\definecolor{gelbgruen}{cmyk}{0.5,0,1,0}
+\definecolor{lichtgrau}{cmyk}{0.03,0.03,0.03,0.1}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{ucorange}{cmyk}{0,0.45,0.93,0.04}
+
+\setbeamercolor{headline}{fg=saphierblau,bg=lichtgrau}
+\setbeamercolor{footline}{fg=saphierblau,bg=lichtgrau}
+\setbeamercolor{block title}{fg=saphierblau,bg=white}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block alerted title}{fg=white,bg=saphierblau}
+\setbeamercolor{block alerted body}{fg=black,bg=lichtgrau}
+
+\newlength{\sepwid}
+\newlength{\smallsepwid}
+\newlength{\onecolwid}
+\newlength{\smallonecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\setlength{\paperwidth}{36in} % A0 width: 46.8in
+\setlength{\paperheight}{50.9in} % A0 height: 33.1in
+\setlength{\sepwid}{0.03\paperwidth} % Separation width (white space) between columns
+\setlength{\smallsepwid}{0.03\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.455\paperwidth} % Width of one column
+\setlength{\smallonecolwid}{0.435\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.94\paperwidth} % Width of two columns
+%\setlength{\threecolwid}{0.708\paperwidth} % Width of three columns
+\setlength{\topmargin}{-1in} % Reduce the top margin size
+%-----------------------------------------------------------
+
+\newcommand\advisors[2]{\institute[shortinst]{1.~Advisor:~#1\hspace{1em}2.~Advisor:~#2}}
+
+\setbeamertemplate{headline}{%
+	\leavevmode
+	\begin{beamercolorbox}[wd=\paperwidth]{headline}
+		\centering
+		\vspace*{4em}\\
+		\usebeamercolor{title in headline}{\Huge{\textbf{\inserttitle}}}\\[1em]
+		\usebeamercolor{author in headline}{\Large{\insertauthor}}\\[1em]
+		\usebeamercolor{institute in headline}{\normalsize{\insertinstitute}}
+		\vspace*{2em}
+	\end{beamercolorbox}
+	\textcolor{saphierblau}{\rule{\paperwidth}{5pt}}
+}
+
+\setbeamertemplate{footline}{%
+	\leavevmode
+	\textcolor{saphierblau}{\rule{\paperwidth}{5pt}}
+	\begin{beamercolorbox}[wd=\paperwidth]{footline}
+		\vspace{3em}
+		\begin{columns}[t]
+			\begin{column}{0.25\linewidth}
+				\centering
+				\vspace*{-6cm}
+				\hspace*{-3cm}
+				\includegraphics[width=26cm]{logos/logo_dfg}
+			\end{column}
+			\begin{column}{0.3\linewidth}
+				\centering
+				\hspace*{-3cm}
+				\includegraphics[height=8cm]{logos/logo_rub}
+			\end{column}
+			\begin{column}{0.15\linewidth}
+				\centering
+				\hspace*{-9cm}
+				\includegraphics[height=8cm]{logos/logo_hgi}
+			\end{column}
+			\begin{column}{0.1\linewidth}
+				\centering
+				\hspace*{-75mm}
+				\includegraphics[height=8cm]{logos/logo_ubicrypt}
+			\end{column}
+		\end{columns}
+		\vspace{3em}
+	\end{beamercolorbox}
+}
+
+\setbeamertemplate{caption}[numbered]
+
+\include{settings}
+
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{2ex} % White space under equations
+
+\begin{frame}[t]
+	\include{content}
+\end{frame}
+
+\end{document}
