@@ -1,0 +1,4 @@
+Why OOP sucks
+Whats Great About Haskell
+A New Hope - The Empire Strikes Back - Return of the Jedi
+    https://robots.thoughtbot.com/thinking-in-types
