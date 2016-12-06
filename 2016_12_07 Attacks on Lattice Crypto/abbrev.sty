@@ -1,0 +1,25 @@
+% correct abbreviations http://stackoverflow.com/a/3285603
+\RequirePackage{expl3}
+
+\ExplSyntaxOn{}
+\newcommand\latinabbrev[1]{
+  \peek_meaning:NTF . {% Same as \@ifnextchar
+    #1\@}%
+  { \peek_catcode:NTF a {% Check whether next char has same catcode as \'a, i.e., is a letter
+      #1.\@ }%
+    {#1.\@}}}
+\ExplSyntaxOff{}
+
+\def\cf/{\latinabbrev{cf}}
+\def\Cf/{\latinabbrev{Cf}}
+\def\st/{\latinabbrev{s.\addabbrvspace{}t}}
+\def\St/{\latinabbrev{S.\addabbrvspace{}t}}
+\def\eg/{\latinabbrev{e.\addabbrvspace{}g}}
+\def\Eg/{\latinabbrev{E.\addabbrvspace{}g}}
+\def\etal/{\latinabbrev{\textit{et\addabbrvspace{}al}}}
+\def\etc/{\latinabbrev{etc}}
+\def\Etc/{\latinabbrev{Etc}}
+\def\ie/{\latinabbrev{i.\addabbrvspace{}e}}
+\def\Ie/{\latinabbrev{I.\addabbrvspace{}e}}
+\def\resp/{\latinabbrev{resp}}
+\def\Resp/{\latinabbrev{Resp}}
