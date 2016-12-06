@@ -2,7 +2,7 @@
 all: main.pdf
 
 main.pdf: main.tex
-	latexmk -pdf -pdflatex="pdflatex -interactive=nonstopmode" -use-make main.tex
+	latexmk -pdf -use-make main.tex
 
 clean:
 	latexmk -c
