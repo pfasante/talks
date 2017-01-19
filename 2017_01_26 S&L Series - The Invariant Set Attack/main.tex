@@ -1,0 +1,148 @@
+\documentclass[12pt,mathserif,professionalfont]{beamer}
+
+\mode<presentation>{%
+    \usetheme[alternativetitlepage=bild]{Rub}
+    \titlegraphic{data/flickr/img-bg.jpg}
+    %\sponsorlogo[height=15mm]{img-gdata.pdf}
+
+    \setbeamercovered{transparent}
+}
+\usepackage{pgfpages}
+\setbeameroption{show notes on second screen}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{rubfonts2009}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{eulervm}
+%\usefonttheme[onlymath]{serif}
+
+\usepackage{abbrv}
+\usepackage{delimiters}
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{etoolbox,siunitx}
+\sisetup{binary-units}
+
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usepackage{tikzsymbols}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
+
+\tikzset{%
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+
+\tikzset{%
+    marked/.style={%
+        fill=blue,
+    },
+    marked on/.style={alt=#1{marked}{}},
+}
+
+\usepackage[beamer]{hf-tikz}
+\usepackage{multirow}
+
+\usepackage{media9}
+
+\setbeamertemplate{bibliography item}[text]
+\usepackage[%
+    backend=biber,
+    bibencoding=ascii,
+    style=alphabetic,
+    sortcites,
+    maxbibnames=10,
+    maxcitenames=2,
+    firstinits=true,
+]{biblatex}
+\DefineBibliographyStrings{english}{%
+    andothers = {\etal/}
+}
+\DeclareFieldFormat{eprint:iacr}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://eprint.iacr.org/#1}{\nolinkurl{#1}}
+}
+\DeclareFieldFormat{eprint:iacrconf}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
+}
+\renewcommand\bibfont{\scriptsize}
+\bibliography{bibliography}
+
+\newcommand{\blfootnote}[1]{%
+    \begingroup
+        \renewcommand\thefootnote{}\footnote{#1}%
+        \addtocounter{footnote}{-1}%
+    \endgroup
+}
+
+\makeatletter
+\def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
+\def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
+\makeatother
+
+\title{The Invariant Set Attack}
+\subtitle{}
+\author[Friedrich~Wiemer]{Friedrich~Wiemer}
+\institute{%
+    Workgroup Symmetric Cryptography\\
+    Ruhr University Bochum
+}
+
+\date{26th January 2017}
+
+\AtBeginSection[]
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+%\begin{frame}{Outline}
+%    \tableofcontents
+%\end{frame}
+
+\input{slides.tex}
+
+\begin{frame}{Questions?}{Thank you for your attention!}
+%    \begin{columns}
+%        \begin{column}{0.58\textwidth}
+%            \begin{block}{Review}
+%                \begin{itemize}
+%                    \item Working as an engineer together with mathematicans can be fun\\
+%                        You can code, they\ldots{} can do math \Smiley{}
+%                    \item Even if you don't understand what you are implementing, you can get something working out of it
+%                    \item Eventually you'll understand the math \Ninja{}
+%                \end{itemize}
+%            \end{block}
+%        \end{column}
+%        \begin{column}{0.38\textwidth}
+            \begin{figure}[!htb]
+                \includegraphics[height=50mm]{data/flickr/questionmark.png}
+            \end{figure}
+%        \end{column}
+%    \end{columns}
+    \blfootnote{\scriptsize Mainboard \& Questionmark Images: flickr}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+    \tiny
+    \printbibliography{}
+\end{frame}
+
+\end{document}
