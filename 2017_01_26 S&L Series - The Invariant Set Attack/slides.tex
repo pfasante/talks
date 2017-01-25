@@ -8,6 +8,7 @@
                   in the \emph{weak key setting}
         \end{itemize}
     \end{block}
+    \vspace{-1em}
     \begin{columns}[T]
         \begin{column}{0.45\textwidth}
             \begin{block}{Organisation}
@@ -16,15 +17,54 @@
             \end{block}
         \end{column}
         \begin{column}{0.45\textwidth}
+            \begin{block}{The paper in 50 words:}
+                \centering
+                \includegraphics[keepaspectratio,width=\textwidth]{data/wordle.png}
+            \end{block}
         \end{column}
     \end{columns}
 \end{frame}
 
 \section{The Context}
 \begin{frame}{Context}{or: similar attacks?}
-    \begin{block}{Attacks in Symmetric Cryptanalysis}
-        \includegraphics[keepaspectratio, height=0.7\textheight]{data/mindmap}
-    \end{block}
+    \centering
+    \begin{tikzpicture}[%
+        mindmap,
+        level 1 concept/.append style={%
+            level distance=130,
+            sibling angle=45,
+        },
+        scale=0.7, every node/.style={scale=0.7},
+    ]
+
+    % Kind of attacks
+    \begin{scope}[%
+        mindmap,
+        concept color=saphierblau,
+        text=white,
+    ]
+        \node [concept] {\textbf{\large Symmetric Cryptanalysis}}[clockwise from=45]
+        child  {node [concept] (sta) {\textbf{Statistical}}[clockwise from=20]
+            child [visible on=<2->] {node [concept] (lin) {\textbf{Linear}}}
+            child [visible on=<2->] {node [concept] (dif) {\textbf{Differential}}}
+        }
+        child {node [concept] (str) at (2.5, -1) {\textbf{Structural}}[clockwise from=60]
+            child [%
+                concept color=gelbgruen,
+                visible on=<4->,
+            ] {node [concept] (set) at (1.45, 0.75) {\textbf{Invariant Set}}}
+            child [visible on=<3->] {node [concept] (sub) {\textbf{Invariant Subspace}}}
+            child [visible on=<3->] {node [concept] (sli) {\textbf{Slide}}}
+        }
+        child {node [concept] (alg) {\textbf{Algebraic}}};
+    \end{scope}
+
+    % Connections of attacks
+    \begin{pgfonlayer}{background}
+        \draw [concept connection, visible on=<4->] (lin) edge (set);
+        \draw [concept connection, visible on=<4->] (sub) edge (set);
+    \end{pgfonlayer}
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Linear Cryptanalysis}{Taking the fun out of it}
@@ -68,6 +108,10 @@
                     \item invented by \textcite{C:LAAZ11}
                     \item broke \textsc{PRINTcipher}
                 \end{itemize}
+                \begin{block}{Illustration}
+                    \centering
+                    \includegraphics[keepaspectratio,width=\textwidth]{data/backAndForth9}
+                \end{block}
             \end{column}
             \hfill
             \begin{column}{.38\textwidth}
@@ -79,9 +123,16 @@
     }
     \only<2->{%
         \begin{block}{Core Idea}
+            Given a block cipher $E_k : \F_2^n \to \F_2^n$, \st/ $E_k(x) = E(x \oplus k)$, assume that there exists a subspace $U \subseteq \F_2^n$, \st/
+            \begin{equation*}
+                E(U \oplus c) = U \oplus d
+            \end{equation*}
+            for two constants $c, d$.
         \end{block}
         \begin{itemize}
-            \item \ldots
+            \item A key $k = u \oplus c \oplus d$ is called \emph{weak}, if $u \in U$.
+            \item For a weak key: $E_k(U \oplus d) = E((U \oplus d) \oplus (u \oplus c \oplus d)) = E(U \oplus c) = U \oplus d$.
+            \item We thus can distinguish encryptions under a weak key.
         \end{itemize}
     }
 \end{frame}
@@ -130,7 +181,7 @@
 \end{frame}
 
 \begin{frame}{Invariant Set Attack}{Weak Keys}
-    It seems quite unlikely that Eq~\eqref{eq:g} holds for many $k$.
+    It seems quite unlikely that Eq~\eqref{eq:g} holds for many $k$?
     \begin{block}{Example nonlinear invariant}
         \vspace{-2em}
         \begin{align*}
