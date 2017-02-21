@@ -1,0 +1,122 @@
+\section{Marvin is plane-Jane}
+\begin{frame}{Marvin is plane-Jane}
+    \begin{figure}[!htb]
+        \includegraphics[height=60mm]{data/marvin.jpg}
+    \end{figure}
+\end{frame}
+
+\subsection{Challenge}
+\begin{frame}{Story}{Infos}
+    \begin{itemize}
+        \item \emph{Marvin is}
+        \item using brainpool p256r1
+        \item his friend is called meneze or something --- or was it van-stone?\\[5mm]
+        \item $(23372093078317\ldots7754827452856 : 1)$
+        \item $711644502408974\ldots8605658194656$
+        \item $129516935171006\ldots4560064909824$\\[5mm]
+        \item Find out what \emph{Marvin is}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Stats}
+    \begin{itemize}
+        \item Category: Crypto
+        \item Points: 100
+        \item Solved by: 3 Teams
+    \end{itemize}
+\end{frame}
+
+\subsection{Crypto Stuff}
+\begin{frame}{Crypto Stuff}{Menezes-Vanstone Cipher}
+    \begin{itemize}
+        \item Global Parameter: $\mathcal{E}(\mathbb{Z}_p^*)$
+        \item Public-Key: $P, Q \in \mathcal{E}(\mathbb{Z}_p^*)$
+        \item Secret-Key: $\alpha \in \mathbb{Z}_p^*$, s.t. $Q = \alpha \cdot P$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Crypto Stuff}{Menezes-Vanstone Cipher}
+    Enc:
+    \begin{itemize}
+        \item message $m = (m_1,m_2) \in \mathbb{Z}_p^* \times \mathbb{Z}_p^*$
+        \item randomization $r \in_R \mathbb{Z}_p^*$\\
+        \item compute:
+            \begin{itemize}
+                \item $(b_1,b_2) = r \cdot Q$
+                \item $R = r \cdot P$
+                \item $c_1 = b_1 \cdot m_1 \bmod p$
+                \item $c_2 = b_2 \cdot m_2 \bmod p$
+            \end{itemize}
+        \item output ciphertext $c = (R, c_1, c_2)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Crypto Stuff}{Menezes-Vanstone Cipher}
+    Dec:
+    \begin{itemize}
+        \item ciphertext $c = (R, c_1, c_2) \in \mathcal{E}(\mathbb{Z}_p^*) \times \mathbb{Z}_p^* \times \mathbb{Z}_p^*$
+        \item compute:
+            \begin{itemize}
+                \item $\alpha \cdot R = \alpha \cdot r \cdot P = r \cdot Q = (b_1,b_2)$
+                \item $m_1 = b_1 \cdot c_1^{-1} \bmod p$
+                \item $m_2 = b_2 \cdot c_2^{-1} \bmod p$
+            \end{itemize}
+        \item output message $m = (m_1, m_2)$
+    \end{itemize}
+    Note:
+    \begin{itemize}
+        \item knowledge of $r \cdot Q$ is needed for decryption
+        \item computing of $r \cdot Q$ looks as hard as solving\\
+              $r = \text{dlog}_Q(R)$ or \\
+              $\alpha = \text{dlog}_P(Q)$
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Crypto Stuff}{Menezes-Vanstone Cipher}
+    Correctness:
+    \visible<2->{%
+    \begin{itemize}
+        \item Just kidding :) \\[2cm]
+    \end{itemize}
+    }
+
+    \visible<3->{%
+    But where are the flaws?
+    }
+\end{frame}
+
+\begin{frame}{Crypto Stuff}{Menezes-Vanstone Cipher}
+    Observation:
+    \begin{itemize}
+    \visible<1->{%
+        \item $c = (R, c_1, c_2)$, s.t. \\
+              $c_1 = b_1 \cdot m_1 \bmod p$ and $c_2 = b_2 \cdot m_2 \bmod p$
+              \begin{align*}
+                  c_1 = b_1 \cdot m_1 \bmod p &&\Rightarrow&& c_1 \cdot m_1^{-1} = b_1 \bmod p
+              \end{align*}
+        \item $b_1$ is the x coordinate of $r \cdot Q$
+    }
+    \visible<2->{%
+        \item there are only two points on $\mathcal{E}(\mathbb{Z}_p^*)$ with $b_1$ as their x coordinate
+        \item trying both give us two possibilities for $r \cdot Q$
+    }
+    \visible<3->{%
+        \item two possibilities for message without computing a discrete log
+    }
+    \end{itemize}
+    \visible<4->{%
+    What do we need for this?
+    \begin{itemize}
+        \item $c_1 \cdot m_1^{-1} = b_1 \bmod p$\\
+              $\Rightarrow$ $(c_1, m_1)$, first half of a plaintext/ciphertext pair
+    \end{itemize}
+    }
+\end{frame}
+
+\subsection{Solution}
+\begin{frame}{Solution}
+    \begin{figure}[!htb]
+        \includegraphics[height=45mm]{data/demo.png}
+    \end{figure}
+\end{frame}

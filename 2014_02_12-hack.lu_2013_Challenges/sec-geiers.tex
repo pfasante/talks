@@ -1,0 +1,58 @@
+\section{Geiers Lambda}
+\begin{frame}{Geiers Lambda}
+    \begin{figure}[!htb]
+        \includegraphics[height=35mm]{data/eagle.png}\hspace{10mm}
+        \includegraphics[height=35mm]{data/haskell.png}
+    \end{figure}
+\end{frame}
+
+\subsection{Challenge}
+\begin{frame}{Story}{Infos}
+    Given:
+    \begin{itemize}
+        \item encrypted defusing-password
+        \item haskell code for decryption
+        \item collision for decryption password
+    \end{itemize}
+
+    Infos:
+    \begin{itemize}
+        \item decryption password consists of 8 alphanumeric chars
+        \item defusing password contains only printable characters
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Stats}
+    \begin{itemize}
+        \item Category: Crypto
+        \item Points: 200
+        \item Solved by: 16 Teams
+    \end{itemize}
+\end{frame}
+
+\subsection{Haskell Code}
+\begin{frame}{Haskell Code}
+    \visible<2->{%
+    \begin{itemize}
+        \item used almost only lambda (anonymous) functions
+        \item two interesting functions: \textsc{hash} and \textsc{dec}
+        \item magic constant in \textsc{dec} $\Rightarrow$ \textsc{TEA}
+        \item \textsc{hash} seems to be adler32
+    \end{itemize}
+    }
+    
+    \visible<3->{Collision Finding:
+    \begin{itemize}
+        \item $\text{Byte}[n] + k$
+        \item $\text{Byte}[n+1] - 2k$
+        \item $\text{Byte}[n+2] + k$
+    \end{itemize}
+    }
+\end{frame}
+
+\subsection{Solution}
+\begin{frame}{Solution}
+    \begin{figure}[!htb]
+        \includegraphics[height=45mm]{data/demo.png}
+    \end{figure}
+\end{frame}

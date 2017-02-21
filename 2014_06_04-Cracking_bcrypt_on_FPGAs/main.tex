@@ -1,0 +1,64 @@
+\documentclass[12pt]{beamer}
+\usepackage{pgfpages}
+
+\setbeameroption{show notes on second screen}
+
+\mode<presentation>
+{%
+  \usetheme[alternativetitlepage=bild]{Rub}
+  \titlegraphic{img-bg.jpg}
+  \sponsorlogo[height=15mm]{img-gdata.pdf}
+
+  \setbeamercovered{transparent}
+}
+\usepackage{rubfonts2009}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[babel,english=american]{csquotes}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{amsmath}
+
+\usepackage[T1]{fontenc}
+\usepackage[binary-units=true]{siunitx}
+
+\usepackage[ruled,algo2e]{algorithm2e}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+
+\title{Cracking bcrypt on FPGAs}
+\subtitle{}
+\author{Friedrich~Wiemer}
+\institute[Ruhr University Bochum]
+{%
+  FluxFingers\\
+  Ruhr University Bochum
+}
+
+\date{04. June 2014}
+
+\AtBeginSection[]
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\input{slides.tex}
+
+\begin{frame}{Questions?}{Thanks!}
+    \begin{figure}[!htb]
+        \includegraphics[height=50mm]{data/questions.png}
+    \end{figure}
+\end{frame}
+
+\end{document}

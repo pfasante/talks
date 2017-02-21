@@ -1,0 +1,88 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{%
+  \usetheme[alternativetitlepage=bild]{Rub}
+  \titlegraphic{img-bg.jpg}
+  \sponsorlogo[height=15mm]{img-gdata.pdf}
+
+  \setbeamercovered{transparent}
+}
+\usepackage{rubfonts2009}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[babel,english=american]{csquotes}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{amsmath}
+\usepackage{protocol}
+
+\usepackage[T1]{fontenc}
+
+\title{Hack.Lu 2013 Challenges}
+\subtitle{ECKA, Geiers Lambda, Marvin is plane-Jane}
+\author{Friedrich~Wiemer}
+\institute[Ruhr Universit\"at Bochum]
+{%
+  FluxFingers\\
+  Ruhr Universit\"at Bochum
+}
+
+\date{12. Februar 2014}
+
+\subject{Theoretical Computer Science}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+%{%
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\input{sec-ecka.tex}
+\input{sec-geiers.tex}
+%\input{sec-marvin.tex}
+
+\section*{Summary}
+\begin{frame}{Appendix}
+    Challenges
+    \begin{small} \begin{itemize}
+        \item \url{https://ctf.fluxfingers.net/2013/challenges/1}
+        \item \url{https://ctf.fluxfingers.net/2013/challenges/2}
+%        \item \url{https://ctf.fluxfingers.net/2013/challenges/3}
+    \end{itemize} \end{small}
+
+    Write-Ups
+    \begin{small} \begin{itemize}
+        \item \url{https://stratum0.org/blog/blog/2013/10/26/hack-dot-lu-2013-ecka/}
+        \item \url{http://balidani.blogspot.pt/2013/10/hacklu-ctf-crypto-200-geiers-lambda.html}
+%        \item \url{https://stratum0.org/blog/blog/2013/10/26/hack-dot-lu-2013-marvin-is-plain-jane/}
+    \end{itemize} \end{small}
+\end{frame}
+
+\begin{frame}{Questions?}{Thanks!}
+    \begin{figure}[!htb]
+        \includegraphics[height=50mm]{data/questions.png}
+    \end{figure}
+\end{frame}
+
+\end{document}
