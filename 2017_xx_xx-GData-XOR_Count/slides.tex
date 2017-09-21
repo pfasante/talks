@@ -1,0 +1,137 @@
+\section{Motivation}
+\begin{frame}{Overview}{}
+    \begin{block}{Joint Work -- Its not me alone}
+        \centering
+        Thorsten Kranz, Gregor Leander, Ko Stoffelen, Friedrich Wiemer
+        \includegraphics[width=0.35\textwidth]{data/logo_rub}
+        \hspace{2em}
+        \includegraphics[width=0.45\textwidth]{data/ru_en_branding}
+    \end{block}
+    \begin{block}{Outline}
+        \vspace{0.5em}
+%        \begin{itemize}
+%            \item Preliminaries
+%            \item State of the Art
+%            \item Related Work
+%            \item Updated State of the Art
+%        \end{itemize}
+        \tableofcontents
+    \end{block}
+\end{frame}
+
+\begin{frame}{What is the \textsc{xor} count,}{and why is it important?}
+    \begin{block}{Some facts}
+    \begin{itemize}
+        \visible<1->{\item Lightweight Block Ciphers}
+        \visible<1->{\item Efficient Linear Layers}
+        \visible<1->{\item MDS matrices are \enquote{optimal} (regarding security)\footnote{Are they?}}
+    \end{itemize}
+    \begin{itemize}
+        \visible<2->{\item What is the lightest implementable MDS matrix?}
+        \visible<2->{\item What about additional features (Involutory)?}
+    \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Preliminaries}
+\begin{frame}{What is an MDS matrix?}{}
+%    \begin{columns}
+%        \begin{column}{0.45\textwidth}
+    \begin{block}{Definition: MDS}
+        A matrix $M$ of dimension $k$ over the field $\mathbb{F}$ is \emph{maximum distance separable} (MDS),
+        iff all possible submatrices of $M$ are invertible (or nonsingular).
+    \end{block}
+%        \end{column}
+%        \begin{column}{0.45\textwidth}
+    \visible<2->{\begin{example}
+        The \textsc{Aes MixColumn} matrix is defined over $\mathbb{F}_{2^8} \cong \mathbb{F}[x]/\mathtt{0x11b}$:
+        \begin{equation*}
+            \begin{pmatrix}
+                \mathtt{0x02} & \mathtt{0x03} & \mathtt{0x01} & \mathtt{0x01} \\
+                \mathtt{0x01} & \mathtt{0x02} & \mathtt{0x03} & \mathtt{0x01} \\
+                \mathtt{0x01} & \mathtt{0x01} & \mathtt{0x02} & \mathtt{0x03} \\
+                \mathtt{0x03} & \mathtt{0x01} & \mathtt{0x01} & \mathtt{0x02}
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                x & x + 1 & 1 & 1 \\
+                1 & x & x + 1 & 1 \\
+                1 & 1 & x & x + 1 \\
+                x + 1 & 1 & 1 & x
+            \end{pmatrix}
+        \end{equation*}
+        This is a (right) \emph{circulant} matrix: $\text{circ}(x, x+1, 1, 1)$.
+    \end{example}}
+%        \end{column}
+%    \end{columns}
+\end{frame}
+\note{\begin{itemize}
+        \item The degree of $\mathbb{F}$ normally fits to the S-box width.
+        \item The dimension $k$ resembles the state.
+\end{itemize}}
+
+\begin{frame}{What is an MDS matrix?}{Constructions}
+    \centering
+    \begin{tikzpicture}[%
+        mindmap,
+        level 1 concept/.append style={%
+            level distance=130,
+            sibling angle=45,
+        },
+        scale=0.7, every node/.style={scale=0.7},
+    ]
+
+    % Kind of attacks
+    \begin{scope}[%
+        mindmap,
+        concept color=saphierblau,
+        text=white,
+    ]
+        \node [concept] {\textbf{\large MDS}}[clockwise from=45]
+        child  {node [concept] (construction) {\textbf{by construction}}[clockwise from=20]
+            child {node [concept] (cauchy) {\textbf{Cauchy}}}
+            child {node [concept] (vandermonde) {\textbf{Vander\-monde}}}
+        }
+        child [visible on=<2->] {node [concept] (other) at (2.5, -1) {\textbf{other}}[clockwise from=30]
+            child [visible on=<2->] {node [concept] (circ) {\textbf{Circulant}}}
+            child [visible on=<2->] {node [concept] (hadamard) {\textbf{Hadamard}}}
+            child [visible on=<2->] {node [concept] (toeplitz) {\textbf{Toeplitz}}}
+        }
+        child [visible on=<3->] {node [concept] (subfield) {\textbf{Subfield}}};
+    \end{scope}
+
+    \begin{pgfonlayer}{background}
+        \draw (vandermonde)+(2,0) node[scale=0.6] {can be made involutory} ;
+        \draw [visible on=<2->] (circ)+(2,0) node[scale=0.6] {used in \textsc{Aes}, \textsc{Gr\o{}stl}, \textsc{Whirlpool}, \textsc{Qarma}, \textsc{Midori}} ;
+        \draw [visible on=<2->] (hadamard)+(2,0) node[scale=0.6] {can be made involutory, used in \textsc{Anubis}, \textsc{Khazad}, \textsc{Joltik}} ;
+        \draw [visible on=<3->] (subfield)+(2,0) node[scale=0.6] {used in \textsc{Whirlwind}} ;
+    \end{pgfonlayer}
+
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{What is an MDS matrix?}{Representations}
+\end{frame}
+
+\begin{frame}{What is an MDS matrix?}{Representations}
+\end{frame}
+
+\begin{frame}{The General Linear Group}{}
+\end{frame}
+
+\section{State of the Art and Related Work}
+\begin{frame}{State of the Art}{Before our Paper}
+\end{frame}
+
+\begin{frame}{Related Work I}{}
+\end{frame}
+
+\begin{frame}{Related Work II}{}
+\end{frame}
+
+\begin{frame}{State of the Art}{After our Paper}
+\end{frame}
+
+\section{Future Work}
+\begin{frame}{Future Work}{}
+\end{frame}
