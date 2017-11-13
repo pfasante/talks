@@ -38,7 +38,6 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
-\usetikzlibrary{shapes}
 
 \tikzset{%
     invisible/.style={opacity=0},
@@ -83,7 +82,7 @@
     \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
 }
 \renewcommand\bibfont{\scriptsize}
-\bibliography{bibliography}
+\bibliography{../cryptobib/abbrev3,../cryptobib/crypto,bibliography}
 
 \newcommand{\blfootnote}[1]{%
     \begingroup
@@ -97,7 +96,7 @@
 \def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
 \makeatother
 
-\title{\textsc{xor} Count}
+\title{The Stupidity of recent \textsc{xor} Count Papers}
 \subtitle{}
 \author[Friedrich~Wiemer]{Friedrich~Wiemer}
 \institute{%
@@ -106,7 +105,7 @@
     Ruhr University Bochum
 }
 
-\date{October XXth, 2017}
+\date{November 21st, 2017}
 
 \AtBeginSection[]
 
@@ -120,6 +119,18 @@
 %    \tableofcontents
 %\end{frame}
 
-\input{first_slides.tex}
+\input{second_slides.tex}
+
+\begin{frame}{Questions?}{Thank you for your attention!}
+    \begin{figure}[!htb]
+        \includegraphics[height=50mm]{data/flickr/questionmark.png}
+    \end{figure}
+    \blfootnote{\scriptsize Mainboard \& Questionmark Images: flickr}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+    \tiny
+    \printbibliography{}
+\end{frame}
 
 \end{document}

@@ -38,6 +38,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
+\usetikzlibrary{shapes}
 
 \tikzset{%
     invisible/.style={opacity=0},
@@ -96,7 +97,7 @@
 \def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
 \makeatother
 
-\title{The Stupidity of recent \textsc{xor} Count Papers}
+\title{\textsc{xor} Count}
 \subtitle{}
 \author[Friedrich~Wiemer]{Friedrich~Wiemer}
 \institute{%
@@ -105,7 +106,7 @@
     Ruhr University Bochum
 }
 
-\date{October XXth, 2017}
+\date{November 21st, 2017}
 
 \AtBeginSection[]
 
@@ -119,18 +120,6 @@
 %    \tableofcontents
 %\end{frame}
 
-\input{second_slides.tex}
-
-\begin{frame}{Questions?}{Thank you for your attention!}
-    \begin{figure}[!htb]
-        \includegraphics[height=50mm]{data/flickr/questionmark.png}
-    \end{figure}
-    \blfootnote{\scriptsize Mainboard \& Questionmark Images: flickr}
-\end{frame}
-
-\begin{frame}[allowframebreaks]{References}
-    \tiny
-    \printbibliography{}
-\end{frame}
+\input{first_slides.tex}
 
 \end{document}
