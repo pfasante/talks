@@ -45,6 +45,12 @@
 \end{frame}
 
 \begin{frame}{Related Work II}{}
+    \begin{columns}
+        \begin{column}{0.75\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{data/joc}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{State of the Art}{Best known Results (After our Paper)}
@@ -53,6 +59,7 @@
         \toprule
         \multicolumn{6}{c}{$4 \times 4$ matrices over $\mathrm{GL}(8,\mathbb{F}_2)$}                                                  \\
         \midrule
+                                             &       &            & \multicolumn{3}{c}{\visible<2->{Our Results~\cite{ToSC:KLSW17}}} \\
         Matrix                               & Naive & Literature & \visible<2->{\textsc{Paar1}} & \visible<2->{\textsc{Paar2}} & \visible<2->{\textsc{BP} }\\
         \midrule
         \textsc{Aes} (Circulant)             &  152  & \textbf{7+96} &   \visible<2->{108}       & \visible<2->{    108      }  & \visible<2->{     97     }\\ \rowcolor{gray!10}
@@ -84,8 +91,4 @@
         ${\mathrm{GL}(8, \mathbb{F}_2)}^{8 \times 8}$           & $663$ & \cite{EPRINT:JeaPeySim17}         &       424  \\
         \bottomrule
     \end{tabular}
-\end{frame}
-
-\section{Future Work}
-\begin{frame}{Future Work}{}
 \end{frame}
