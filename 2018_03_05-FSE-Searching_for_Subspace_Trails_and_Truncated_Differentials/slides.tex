@@ -24,7 +24,7 @@
 
             \node (right1-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (-4,0)
             {\begin{tikzpicture}[scale=0.7]
-                    \node (u) [draw,rectangle,thick] {%
+                    \node (u) [draw,rectangle,thick, fill=gray!10] {%
                         \begin{tikzpicture}[scale=1.2]
                             \draw[rounded corners=2pt, fill=gray!20]
                                 (-1.2,1.9) -- (-1,1.9) -- (-0.9,1.7) -- (-1.1,1.2) -- (-1,0.9) -- (-1.4,0.6) -- (-1.1,0.1) -- (-1.2,-0.4) -- (-1.5,-0.2) -- (-1.8,-0.3) -- (-2.2,-0.6) -- (-2.7,-0.3) -- (-2.2,0.8) -- (-2.4,1) -- (-2.6,1) -- (-2.7,1.2) -- (-2.6,1.8) -- (-2.3,1.8) -- (-2.1,2.2) -- (-1.6,2.3) -- (-1.4,2.3) -- (-1.4,2.1) -- (-1.3,2) -- (-1.2,1.9);
@@ -32,7 +32,8 @@
                     };
             \end{tikzpicture}};
 
-            \draw[-latex] (-8,0.5) to [bend left] node[above]{$F$} (-4,0.5);
+            \draw[-latex] (-8,0.5) to [bend left] node[above]{$F$}
+                                                  node[below,yshift=-17.5pt]{\repeatarrow} (-4,0.5);
             \draw[-latex] (-4.75,-0.5) to [bend left] node[below]{$F^{-1}$} (-7.25,-0.5);
         \end{tikzpicture}
     \end{center}
@@ -359,44 +360,44 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Results}{No linear structures}
-    \begin{block}{SPN ciphers with S-boxes without linear structures}
-        \centering
-        \renewcommand{\arraystretch}{1.2}
-        \begin{tabular}{lrrrr}
-            \toprule
-            Cipher                            & $r_e$ & $d$ & $r_d$ & $d$ \\
-            \midrule
-            AES                               &  2  &  32 &     2    &  32 \\ \rowcolor{gray!10}
-            Anubis                            &  2  & 104 &    ---   & --- \\
-            Klein                             &  3  &  60 &     2    &  32 \\ \rowcolor{gray!10}
-            Kuznyechik                        &  1  &   8 &     1    &   8 \\
-            Prince                            &  2  &  16 &     2    &  16 \\ \rowcolor{gray!10}
-            Qarma                             &  2  &  36 &     2    &  36 \\
-            \bottomrule
-        \end{tabular}
-    \end{block}
-\end{frame}
-
-\begin{frame}{Results}{One-linear structures}
-    \begin{block}{SPN ciphers with S-boxes with linear structures}
-        \centering
-        \renewcommand{\arraystretch}{1.2}
-        \begin{tabular}{lrrrrcrrrr}
-            \toprule
-                        & \multicolumn{4}{c}{LS} & & \multicolumn{4}{c}{\visible<2->{No LS}} \\
-            Cipher      & $r_e$   &   $d$   &    $r_d$   &  $d$  & & \visible<2->{$r_e$} & \visible<2->{$d$} & \visible<2->{$r_d$} & \visible<2->{$d$} \\
-            \midrule
-            Ascon       &   3     &   298   &      1     &  125  & & \visible<2->{3} & \visible<2->{ 310} & \visible<2->{1} & \visible<2->{155} \\ \rowcolor{gray!10}
-            Gift        &   3     &    60   &      3     &   60  & & \visible<2->{2} & \visible<2->{  16} & \visible<2->{2} & \visible<2->{ 16} \\
-            Keccak      &   2     &   546   &      1     &  169  & & \visible<2->{2} & \visible<2->{1290} & \visible<2->{1} & \visible<2->{270} \\ \rowcolor{gray!10}
-            Present     &   3     &    43   &      3     &   63  & & \visible<2->{2} & \visible<2->{  16} & \visible<2->{2} & \visible<2->{ 16} \\
-            Pride       &   2     &    31   &      2     &   34  & & \visible<2->{2} & \visible<2->{  56} & \visible<2->{1} & \visible<2->{ 40} \\ \rowcolor{gray!10}
-            Qarma       &   2     &    36   &      2     &   36  & & \visible<2->{2} & \visible<2->{  36} & \visible<2->{2} & \visible<2->{ 36} \\
-            Serpent     &   2     &    88   &      2     &   62  & & \visible<2->{2} & \visible<2->{ 100} & \visible<2->{2} & \visible<2->{ 68} \\ \rowcolor{gray!10}
-            Skinny64    &   5     &    48   &      5     &   48  & & \visible<2->{4} & \visible<2->{  48} & \visible<2->{4} & \visible<2->{ 48} \\
-            Skinny128   &   5     &    96   &      5     &   96  & & \visible<2->{5} & \visible<2->{  96} & \visible<2->{5} & \visible<2->{ 96} \\ %\rowcolor{gray!10}
-            \bottomrule
-        \end{tabular}
-    \end{block}
-\end{frame}
+%\begin{frame}{Results}{No linear structures}
+%    \begin{block}{SPN ciphers with S-boxes without linear structures}
+%        \centering
+%        \renewcommand{\arraystretch}{1.2}
+%        \begin{tabular}{lrrrr}
+%            \toprule
+%            Cipher                            & $r_e$ & $d$ & $r_d$ & $d$ \\
+%            \midrule
+%            AES                               &  2  &  32 &     2    &  32 \\ \rowcolor{gray!10}
+%            Anubis                            &  2  & 104 &    ---   & --- \\
+%            Klein                             &  3  &  60 &     2    &  32 \\ \rowcolor{gray!10}
+%            Kuznyechik                        &  1  &   8 &     1    &   8 \\
+%            Prince                            &  2  &  16 &     2    &  16 \\ \rowcolor{gray!10}
+%            Qarma                             &  2  &  36 &     2    &  36 \\
+%            \bottomrule
+%        \end{tabular}
+%    \end{block}
+%\end{frame}
+%
+%\begin{frame}{Results}{One-linear structures}
+%    \begin{block}{SPN ciphers with S-boxes with linear structures}
+%        \centering
+%        \renewcommand{\arraystretch}{1.2}
+%        \begin{tabular}{lrrrrcrrrr}
+%            \toprule
+%                        & \multicolumn{4}{c}{LS} & & \multicolumn{4}{c}{\visible<2->{No LS}} \\
+%            Cipher      & $r_e$   &   $d$   &    $r_d$   &  $d$  & & \visible<2->{$r_e$} & \visible<2->{$d$} & \visible<2->{$r_d$} & \visible<2->{$d$} \\
+%            \midrule
+%            Ascon       &   3     &   298   &      1     &  125  & & \visible<2->{3} & \visible<2->{ 310} & \visible<2->{1} & \visible<2->{155} \\ \rowcolor{gray!10}
+%            Gift        &   3     &    60   &      3     &   60  & & \visible<2->{2} & \visible<2->{  16} & \visible<2->{2} & \visible<2->{ 16} \\
+%            Keccak      &   2     &   546   &      1     &  169  & & \visible<2->{2} & \visible<2->{1290} & \visible<2->{1} & \visible<2->{270} \\ \rowcolor{gray!10}
+%            Present     &   3     &    43   &      3     &   63  & & \visible<2->{2} & \visible<2->{  16} & \visible<2->{2} & \visible<2->{ 16} \\
+%            Pride       &   2     &    31   &      2     &   34  & & \visible<2->{2} & \visible<2->{  56} & \visible<2->{1} & \visible<2->{ 40} \\ \rowcolor{gray!10}
+%            Qarma       &   2     &    36   &      2     &   36  & & \visible<2->{2} & \visible<2->{  36} & \visible<2->{2} & \visible<2->{ 36} \\
+%            Serpent     &   2     &    88   &      2     &   62  & & \visible<2->{2} & \visible<2->{ 100} & \visible<2->{2} & \visible<2->{ 68} \\ \rowcolor{gray!10}
+%            Skinny64    &   5     &    48   &      5     &   48  & & \visible<2->{4} & \visible<2->{  48} & \visible<2->{4} & \visible<2->{ 48} \\
+%            Skinny128   &   5     &    96   &      5     &   96  & & \visible<2->{5} & \visible<2->{  96} & \visible<2->{5} & \visible<2->{ 96} \\ %\rowcolor{gray!10}
+%            \bottomrule
+%        \end{tabular}
+%    \end{block}
+%\end{frame}
