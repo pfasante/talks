@@ -137,6 +137,7 @@
 \end{frame}
 
 \begin{frame}{Intuition}{The Image of the Derivative is in the Subspace}
+    \begin{minipage}{0.9775\textwidth}
     \begin{lemma}
         \vspace{0.5em}
         Let $U \through{F} V$ be a subspace trail.
@@ -145,6 +146,7 @@
             \forall u \in U : \mathrm{Im}\parens{\Delta_u(F)} \subseteq V.
         \end{equation*}
     \end{lemma}
+    \end{minipage}
     \begin{columns}[t,onlytextwidth]
         \begin{column}{0.45\textwidth}
             \begin{block}{Remember:}
@@ -195,7 +197,7 @@
 \end{frame}
 
 \begin{frame}{Link to Truncated Differentials}
-    \begin{block}{Definition}
+    \begin{block}{Definition~\cite{FSE:Knudsen94,FSE:BloLeaNyb14}}
         Let $F : \F_2^n \to \F_2^n$.
         A \emph{truncated differential} of probability one is a pair of affine subspaces $\coset{U}{s}$ and $\coset{V}{t}$, \st/
         \begin{equation*}
@@ -215,7 +217,8 @@
 
 \section{Algorithm}
 \begin{frame}{Approach to the Algorithm}
-    \begin{columns}[onlytextwidth]
+    \vspace{-1em}
+    \begin{columns}[t,onlytextwidth]
         \begin{column}{0.6\textwidth}
             \begin{block}{SPN Structure\vphantom{y}}
                 \vspace{0.5em}
@@ -271,13 +274,15 @@
                               U \through{P} P(U)
                           \end{equation*}
                 \end{itemize}
-                \vspace{4mm}
+                \vspace{3.75mm}
             \end{block}
         \end{column}
     \end{columns}
+    \begin{minipage}{0.979\textwidth}
     \begin{block}{How to reduce the number of starting points?}
         Two possibilities, depending on the S-box $S$.
     \end{block}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Possibility I}{The short one}
@@ -304,17 +309,20 @@
     \begin{columns}[t,onlytextwidth]
         \begin{column}{0.5\textwidth}
             \begin{block}{Algorithm}
+                \begin{minipage}[t][30pt][t]{\textwidth}
                 \begin{itemize}
                     \item Simply activate single S-boxes
                     \item Compute resulting subspace trail
                 \end{itemize}
+                \end{minipage}
             \end{block}
         \end{column}
         \begin{column}{0.4\textwidth}
             \begin{block}{Complexity}
-                \vspace{0.575em}
+                \begin{minipage}[t][30pt][t]{\textwidth}
+                \vspace{2pt}
                 Linear in the number of S-boxes.
-                \vspace{0.575em}
+                \end{minipage}
             \end{block}
         \end{column}
     \end{columns}
@@ -322,9 +330,11 @@
     In particular, in this case, bounds from activating single S-boxes are optimal.\\[1em]
     This approach is independent of the S-box, \ie/ any S-box without linear structures behaves the same with respect to subspace trails.
     \visible<2->{%
+    \begin{minipage}{0.9775\textwidth}
     \begin{block}{The problem with S-boxes that have linear structures}
         Subspace trails through S-box layers with \emph{one}-linear structures are not necessarily a direct product of subspaces (see \eg/ Present).
     \end{block}
+    \end{minipage}
     }
 \end{frame}
 
@@ -348,6 +358,7 @@
         \end{column}
         \begin{column}{0.4\textwidth}
             \begin{block}{Algorithm Idea}
+                \begin{minipage}[t][146.5pt][t]{\textwidth}
                 \vspace{1em}
                 \begin{itemize}
                     \item Find a good set $\mathbb{W}$, \st/ for any possible subspace trail over the S-box layer $U \through{F} V$, there is an element $W \in \mathbb{W}$ \st/ $\set{W} \subseteq V$.
@@ -355,6 +366,7 @@
                     \item Compute the subspace trails for any starting point $W \in \mathbb{W}$.
                 \end{itemize}
                 \vspace{1em}
+                \end{minipage}
             \end{block}
         \end{column}
     \end{columns}
