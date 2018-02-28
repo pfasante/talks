@@ -3,9 +3,9 @@
     \begin{block}{Invariant Subspaces~\cite{C:GAAZ11} (Crypto 2011)}
         \vspace{0.25em}
         Let $U$ be a subspace of $\F_2^n$, and $F : \F_2^n \to \F_2^n$.
-        We write $\coset{U}{a} \through{F} \coset{U}{b}$, if
+        We write $\coset{U}{a} \through{F} \coset{U}{b}$, iff
         \begin{equation*}
-            \exists a : \exists b : F(\coset{U}{a}) = \coset{U}{b}
+            \exists a \in U^\perp : \exists b \in V^\perp : F(\coset{U}{a}) = \coset{U}{b}
         \end{equation*}
     \end{block}
     \begin{block}{Main Idea}
@@ -44,9 +44,9 @@
     \begin{block}{Subspace Trail Cryptanalysis~\cite{ToSC:GraRecRon16} (Last Year's FSE)}
         \vspace{0.25em}
         Let $U$, $V$ be subspaces of $\F_2^n$, and $F : \F_2^n \to \F_2^n$.
-        We write $U \through{F} V$, if
+        We write $U \through{F} V$, iff
         \begin{equation*}
-            \forall a : \exists b : F(\coset{U}{a}) \subseteq \coset{V}{b}
+            \forall a \in U^\perp : \exists b \in V^\perp : F(\coset{U}{a}) \subseteq \coset{V}{b}
         \end{equation*}
     \end{block}
     We restrict ourselves to \emph{essential} subspace trails.
@@ -59,14 +59,14 @@
             \node (left2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (1,0) {};
             \draw[thick] (left2-space.west)+(0,1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_s}$} +(3cm,1.125cm);
             \draw[thick] (left2-space.west)+(0,-0.25cm) -- node[above, yshift=5mm] {\dots} +(3cm,-0.25cm);
-            \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_2}$}
-                                                            node[below, yshift=-1.5mm] {$\coset{U}{a_1}$} +(3cm,-1.125cm);
+            \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_1}$}
+                                                            node[below, yshift=-1.5mm] {$U$} +(3cm,-1.125cm);
 
             \node (right2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (5,0) {};
             \draw[thick] (right2-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=45] {$\coset{V}{b_t}$} +(-1.5cm,-1.5cm);
             \draw[thick] (right2-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
-            \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=45] {$\coset{V}{b_2}$}
-                                                        node[below, yshift=-0.5mm, rotate=45] {$\coset{V}{b_1}$} +(-1.5cm,-2cm);
+            \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=45] {$\coset{V}{b_1}$}
+                                                        node[below, yshift=-0.5mm, rotate=45] {$V$} +(-1.5cm,-2cm);
 
             \node (right-f) at (3,0.375) {$F$};
 
@@ -85,7 +85,7 @@
     }
     \visible<2->{%
     \begin{block}{Main problem: Too many possible starting points.}
-        Already for initially one-dimensional subspaces there are $2^n$ possibilities.
+        Already for initially one-dimensional subspaces there are $2^n-1$ possibilities.
     \end{block}
     }
     \visible<2->{%
@@ -156,24 +156,28 @@
                     \node (left2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (1,0) {};
                     \draw[thick] (left2-space.west)+(0,1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_s}$} +(3cm,1.125cm);
                     \draw[thick] (left2-space.west)+(0,-0.25cm) -- node[above, yshift=5mm] {\dots} +(3cm,-0.25cm);
-                    \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[below, yshift=-1.5mm] {$\coset{U}{a_1}$} +(3cm,-1.125cm);
+                    \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[below, yshift=-1.5mm] {$U$} +(3cm,-1.125cm);
 
                     \node (right2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (5,0) {};
                     \draw[thick] (right2-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=45] {$\coset{V}{b_t}$} +(-1.5cm,-1.5cm);
                     \draw[thick] (right2-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
-                    \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[below, yshift=-0.5mm, rotate=45] {$\coset{V}{b_1}$} +(-1.5cm,-2cm);
+                    \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[below, yshift=-0.5mm, rotate=45] {$V$} +(-1.5cm,-2cm);
 
                     \node[xshift=-20pt, yshift=-23pt] (x1) at (left2-space) {$\cdot$};
                     \node[above] (x1-label) at (x1) {$x_1$};
                     \node[xshift=25pt, yshift=-20pt] (x2) at (left2-space) {$\cdot$};
                     \node[above] (x2-label) at (x2) {$x_2$};
-                    \draw[latex-latex] (x1) -- node[below] {$u$} (x2);
+                    \draw[latex-latex] (x1) -- node[below,draw,fill=white,inner sep=1pt,circle] (u-label) {$u$} (x2);
+                    \node[xshift=17pt, yshift=-23pt] at (u-label) (u) {$\cdot$};
+                    \draw[-latex] (u-label) -- (u);
 
                     \node[xshift=29pt, yshift=-3pt] (y1) at (right2-space) {$\cdot$};
                     \node[above] (y1-label) at (y1) {$y_1$};
                     \node[xshift=-5pt, yshift=-43pt] (y2) at (right2-space) {$\cdot$};
-                    \node[above] (y2-label) at (y2) {$y_2$};
-                    \draw[latex-latex] (y1) -- node[below,xshift=2pt] {$v$} (y2);
+                    \node[below] (y2-label) at (y2) {$y_2$};
+                    \draw[latex-latex] (y1) -- node[below,xshift=2pt,draw,fill=white,inner sep=1pt,circle] (v-label) {$v$} (y2);
+                    \node[xshift=22pt, yshift=-9pt] at (v-label) (v) {$\cdot$};
+                    \draw[-latex] (v-label) -- (v);
 
                     \draw[-latex] (x1) to [bend left] node[below,yshift=-5pt] {$F$} (y1);
                     \draw[-latex] (x2) to [bend left] (y2);
@@ -199,13 +203,14 @@
 \begin{frame}{Link to Truncated Differentials}
     \begin{block}{Definition~\cite{FSE:Knudsen94,FSE:BloLeaNyb14}}
         Let $F : \F_2^n \to \F_2^n$.
-        A \emph{truncated differential} of probability one is a pair of affine subspaces $\coset{U}{s}$ and $\coset{V}{t}$, \st/
+        A \emph{truncated differential} of probability one is a pair of affine subspaces $\coset{U}{s}$ and $\coset{V}{t}$ of $\F_2^n$, \st/
         \begin{equation*}
             \forall u \in U : \forall x \in \F_2^n : \Delta_{u + s}(F)(x) \in \coset{V}{t}
         \end{equation*}
     \end{block}
+    \visible<2->{%
     \begin{itemize}
-        \item Direct consequence from Lemma 1:
+        \item Direct consequence from above Lemma:
     \end{itemize}
     \begin{block}{Link: Subspaces Trails are Truncated Differentials with probability one}
         \vspace{0.5em}
@@ -213,6 +218,7 @@
         Then $\coset{U}{0}$ and $\coset{V}{0}$ are a truncated differential with probabiliy one.
         \vspace{0.5em}
     \end{block}
+    }
 \end{frame}
 
 \section{Algorithm}
@@ -293,8 +299,9 @@
             \forall x, \forall u \in U&: \Delta_u(S)(x) \in V \\
             \Rightarrow \forall \alpha \in V^\perp : \forall x, \forall u \in U &: \angles{\alpha, \Delta_u(S)(x)} = 0.
         \end{align*}
-        Thus, $V^\perp$ consists of the linear structures of $S$.
+        Thus, $V^\perp$ consists of the (zero) linear structures of $S$.
     \end{block}
+    \visible<2->{%
     \begin{theorem}
         Let $F : \F_2^{kn} \to \F_2^{kn}$ be an S-box layer that applies $k$ S-boxes with no non-trivial linear structures in parallel.
         Then every essential subspace trail $U \through{F} V$ is of the form
@@ -303,6 +310,7 @@
         \end{equation*}
         where $U_i \in \set{\set{0}, \F_2^n}$.
     \end{theorem}
+    }
 \end{frame}
 
 \begin{frame}{Possibility I}{Algorithm}
@@ -318,7 +326,7 @@
             \end{block}
         \end{column}
         \begin{column}{0.4\textwidth}
-            \begin{block}{Complexity}
+            \begin{block}{Complexity (No. of starting $U$s)}
                 \begin{minipage}[t][30pt][t]{\textwidth}
                 \vspace{2pt}
                 Linear in the number of S-boxes.
@@ -352,11 +360,14 @@
                 \end{aligned}
                 \end{equation*}
             \end{block}
+            \visible<2->{%
             \begin{block}{Complexity (Size of $\mathbb{W}$)}
-                For an S-box layer $F : \F_2^{kn} \to \F_2^{kn}$ with $k$ S-boxes, each $n$-bit: $\abs{\mathbb{W}} = k \cdot 2^n$
+                For an S-box layer $F : \F_2^{kn} \to \F_2^{kn}$ with $k$ S-boxes, each $n$-bit: $\abs{\mathbb{W}} = k \cdot (2^n-1)$
             \end{block}
+            }
         \end{column}
         \begin{column}{0.4\textwidth}
+            \visible<2->{%
             \begin{block}{Algorithm Idea}
                 \begin{minipage}[t][146.5pt][t]{\textwidth}
                 \vspace{1em}
@@ -368,6 +379,7 @@
                 \vspace{1em}
                 \end{minipage}
             \end{block}
+            }
         \end{column}
     \end{columns}
 \end{frame}
