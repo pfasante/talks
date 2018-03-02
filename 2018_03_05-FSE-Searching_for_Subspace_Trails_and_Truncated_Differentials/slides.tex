@@ -42,7 +42,7 @@
             \draw [thick,-latex](x) -- (v1);
 
             \node (Ekx) at (5.25,-4.25) {};
-            \node [xshift=15pt,yshift=2pt] at (Ekx.north) {$E_k(x)$};
+            \node [xshift=15pt,yshift=2pt] at (Ekx.north) {$E_k(x)\hphantom{+\alpha}$};
             \node [xshift=15pt,yshift=-2pt] at (Ekx.south) {$E_k(x+\alpha)$};
             \draw [thick,-latex](v3) -- (Ekx);
 
@@ -54,6 +54,7 @@
         \end{tikzpicture}
         \vspace{0.5em}
     \end{block}
+    \pause
     \begin{block}{Definition~\cite{FSE:Knudsen94,FSE:BloLeaNyb14}}
         Let $F : \F_2^n \to \F_2^n$.
         A \emph{truncated differential} of probability one is a pair of affine subspaces $\coset{U}{s}$ and $\coset{V}{t}$ of $\F_2^n$, \st/
@@ -139,7 +140,7 @@
     \begin{lemma}
         \vspace{0.5em}
         Let $U \through{F} V$ be a subspace trail.
-        Then for all $x$: $F(x) + F(x + u) \in V$.
+        Then for all $u \in U$ and all $x$: $F(x) + F(x + u) \in V$.
     \end{lemma}
     \begin{block}{Proof}
         \centering
@@ -197,6 +198,7 @@
         Then $\coset{U}{0}$ and $\coset{V}{0}$ form a truncated differential with probabiliy one.
         \vspace{0.5em}
     \end{block}
+    Subspace Trails are thus a special case of truncated differentials.
 \end{frame}
 
 \section{Security against Subspace Trail Attacks}
@@ -266,7 +268,7 @@
             \draw [thick,-latex](x) -- (v1);
 
             \node (Ekx) at (5.25,-4.25) {};
-            \node [xshift=15pt,yshift=2pt] at (Ekx.north) {$E_k(x)$};
+            \node [xshift=15pt,yshift=2pt] at (Ekx.north) {$E_k(x)\hphantom{+\alpha}$};
             \node [xshift=15pt,yshift=-2pt] at (Ekx.south) {$E_k(x+\alpha)$};
             \draw [thick,-latex](v3) -- (Ekx);
 
@@ -297,6 +299,7 @@
         \end{column}
 
         \begin{column}{0.6\textwidth}
+            \visible<2->{%
             \begin{block}{S-box: First Observation\vphantom{p}}
                 \vspace{0.25em}
                 For an S-box $S$ and $U \through{S} V$, because of the above lemma, $\forall x \in \F_2^n$ and $\forall u \in U$:
@@ -304,10 +307,11 @@
                                                                 &S(x) + S(x + u) \in V \\
                     \visible<2->{\Leftrightarrow \langle\alpha, &S(x) + S(x + u)\rangle = 0 \quad \forall \alpha \in V^\perp.}
                 \end{align*}
-                \visible<2->{%
+                \visible<3->{%
                     By definition, $V^\perp$ is thus the set of zero-linear structures of $S$.\\[1em]
                 }
             \end{block}
+            }
         \end{column}
     \end{columns}
 \end{frame}
@@ -347,19 +351,19 @@
                 \draw[draw=none] (i0) -- node[left] (x1) {$\times$} (i1);
                 \draw[draw=none] (i1) -- node[left] (x2) {$\times$} (i2);
                 \draw[draw=none] (i2) -- node[left] (x3) {$\times$} (i3);
-                \node at (i0) [xshift=-6pt] (U0) {$U_0$};
-                \node at (i1) [xshift=-6pt] (U1) {$U_1$};
+                \node at (i0) [xshift=-6pt] (U0) {$U_4$};
+                \node at (i1) [xshift=-6pt] (U1) {$U_3$};
                 \node at (i2) [xshift=-6pt] (U2) {$U_2$};
-                \node at (i3) [xshift=-6pt] (U3) {$U_3$};
+                \node at (i3) [xshift=-6pt] (U3) {$U_1$};
 
                 \draw[draw=none] (o1) -- node[left,xshift=37pt] (V) {$ = V$} (o2);
                 \draw[draw=none] (o0) -- node[left,xshift=17pt] (y1) {$\times$} (o1);
                 \draw[draw=none] (o1) -- node[left,xshift=17pt] (y2) {$\times$} (o2);
                 \draw[draw=none] (o2) -- node[left,xshift=17pt] (y3) {$\times$} (o3);
-                \node at (o0) [xshift=10pt] (V0) {$V_0$};
-                \node at (o1) [xshift=10pt] (V1) {$V_1$};
+                \node at (o0) [xshift=10pt] (V0) {$V_4$};
+                \node at (o1) [xshift=10pt] (V1) {$V_3$};
                 \node at (o2) [xshift=10pt] (V2) {$V_2$};
-                \node at (o3) [xshift=10pt] (V3) {$V_3$};
+                \node at (o3) [xshift=10pt] (V3) {$V_1$};
                 \end{tikzpicture}
                 \vspace{0.5em}
             \end{block}
@@ -393,48 +397,68 @@
     \visible<2->{%
     \begin{minipage}{0.9775\textwidth}
     \begin{block}{The problem with S-boxes that have linear structures}
-        Subspace trails through S-box layers with \emph{one}-linear structures are not necessarily a direct product of subspaces (see \eg/ Present).
+        Subspace trails through S-box layers with \emph{one}-linear structures are not necessarily a direct product of subspaces (see \eg/ PRESENT).
     \end{block}
     \end{minipage}
     }
 \end{frame}
 
-\begin{frame}{Possibility II}{The long one, but only the idea}
+\begin{frame}{Possibility II}{S-boxes with linear structures}
     \begin{columns}[t,onlytextwidth]
-        \begin{column}{0.55\textwidth}
+        \begin{column}{0.35\textwidth}
+            %\begin{block}{Observation\vphantom{g}}
+            %    \vspace{0.25em}
+            %    If $U_1 \through{F} U_2$ is a subspace, then for any $V_1 \subseteq U_1$ there exists a $V_2 \subseteq U_2$, \st/ $V_1 \through{F} V_2$:
+            %    \begin{equation*}
+            %    \begin{aligned}
+            %        & U_1 & \stackrel{F}{\longrightarrow}\ &\ U_2 \\
+            %        & \rotatebox[origin=c]{90}{$\subseteq$} & &\ \rotatebox[origin=c]{90}{$\subseteq$} \\
+            %        & V_1 & \stackrel{F}{\longrightarrow}\ &\ V_2
+            %    \end{aligned}
+            %    \end{equation*}
+            %\end{block}
             \begin{block}{Observation\vphantom{g}}
-                \vspace{0.25em}
-                If $U_1 \through{F} U_2$ is a subspace, then for any $V_1 \subseteq U_1$ there exists a $V_2 \subseteq U_2$, \st/ $V_1 \through{F} V_2$:
-                \begin{equation*}
-                \begin{aligned}
-                    & U_1 & \stackrel{F}{\longrightarrow}\ &\ U_2 \\
-                    & \rotatebox[origin=c]{90}{$\subseteq$} & &\ \rotatebox[origin=c]{90}{$\subseteq$} \\
-                    & V_1 & \stackrel{F}{\longrightarrow}\ &\ V_2
-                \end{aligned}
-                \end{equation*}
+                \vspace{0.5em}
+                \centering
+                \begin{tikzpicture}
+                \foreach \z in {0,1,2,3} {%
+                    \node[] (i\z) at ($(-0.25, \z*3em)+(0,0.35)$) {};
+                    \node[] (o\z) at ($(0, \z*3em)+(3em,0.35)$) {};
+                    \draw[thick,solid] (i\z) -- (o\z.center);
+                }
+
+                %% SBoxes
+                \foreach \z in {0,1,2,3} {%
+                    \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sl\z) at ($(i\z) + (2em,0em)$) {$S$};
+                }
+
+                \draw [draw=none] (i1) -- node[left,xshift=-0.5em] (U) {$U$} (i2);
+
+                \draw [draw=none] (o1) -- node[right,xshift=0.5em] (V) {$V \ \ni$} (o2);
+                \node [xshift=1em] at (V.east) {$\begin{pmatrix}0 \\ \\ \alpha \\ \\ 0 \\ \\ 0 \end{pmatrix}$} (o2);
+                \end{tikzpicture}
+                \vspace{0.5em}
             \end{block}
+        \end{column}
+        \begin{column}{0.6\textwidth}
             \visible<2->{%
+            \begin{block}{Algorithm Idea}
+                %\begin{minipage}[t][117.5pt][t]{\textwidth}
+                \vspace{0.25em}
+                Compute the subspace trails for any starting point $W_{i,\alpha} \in \mathbb{W}$, with
+                    \begin{equation*}
+                        W_{i,\alpha} \coloneqq (\underbrace{0, \ldots, 0}_{i-1}, \alpha, 0, \ldots, 0)
+                    \end{equation*}
+                %\end{minipage}
+            \end{block}
             \begin{block}{Complexity (Size of $\mathbb{W}$)}
                 For an S-box layer $F : \F_2^{kn} \to \F_2^{kn}$ with $k$ S-boxes, each $n$-bit: $\abs{\mathbb{W}} = k \cdot (2^n-1)$
             \end{block}
             }
         \end{column}
-        \begin{column}{0.4\textwidth}
-            \visible<2->{%
-            \begin{block}{Algorithm Idea}
-                \begin{minipage}[t][146.5pt][t]{\textwidth}
-                \vspace{1em}
-                \begin{itemize}
-                    \item Find a good set $\mathbb{W}$, \st/ for any possible subspace trail over the S-box layer $U \through{F} V$, there is an element $W \in \mathbb{W}$ \st/ $\set{W} \subseteq V$.
-                \vspace{1em}
-                    \item Compute the subspace trails for any starting point $W \in \mathbb{W}$.
-                \end{itemize}
-                \vspace{1em}
-                \end{minipage}
-            \end{block}
-            }
-        \end{column}
     \end{columns}
+    \visible<2->{%
+    }
 \end{frame}
 
 %\begin{frame}{Results}{No linear structures}
