@@ -1,45 +1,66 @@
 \section{Motivation}
-%\begin{frame}{Structural Attacks}{Invariant Subspaces}
-%    \begin{block}{Invariant Subspaces~\cite{C:GAAZ11} (Crypto 2011)}
-%        \vspace{0.25em}
-%        Let $U$ be a subspace of $\F_2^n$, and $F : \F_2^n \to \F_2^n$.
-%        We write $\coset{U}{a} \through{F} \coset{U}{b}$, iff
-%        \begin{equation*}
-%            \exists a \in U^\perp : \exists b \in V^\perp : F(\coset{U}{a}) = \coset{U}{b}
-%        \end{equation*}
-%    \end{block}
-%    \begin{block}{Main Idea}
-%    \begin{center}
-%        \begin{tikzpicture}[scale=0.8]
-%            \tikzstyle{every node}=[transform shape];
-%
-%            \node (left1-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (-8,0)
-%            {\begin{tikzpicture}[scale=0.7]
-%                    \node (u) [draw,rectangle,thick, fill=gray!20]
-%                    {\begin{tikzpicture}[scale=1.2]
-%                            \draw[rounded corners=2pt]
-%                                (-1.2,1.9) -- (-1,1.9) -- (-0.9,1.7) -- (-1.1,1.2) -- (-1,0.9) -- (-1.4,0.6) -- (-1.1,0.1) -- (-1.2,-0.4) -- (-1.5,-0.2) -- (-1.8,-0.3) -- (-2.2,-0.6) -- (-2.7,-0.3) -- (-2.2,0.8) -- (-2.4,1) -- (-2.6,1) -- (-2.7,1.2) -- (-2.6,1.8) -- (-2.3,1.8) -- (-2.1,2.2) -- (-1.6,2.3) -- (-1.4,2.3) -- (-1.4,2.1) -- (-1.3,2) -- (-1.2,1.9);
-%                    \end{tikzpicture}};
-%            \end{tikzpicture}};
-%
-%            \node (right1-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (-4,0)
-%            {\begin{tikzpicture}[scale=0.7]
-%                    \node (u) [draw,rectangle,thick, fill=gray!10] {%
-%                        \begin{tikzpicture}[scale=1.2]
-%                            \draw[rounded corners=2pt, fill=gray!20]
-%                                (-1.2,1.9) -- (-1,1.9) -- (-0.9,1.7) -- (-1.1,1.2) -- (-1,0.9) -- (-1.4,0.6) -- (-1.1,0.1) -- (-1.2,-0.4) -- (-1.5,-0.2) -- (-1.8,-0.3) -- (-2.2,-0.6) -- (-2.7,-0.3) -- (-2.2,0.8) -- (-2.4,1) -- (-2.6,1) -- (-2.7,1.2) -- (-2.6,1.8) -- (-2.3,1.8) -- (-2.1,2.2) -- (-1.6,2.3) -- (-1.4,2.3) -- (-1.4,2.1) -- (-1.3,2) -- (-1.2,1.9);
-%                        \end{tikzpicture}
-%                    };
-%            \end{tikzpicture}};
-%
-%            \draw[-latex] (-8,0.5) to [bend left] node[above]{$F$}
-%                                                  node[below,yshift=-17.5pt]{\repeatarrow} (-4,0.5);
-%            \draw[-latex] (-4.75,-0.5) to [bend left] node[below]{$F^{-1}$} (-7.25,-0.5);
-%        \end{tikzpicture}
-%    \end{center}
-%    \end{block}
-%\end{frame}
 \begin{frame}{Differential Cryptanalysis}
+    \begin{block}{SPN Cipher}
+        \vspace{0.5em}
+        \centering
+        \begin{tikzpicture}[line cap=round]
+            \tikzset{tikzxor/.style={draw,thick,circle,append after command={%
+                    [shorten >=\pgflinewidth, shorten <=\pgflinewidth,]
+                    (\tikzlastnode.north) edge[thick] (\tikzlastnode.south)
+                    (\tikzlastnode.east) edge[thick] (\tikzlastnode.west)
+                    }
+                }
+            }
+
+            \node[tikzxor] (v1) at (-1.75,-4.25) {};
+            \node[tikzxor] (v2) at (0.5,-4.25) {};
+            \node[tikzxor] (v3) at (4.5,-4.25) {};
+
+            \draw[thick, rounded corners, fill=white] (-1,-3.5) rectangle (-0.5,-5);
+            \draw[thick, rounded corners, fill=white]  (-0.5,-3.5) rectangle (0,-5);
+            \node at (-0.75,-4.25) {$S$};
+            \node at (-0.25,-4.25) {$L$};
+
+            \node (dots) at (1.75,-4.25) {$\dots$};
+            \draw[thick, rounded corners, fill=white] (3,-3.5) rectangle (3.5,-5);
+            \draw[thick, rounded corners, fill=white] (3.5,-3.5) rectangle (4,-5);
+            \node at (3.25,-4.25) {$S$};
+            \node at (3.75,-4.25) {$L$};
+
+            \node (k0) at (-1.75,-3.25) {$k_0$};
+            \draw [thick,-latex](k0) -- (v1);
+
+            \node (k1) at (0.5,-3.25) {$k_1$};
+            \draw [thick,-latex](k1) -- (v2);
+
+            \node (kt) at (4.5,-3.25) {$k_t$};
+            \draw [thick,-latex](kt) -- (v3);
+
+            \node (x) at (-2.75,-4.25) {};
+            \node [xshift=-5pt,yshift=2pt] at (x.north) {$x$};
+            \node [xshift=-5pt,yshift=-2pt] at (x.south) {$x+\alpha$};
+            \draw [thick,-latex](x) -- (v1);
+
+            \node (Ekx) at (5.25,-4.25) {};
+            \node [xshift=15pt,yshift=2pt] at (Ekx.north) {$E_k(x)$};
+            \node [xshift=15pt,yshift=-2pt] at (Ekx.south) {$E_k(x+\alpha)$};
+            \draw [thick,-latex](v3) -- (Ekx);
+
+            \draw [thick,-latex](v1) -- (-1,-4.25);
+            \draw [thick,-latex](0,-4.25) -- (v2);
+            \draw [thick,-latex](v2) -- (dots);
+            \draw [thick,-latex](dots) -- (3,-4.25);
+            \draw [thick,-latex](4,-4.25) -- (v3);
+        \end{tikzpicture}
+        \vspace{0.5em}
+    \end{block}
+    \begin{block}{Definition~\cite{FSE:Knudsen94,FSE:BloLeaNyb14}}
+        Let $F : \F_2^n \to \F_2^n$.
+        A \emph{truncated differential} of probability one is a pair of affine subspaces $\coset{U}{s}$ and $\coset{V}{t}$ of $\F_2^n$, \st/
+        \begin{equation*}
+            \forall u \in U : \forall x \in \F_2^n : F(x) + F(x + u + s) \in \coset{V}{t}
+        \end{equation*}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Structural Attacks}{Subspace Trail Cryptanalysis}
@@ -61,32 +82,35 @@
             \draw[thick] (middle-space.east)+(-0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=45] (vb1) {$\coset{V}{b_1}$}
                                                         node[below, yshift=-0.5mm, rotate=45] (v) {$V$} +(-1.5cm,-2cm);
 
+            \draw[-latex] (1.75,-0.5) to [bend left] (6.325,-1.0);
+            \draw[-latex] (1.75,-1.5) to [bend left] (4.75,-1.5);
+            \draw[-latex] (1.75,+1.5) to [bend left] (middle-dots);
+
+            \node (left-f) at (3,0) {$F$};
+
+            \visible<2->{%
             \node (right-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (9,0) {};
             \draw[thick] (right-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=-45] (wct) {$\coset{W}{c_t}$} +(+1.5cm,-1.5cm);
             \draw[thick] (right-space.west)+(0.5pt,1cm) -- node[above, yshift=10mm, rotate=-45] (right-dots) {\dots} +(3cm-1.25pt,-2cm+1.25pt);
             \draw[thick] (right-space.west)+(0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=-45] (wc1) {$\coset{W}{c_1}$}
                                                         node[below, yshift=-0.5mm, rotate=-45] (w) {$W$} +(+1.5cm,-2cm);
 
-            \node (left-f) at (3,0.375) {$F$};
-            \node (middle-f) at (7,0.375) {$F$};
-            \node (right-f) at (11,0.375) {$\ldots$};
-
-            \draw[-latex] (1.75,-0.5) to [bend left] (6.325,-1.0);
-            \draw[-latex] (1.75,-1.5) to [bend left] (4.75,-1.5);
-            \draw[-latex] (1.75,+1.5) to [bend left] (middle-dots);
+            \node (middle-f) at (7,0) {$F$};
+            \node (right-f) at (11,0) {$\ldots$};
 
             \draw[-latex] (vb1) to [bend left] (w);
             \draw[-latex] (v) to [bend left] (wc1);
             \draw[-latex] (vbs) to [bend right] (9.625,+1.75);
+            }
         \end{tikzpicture}
     \end{block}
-    \visible<2->{%
+    \visible<3->{%
     \begin{block}{Subspace Trail Cryptanalysis~\cite{ToSC:GraRecRon16} (Last Year's FSE)}
         \vspace{0.25em}
-        Let $U$, $V$ be subspaces of $\F_2^n$, and $F : \F_2^n \to \F_2^n$.
-        We write $U \through{F} V$, iff
+        Let $(U_0, \ldots, U_r)$ be subspaces of $\F_2^n$, and $F : \F_2^n \to \F_2^n$.
+        We write
         \begin{equation*}
-            \forall a \in U^\perp : \exists b \in V^\perp : F(\coset{U}{a}) \subseteq \coset{V}{b}
+            U_0 \through{F} \cdots \through{F} U_r \Leftrightarrow 0 \leq i < r : \forall a \in U_i^\perp : \exists b \in U_{i+1}^\perp : F(\coset{U_i}{a}) \subseteq \coset{U_{i+1}}{b}
         \end{equation*}
     \end{block}
     }
@@ -132,47 +156,47 @@
             \draw[thick] (right2-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
             \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[below, yshift=-0.5mm, rotate=45] {$V$} +(-1.5cm,-2cm);
 
-            \node[xshift=-20pt, yshift=-23pt] (x1) at (left2-space) {$\cdot$};
-            \node[above] (x1-label) at (x1) {$x_1$};
-            \node[xshift=25pt, yshift=-20pt] (x2) at (left2-space) {$\cdot$};
-            \node[above] (x2-label) at (x2) {$x_2$};
-            \draw[latex-latex] (x1) -- node[below,draw,fill=white,inner sep=1pt,circle] (u-label) {$u$} (x2);
-            \node[xshift=17pt, yshift=-23pt] at (u-label) (u) {$\cdot$};
-            \draw[-latex] (u-label) -- (u);
+            \node[xshift=-20pt, yshift=-18pt] (x1) at (left2-space) {$\cdot$};
+            \node[above] (x1-label) at (x1) {$x$};
 
-            \node[xshift=29pt, yshift=-3pt] (y1) at (right2-space) {$\cdot$};
-            \node[above] (y1-label) at (y1) {$y_1$};
-            \node[xshift=-5pt, yshift=-43pt] (y2) at (right2-space) {$\cdot$};
-            \node[below] (y2-label) at (y2) {$y_2$};
-            \draw[latex-latex] (y1) -- node[below,xshift=2pt,draw,fill=white,inner sep=1pt,circle] (v-label) {$v$} (y2);
-            \node[xshift=22pt, yshift=-9pt] at (v-label) (v) {$\cdot$};
-            \draw[-latex] (v-label) -- (v);
+            \node[xshift=32pt, yshift=-4pt] (y1) at (right2-space) {$\cdot$};
+            \node[above] (y1-label) at (y1) {$F(x)$};
 
             \draw[-latex] (x1) to [bend left] node[below,yshift=-5pt] {$F$} (y1);
-            \draw[-latex] (x2) to [bend left] (y2);
+
+            \visible<2->{%
+                \node[xshift=25pt, yshift=-24pt] (x2) at (left2-space) {$\cdot$};
+                \node[above] (x2-label) at (x2) {$x+u$};
+
+                \node[xshift=-12pt, yshift=-42pt] (y2) at (right2-space) {$\cdot$};
+                \node[below] (y2-label) at (y2) {$F(x+u)$};
+
+                \draw[-latex] (x1) -- node[below,draw,fill=white,inner sep=1pt,circle] (u-label) {$u$} (x2);
+                \node[xshift=17pt, yshift=-23pt] at (u-label) (u) {$\cdot$};
+
+                \draw[-latex] (u-label) -- (u);
+
+                \draw[-latex] (x2) to [bend left] (y2);
+            }
+
+            \visible<3->{%
+                \draw[-latex] (y1) -- node[below,xshift=2pt,draw,fill=white,inner sep=1pt,circle] (v-label) {$v$} (y2);
+                \node[xshift=22pt, yshift=-9pt] at (v-label) (v) {$\cdot$};
+
+                \draw[-latex] (v-label) -- (v);
+            }
+
         \end{tikzpicture}
     \end{block}
 \end{frame}
 
-\begin{frame}{Link to Truncated Differentials}
-    \begin{block}{Definition~\cite{FSE:Knudsen94,FSE:BloLeaNyb14}}
-        Let $F : \F_2^n \to \F_2^n$.
-        A \emph{truncated differential} of probability one is a pair of affine subspaces $\coset{U}{s}$ and $\coset{V}{t}$ of $\F_2^n$, \st/
-        \begin{equation*}
-            \forall u \in U : \forall x \in \F_2^n : F(x) + F(x + u + s) \in \coset{V}{t}
-        \end{equation*}
-    \end{block}
-    \visible<2->{%
-    \begin{itemize}
-        \item Direct consequence from above Lemma:
-    \end{itemize}
-    \begin{block}{Link: Subspaces Trails are Truncated Differentials with probability one}
+\begin{frame}{Link to Truncated Differentials}{Direct consequence from above Lemma}
+    \begin{block}{Theorem (Subspaces Trails are Truncated Differentials with probability one)}
         \vspace{0.5em}
-        Let $U \through{F} V$ be a subspace trail.
-        Then $\coset{U}{0}$ and $\coset{V}{0}$ are a truncated differential with probabiliy one.
+        Let $U \through{F} V$ be a subspace trail.\\
+        Then $\coset{U}{0}$ and $\coset{V}{0}$ form a truncated differential with probabiliy one.
         \vspace{0.5em}
     \end{block}
-    }
 \end{frame}
 
 \section{Security against Subspace Trail Attacks}
@@ -198,57 +222,70 @@
     }
 \end{frame}
 
-\begin{frame}{Approach to the Algorithm}
-    \vspace{-1em}
+\begin{frame}{Approach to the Algorithm}{How to reduce the number of starting points?}
+    \begin{minipage}{0.979\textwidth}
+    \begin{block}{SPN Cipher}
+        %\vspace{0.5em}
+        \centering
+        \begin{tikzpicture}[line cap=round]
+            \tikzset{tikzxor/.style={draw,thick,circle,append after command={%
+                    [shorten >=\pgflinewidth, shorten <=\pgflinewidth,]
+                    (\tikzlastnode.north) edge[thick] (\tikzlastnode.south)
+                    (\tikzlastnode.east) edge[thick] (\tikzlastnode.west)
+                    }
+                }
+            }
+
+            \node[tikzxor] (v1) at (-1.75,-4.25) {};
+            \node[tikzxor] (v2) at (0.5,-4.25) {};
+            \node[tikzxor] (v3) at (4.5,-4.25) {};
+
+            \draw[thick, rounded corners, fill=white] (-1,-3.5) rectangle (-0.5,-5);
+            \draw[thick, rounded corners, fill=white]  (-0.5,-3.5) rectangle (0,-5);
+            \node at (-0.75,-4.25) {$S$};
+            \node at (-0.25,-4.25) {$L$};
+
+            \node (dots) at (1.75,-4.25) {$\dots$};
+            \draw[thick, rounded corners, fill=white] (3,-3.5) rectangle (3.5,-5);
+            \draw[thick, rounded corners, fill=white] (3.5,-3.5) rectangle (4,-5);
+            \node at (3.25,-4.25) {$S$};
+            \node at (3.75,-4.25) {$L$};
+
+            \node (k0) at (-1.75,-3.25) {$k_0$};
+            \draw [thick,-latex](k0) -- (v1);
+
+            \node (k1) at (0.5,-3.25) {$k_1$};
+            \draw [thick,-latex](k1) -- (v2);
+
+            \node (kt) at (4.5,-3.25) {$k_t$};
+            \draw [thick,-latex](kt) -- (v3);
+
+            \node (x) at (-2.75,-4.25) {};
+            \node [xshift=-5pt,yshift=2pt] at (x.north) {$x$};
+            \node [xshift=-5pt,yshift=-2pt] at (x.south) {$x+\alpha$};
+            \draw [thick,-latex](x) -- (v1);
+
+            \node (Ekx) at (5.25,-4.25) {};
+            \node [xshift=15pt,yshift=2pt] at (Ekx.north) {$E_k(x)$};
+            \node [xshift=15pt,yshift=-2pt] at (Ekx.south) {$E_k(x+\alpha)$};
+            \draw [thick,-latex](v3) -- (Ekx);
+
+            \draw [thick,-latex](v1) -- (-1,-4.25);
+            \draw [thick,-latex](0,-4.25) -- (v2);
+            \draw [thick,-latex](v2) -- (dots);
+            \draw [thick,-latex](dots) -- (3,-4.25);
+            \draw [thick,-latex](4,-4.25) -- (v3);
+        \end{tikzpicture}
+%        \vspace{0.5em}
+    \end{block}
+    \end{minipage}
+
+    \vspace{-0.5em}
+
     \begin{columns}[t,onlytextwidth]
-        \begin{column}{0.6\textwidth}
-            \begin{block}{SPN Structure\vphantom{y}}
-                \vspace{0.5em}
-                \begin{tikzpicture}
-                \foreach \z in {0,1,2,3} {%
-                    \node[] (i\z) at ($(-0.25, \z*3em)+(0,0.35)$) {};
-                    \node[] (o\z) at ($\z*(0, 3em)+(18.25em,0.35)$) {};
-                    \draw[thick,solid] (i\z) -- (o\z.center);
-                }
-
-                %% SBoxes
-                \foreach \z in {0,1,2,3} {%
-                    \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sl\z) at ($(0,\z*3em) + (2em,1.1em)$) {$S$};
-                }
-                %% Permutation Box
-                \node[draw,thick,solid,minimum width=2em,minimum height=11.75em,fill=white] (p1) at ($(1.125em,0) + (3.125em,5.6em)$) {$L$};
-
-                %% Round Dashed Box
-                \draw[thick,dashed] ($(sl3.north west)+(-0.25em,0.15)$) rectangle ($(p1.south east)+(0.35em,-0.15)$);
-
-
-                %% SBoxes
-                \foreach \z in {0,1,2,3} {%
-                    \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sm\z) at ($(2.125,\z*3em) + (2em,1.1em)$) {$S$};
-                }
-                %% Permutation Box
-                \node[draw,thick,solid,minimum width=2em,minimum height=11.75em,fill=white] (p2) at ($(5.5125em,0) + (4.8em,5.6em)$) {$L$};
-
-                %% Round Dashed Box
-                \draw[thick,dashed] ($(sm3.north west)+(-0.25em,0.15)$) rectangle ($(p2.south east)+(0.35em,-0.15)$);
-
-
-                %% SBoxes
-                \foreach \z in {0,1,2,3} {%
-                    \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sr\z) at ($(4.25,\z*3em) + (2em,1.1em)$) {$S$};
-                }
-                %% Permutation Box
-                \node[draw,thick,solid,minimum width=2em,minimum height=11.75em,fill=white] (p3) at ($(11.525em,0) + (4.8em,5.6em)$) {$L$};
-
-                %% Round Dashed Box
-                \draw[thick,dashed] ($(sr3.north west)+(-0.25em,0.15)$) rectangle ($(p3.south east)+(0.35em,-0.15)$);
-                \end{tikzpicture}
-                \vspace{0.5em}
-            \end{block}
-        \end{column}
         \begin{column}{0.3325\textwidth}
             \begin{block}{Easy parts}
-                \vspace{4mm}
+            \vspace{-2pt}
                 \begin{itemize}
                     \item Given a starting subspace, computing the trail is easy.
                     \item The effect of the linear layer $L$ to a subspace $U$ is clear:
@@ -256,38 +293,78 @@
                               U \through{L} L(U)
                           \end{equation*}
                 \end{itemize}
-                \vspace{3.75mm}
+            \end{block}
+        \end{column}
+
+        \begin{column}{0.6\textwidth}
+            \begin{block}{S-box: First Observation\vphantom{p}}
+                \vspace{0.25em}
+                For an S-box $S$ and $U \through{S} V$, because of the above lemma, $\forall x \in \F_2^n$ and $\forall u \in U$:
+                \begin{align*}
+                                                                &S(x) + S(x + u) \in V \\
+                    \visible<2->{\Leftrightarrow \langle\alpha, &S(x) + S(x + u)\rangle = 0 \quad \forall \alpha \in V^\perp.}
+                \end{align*}
+                \visible<2->{%
+                    By definition, $V^\perp$ is thus the set of zero-linear structures of $S$.\\[1em]
+                }
             \end{block}
         \end{column}
     \end{columns}
-    \begin{minipage}{0.979\textwidth}
-    \begin{block}{How to reduce the number of starting points?}
-        Two possibilities, depending on the S-box $S$.
-    \end{block}
-    \end{minipage}
 \end{frame}
 
 \begin{frame}{Possibility I}{The short one}
-    \begin{block}{Observation}
-        \vspace{0.25em}
-        For an S-box $S$ and $U \through{S} V$, because of the above lemma, $\forall x \in \F_2^n$ and $\forall u \in U$:
-        \begin{equation*}
-            S(x) + S(x + u) \in V \visible<2->{\Leftrightarrow \forall \alpha \in V^\perp : \langle\alpha, S(x) + S(x + u)\rangle = 0.}
-        \end{equation*}
-        \visible<2->{%
-            By definition, $V^\perp$ is thus the set of zero-linear structures of $S$.
-        }
-    \end{block}
-    \visible<3->{%
-    \begin{theorem}
-        Let $F : \F_2^{kn} \to \F_2^{kn}$ be an S-box layer that applies $k$ S-boxes with no non-trivial linear structures in parallel.
-        Then every essential subspace trail $U \through{F} V$ is of the form
-        \begin{equation*}
-            U = V = U_1 \times \cdots \times U_k,
-        \end{equation*}
-        where $U_i \in \set{\set{0}, \F_2^n}$.
-    \end{theorem}
-    }
+    \begin{columns}[t,onlytextwidth]
+        \begin{column}{0.575\textwidth}
+            \begin{block}{Theorem\vphantom{y}}
+                Let $F : \F_2^{kn} \to \F_2^{kn}$ be an S-box layer that applies $k$ S-boxes with no non-trivial linear structures in parallel.
+                Then every essential subspace trail $U \through{F} V$ is of the form
+                \begin{equation*}
+                    U = V = U_1 \times \cdots \times U_k,
+                \end{equation*}
+                where $U_i \in \set{\set{0}, \F_2^n}$.
+            \end{block}
+            \begin{center}
+                In particular, in this case, bounds from activating S-boxes are optimal.
+            \end{center}
+        \end{column}
+        \begin{column}{0.35\textwidth}
+            \begin{block}{SPN Round: S-box layer}
+                \vspace{0.5em}
+                \centering
+                \begin{tikzpicture}
+                \foreach \z in {0,1,2,3} {%
+                    \node[] (i\z) at ($(-0.25, \z*3em)+(0,0.35)$) {};
+                    \node[] (o\z) at ($(0, \z*3em)+(3em,0.35)$) {};
+                    \draw[thick,solid] (i\z) -- (o\z.center);
+                }
+
+                %% SBoxes
+                \foreach \z in {0,1,2,3} {%
+                    \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sl\z) at ($(i\z) + (2em,0em)$) {$S$};
+                }
+
+                \draw[draw=none] (i1) -- node[left,xshift=-1em] (U) {$U = $} (i2);
+                \draw[draw=none] (i0) -- node[left] (x1) {$\times$} (i1);
+                \draw[draw=none] (i1) -- node[left] (x2) {$\times$} (i2);
+                \draw[draw=none] (i2) -- node[left] (x3) {$\times$} (i3);
+                \node at (i0) [xshift=-6pt] (U0) {$U_0$};
+                \node at (i1) [xshift=-6pt] (U1) {$U_1$};
+                \node at (i2) [xshift=-6pt] (U2) {$U_2$};
+                \node at (i3) [xshift=-6pt] (U3) {$U_3$};
+
+                \draw[draw=none] (o1) -- node[left,xshift=37pt] (V) {$ = V$} (o2);
+                \draw[draw=none] (o0) -- node[left,xshift=17pt] (y1) {$\times$} (o1);
+                \draw[draw=none] (o1) -- node[left,xshift=17pt] (y2) {$\times$} (o2);
+                \draw[draw=none] (o2) -- node[left,xshift=17pt] (y3) {$\times$} (o3);
+                \node at (o0) [xshift=10pt] (V0) {$V_0$};
+                \node at (o1) [xshift=10pt] (V1) {$V_1$};
+                \node at (o2) [xshift=10pt] (V2) {$V_2$};
+                \node at (o3) [xshift=10pt] (V3) {$V_3$};
+                \end{tikzpicture}
+                \vspace{0.5em}
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Possibility I}{Algorithm}
@@ -312,7 +389,6 @@
         \end{column}
     \end{columns}
     \vspace{0.5em}
-    In particular, in this case, bounds from activating S-boxes are optimal.\\[1em]
     This approach is independent of the S-box, \ie/ any S-box without linear structures behaves the same with respect to subspace trails.
     \visible<2->{%
     \begin{minipage}{0.9775\textwidth}
