@@ -108,10 +108,10 @@
     \visible<3->{%
     \begin{block}{Subspace Trail Cryptanalysis~\cite{ToSC:GraRecRon16} (Last Year's FSE)}
         \vspace{0.25em}
-        Let $(U_0, \ldots, U_r)$ be subspaces of $\F_2^n$, and $F : \F_2^n \to \F_2^n$.
-        We write
+        Let $U_0, \ldots, U_r \subseteq \F_2^n$, and $F : \F_2^n \to \F_2^n$.
+        We write $U_0 \through{F} \cdots \through{F} U_r$, iff
         \begin{equation*}
-            U_0 \through{F} \cdots \through{F} U_r \Leftrightarrow 0 \leq i < r : \forall a \in U_i^\perp : \exists b \in U_{i+1}^\perp : F(\coset{U_i}{a}) \subseteq \coset{U_{i+1}}{b}
+            \forall a \in U_i^\perp : \exists b \in U_{i+1}^\perp : \qquad F(\coset{U_i}{a}) \subseteq \coset{U_{i+1}}{b}
         \end{equation*}
     \end{block}
     }
