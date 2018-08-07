@@ -1,0 +1,129 @@
+\documentclass[%
+    10pt,
+    professionalfont,
+    aspectratio=169,
+    %handout,
+]{beamer}
+
+\mode<presentation>{%
+    \usetheme[alternativetitlepage=bild]{Rub}
+    \titlegraphic{data/flickr/img-bg.jpg}
+    \setbeamercovered{invisible}
+}
+\usepackage{pgfpages}
+%\setbeameroption{show notes on second screen}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{rubfonts2009}
+\usepackage[charter]{mathdesign}
+
+\usepackage{abbrv}
+\usepackage{delimiters}
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{etoolbox,siunitx}
+\sisetup{binary-units}
+
+\usepackage{booktabs}
+
+\usepackage{setspace}
+\usepackage{todonotes}
+
+\usepackage{tikz}
+\usepackage{tikzsymbols}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
+\usetikzlibrary{shapes}
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+
+\tikzset{%
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+
+\newcommand{\repeatarrow}{%
+    \begin{tikzpicture}[inner sep=0pt, baseline=(base)]%
+    \node (n) {};
+    \draw[thick,<-] (n.center) ++(110:0.6em) arc (110:430:0.6em);
+    \node (base) at (0,-.5ex) {};
+    \end{tikzpicture}%
+}
+
+\usepackage[beamer]{hf-tikz}
+
+\setbeamertemplate{bibliography item}[text]
+\usepackage[%
+    backend=biber,
+    bibencoding=ascii,
+    style=alphabetic,
+    sortcites,
+    sorting=ynt,
+    maxbibnames=10,
+    maxcitenames=2,
+    firstinits=true,
+]{biblatex}
+\DefineBibliographyStrings{english}{%
+    andothers = {\etal/}
+}
+\DeclareFieldFormat{eprint:iacr}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://eprint.iacr.org/#1}{\nolinkurl{#1}}
+}
+\DeclareFieldFormat{eprint:iacrconf}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
+}
+\renewcommand\bibfont{\scriptsize}
+\bibliography{bibliography}
+
+\newcommand{\blfootnote}[1]{%
+    \begingroup
+        \renewcommand\thefootnote{}\footnote{#1}%
+        \addtocounter{footnote}{-1}%
+    \endgroup
+}
+\newcommand{\vpPp}{\vphantom{Pp}}
+\newcommand{\coset}[2]{#1 \!\! + \!\! #2}
+\newcommand{\through}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\ks}{\mathrm{KS}}
+\DeclareMathOperator{\Span}{span}
+
+\makeatletter
+\def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
+\def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
+\makeatother
+
+\def\bison/{BISON}
+
+\title{\bison/\\ Instantiating the Withened Swap-Or-Not Construction}
+\subtitle{}
+\author[Friedrich~Wiemer]{Virginie~Lallemand, Gregor~Leander, Patrick~Neumann, and \emph{Friedrich~Wiemer}}
+\institute{%
+    Horst Görtz Institute for IT Security\\
+    Ruhr-Universität Bochum
+}
+
+\date{September 6th, 2018}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\input{slides.tex}
+
+\end{document}
