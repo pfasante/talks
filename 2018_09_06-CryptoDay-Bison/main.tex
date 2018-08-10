@@ -62,6 +62,7 @@
 }
 
 \usepackage[beamer]{hf-tikz}
+\usepackage{forest}
 
 \setbeamertemplate{bibliography item}[text]
 \usepackage[%
@@ -99,7 +100,9 @@
 \newcommand{\through}[1]{\stackrel{#1}{\rightarrow}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\ks}{\mathrm{KS}}
+\newcommand\tower[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
 \DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Prob}{Pr}
 
 \makeatletter
 \def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
