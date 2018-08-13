@@ -7,7 +7,43 @@
             \begin{block}{Overview\vpPp}
                 \centering
                 \vspace*{13pt}
-                \includegraphics{data/wsn}
+                \begin{tikzpicture}[scale=1]
+                    \tikzstyle{every node}=[transform shape];
+
+                    \node (mux) [trapezium, trapezium angle=-60, rounded corners=2pt, minimum width=20mm, draw, thick] {$0/1$};
+
+                    \node (f) [left=7mm of mux,rectangle, rounded corners=2pt, minimum width=10mm, minimum height=15mm, draw, thick] {$f_i$};
+                    \node (f-w) [left=-5pt of f.north,yshift=6.75mm] {\vphantom{$k$}$w_i$};
+                    \node (f-k) [right=0.0mm of f.north,yshift=-1.25mm] {};
+                    \node (k) [right=5.5mm of f.north,yshift=6.75mm] {$k_i$};
+                    \draw[thick] (k) -- +(0,-3.5mm);
+
+                    \node (xor) [below=5mm of mux.south, XOR] {};
+
+                    \node (input) [left=30mm of xor] {$x_i$};
+                    \node (output) [right=10mm of xor] {$x_{i+1}$};
+
+                    \node (mux-k) [left=2.5mm of mux.north,yshift=-1.25mm] {};
+
+                    %f input
+                    \draw[thick, -latex] (input.east)+(2.5mm,0) -| (f.south);
+                    \draw[thick, -latex] (f-w) -- +(0,-6.75mm);
+                    \draw[thick, -latex] (k)+(0,-3.5mm) -| (f-k);
+                    \draw[thick, -latex] (k)+(0,-3.5mm) -| (mux-k);
+
+                    %mux input
+                    \node (mux-zero) [right=2.5mm of mux.north,yshift=2.5mm+7mm] {0};
+                    \draw[thick, -latex] (mux-zero.south) -- +(0,-7.125mm);
+
+                    % mux control
+                    \draw[thick, -latex] (f.east) -- (mux.west);
+
+                    % xor input
+                    \draw[thick, -latex] (input.east) -- (xor.west);
+                    \draw[thick, -latex] (mux.south) -- (xor.north);
+
+                    \draw[thick, -latex] (xor.east) -- (output.west);
+                \end{tikzpicture}
                 \vspace*{13pt}
             \end{block}
         \end{column}
@@ -37,62 +73,67 @@
 
 \section{Generic Analysis}
 \begin{frame}{Generic Analysis}{On the number of rounds}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Observation}
-                \begin{itemize}
-                    \item The ciphertext is the plaintext plus a random subset of the round keys:
-                        \begin{equation*}
-                            c = p + \sum_{i=1}^{r} \lambda_i k_i
-                        \end{equation*}
-                    \item For pairs $p_i, c_i$: $\Span \set{p_i + c_i} \subseteq \Span \set{k_j}$.
-                \end{itemize}
-            \end{block}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \begin{alertblock}{Problematic because}
-                \vspace{1.5pt}
-                \begin{itemize}
-                    \item $\Span \set{k_j} \subset \F_2^n$ reveals information on the round keys\\[7pt]
-                    \item for $r < n$ there exists probability one linear hulls (exploitable: easy),\\[7pt]
-                    \item for $r < 2n - 3$ there exists zero correlation linear hulls (exploitable: ???).
-                \end{itemize}
-                \vspace{1.5pt}
-            \end{alertblock}
-        \end{column}
-    \end{columns}
-    \hspace*{-8.5pt}
-    \begin{minipage}{1.0145\textwidth}
+    \vspace{-20pt}
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Observation\vpPp}
+            \begin{itemize}
+                \item The ciphertext is the plaintext plus a random subset of the round keys:
+                    \begin{equation*}
+                        c = p + \sum_{i=1}^{r} \lambda_i k_i
+                    \end{equation*}
+                \item For pairs $p_i, c_i$: $\Span \set{p_i + c_i} \subseteq \Span \set{k_j}$.
+            \end{itemize}
+            \vspace{5pt}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{alertblock}{Problematic because\vpPp}
+            \vspace{1.5pt}
+            \begin{itemize}
+                \item $\Span \set{k_j} \subset \F_2^n$ reveals information on the round keys\\[7pt]
+                \item for $r < n$ there exists probability one linear hulls (exploitable: easy),\\[7pt]
+                \item for $r < 2n - 3$ there exists zero correlation linear hulls (exploitable: ?).
+            \end{itemize}
+            \vspace{5pt}
+        \end{alertblock}
+    \end{minipage}
+
+    \vspace{50pt}
+
+    \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 1}
-        Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.
+        Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.\vphantom{$\frac{1}{2}$}
     \end{exampleblock}
     \end{minipage}
 \end{frame}
 
 \begin{frame}{Generic Analysis}{On the Boolean functions $f_i$}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Observation\vpPp}
-                \begin{itemize}
-                    \item If the $f_i$ do not depend on a (linear combination of) bit(s), \ie/
-                        \begin{equation*}
-                            f_i(x) = f_i(x + \delta)
-                        \end{equation*}
-                        this difference propagates through the whole encryption with non-negligible probability.
-                \end{itemize}
-            \end{block}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Why could this happen?}
-                \begin{itemize}
-                    \item For example, when the difference does not influence the lexicographic ordering of $x$ and $x + k_i$.
-                \end{itemize}
-                \vspace{56pt}
-            \end{block}
-        \end{column}
-    \end{columns}
-    \hspace*{-8.5pt}
-    \begin{minipage}{1.0145\textwidth}
+    \vspace{-20pt}
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Observation\vpPp}
+            \begin{itemize}
+                \item If the $f_i$ do not depend on a (linear combination of) bit(s), \ie/
+                    \begin{equation*}
+                        f_i(x) = f_i(x + \delta)
+                    \end{equation*}
+                    this difference propagates through the whole encryption with non-negligible probability.
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Why could this happen?}
+            \begin{itemize}
+                \item For example, when the difference does not influence the lexicographic ordering of $x$ and $x + k_i$.
+            \end{itemize}
+            \vspace{56pt}
+        \end{block}
+    \end{minipage}
+
+    \vspace{50pt}
+
+    \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 2}
         For any instance, the $f_i$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_i(x) = f_i(x + \delta)} \approx \frac{1}{2}$.
     \end{exampleblock}
@@ -100,123 +141,126 @@
 \end{frame}
 
 \begin{frame}{Addressing Rationale 1}{The Key Schedule}
-    \hspace*{-8.5pt}
-    \begin{minipage}{1.0145\textwidth}
+    \vspace{-60pt}
+    \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 1}
-        Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.
+        Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.\vphantom{$\frac{1}{2}$}
     \end{exampleblock}
     \end{minipage}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Design Decisions}
-                \begin{itemize}
-                    \item Choose number of rounds as $2 \cdot n$\\[5pt]
-                    \item Round Keys derived from the state of LFSRs\\[5pt]
-                    \item Add round constants $c_i$ to $w_i$ round keys
-                \end{itemize}
-                \vspace{30pt}
-            \end{block}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Implications}
-                \begin{itemize}
-                    \item Clocking an LFSR is cheap
-                    \item For an LFSR with feedback polynomial of degree $n$, every $n$ consecutive states are linearly independent
-                    \item Round constants avoid structural weaknesses
-                \end{itemize}
-            \end{block}
-        \end{column}
-    \end{columns}
+
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Design Decisions}
+            \begin{itemize}
+                \item Choose number of rounds as $2 \cdot n$\\[5pt]
+                \item Round Keys derived from the state of LFSRs\\[5pt]
+                \item Add round constants $c_i$ to $w_i$ round keys
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Implications}
+            \begin{itemize}
+                \item Clocking an LFSR is cheap
+                \item For an LFSR with feedback polynomial of degree $n$, every $n$ consecutive states are linearly independent
+                \item Round constants avoid structural weaknesses
+            \end{itemize}
+        \end{block}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Addressing Rationale 2}{The Round Function}
-    \hspace*{-8.5pt}
-    \begin{minipage}{1.0145\textwidth}
+    \vspace{-60pt}
+    \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 2}
         For any instance, the $f_i$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_i(x) = f_i(x + \delta)} \approx \frac{1}{2}$.
     \end{exampleblock}
     \end{minipage}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Design Decision}
-                \begin{itemize}
-                    \item Choose $f_i : \F_2^n \to \F_2$ to be bent
-                    \item Replace $x \mapsto \max \set{x, x+k}$ by
-                          \begin{align*}
-                              \Phi_k(x) : \F_2^n &\to \F_2^{n-1} \\
-                              \Phi_k(x) &\coloneqq (x + x[i(k)] \cdot k)[j]_{\tower{1 \leqslant j \leqslant n}{j \neq i(k)}}
-                          \end{align*}
-                \end{itemize}
-            \end{block}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Implications}
-                \begin{itemize}
-                    \item With $\Phi_k$ we preserve the bent properties\\[5pt]
-                    \item Bent functions only exists for even $n$\\[5pt]
-                    \item Encryption now only possible for odd block lengths
-                \end{itemize}
-                \vspace{16pt}
-            \end{block}
-        \end{column}
-    \end{columns}
+
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Design Decisions}
+            \begin{itemize}
+                \item Choose $f_i : \F_2^n \to \F_2$ to be bent
+                \item Replace $x \mapsto \max \set{x, x+k}$ by
+                        \begin{align*}
+                            \Phi_k(x) : \F_2^n &\to \F_2^{n-1} \\
+                            \Phi_k(x) &\coloneqq (x + x[i(k)] \cdot k)[j]_{\tower{1 \leqslant j \leqslant n}{j \neq i(k)}}
+                        \end{align*}
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Implications}
+            \begin{itemize}
+                \item With $\Phi_k$ we preserve the bent properties\\[5pt]
+                \item Bent functions only exists for even $n$\\[5pt]
+                \item Encryption now only possible for odd block lengths
+            \end{itemize}
+        \end{block}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{\bison/}{Round Function}
-    \begin{block}{BISON's round function}
-        \centering
-        \vspace{0.5\baselineskip}
-        For round keys $k_i\in \F_2^n$ and $w_i\in \F_2^{n-1}$ the round function computes
-        \begin{equation*}
-            R_{k_i, w_i}(x) \coloneqq x + f_{b(i)} \parens{w_i + \Phi_{k_i}\parens{x}} \cdot k_i.
-        \end{equation*}
-        \flushleft
-        where
-        \begin{itemize}
-            \item $\Phi_{k_i}$ and $f_{b(i)}$ are defined as
-        \end{itemize}
-        \vspace{-10pt}
-        \begin{columns}
-            \begin{column}{0.49\textwidth}
-                \begin{align*}
-                    \Phi_k(x) : \F_2^n &\to \F_2^{n-1} \\
-                    \Phi_k(x) &\coloneqq (x + x[i(k)] \cdot k)[j]_{\tower{1 \leqslant j \leqslant n}{j \neq i(k)}}
-                \end{align*}
-            \end{column}
-            \begin{column}{0.49\textwidth}
-                \begin{align*}
-                    f_{b(i)} : \F_2^{\frac{n-1}{2}}\times \F_2^{\frac{n-1}{2}} &\to \F_2 \\
-                    f_{b(i)}(x,y) &\coloneqq \angles{x,y} + b(i),
-                \end{align*}
-            \end{column}
-        \end{columns}
-        \begin{itemize}
-            \item and $b(i)$ is $0$ if $i \leqslant \frac{r}{2}$ and $1$ else.
-        \end{itemize}
-        \vspace{-0.25\baselineskip}
-    \end{block}
+    \vspace{-45pt}
+    \begin{minipage}[t][150pt][t]{0.985\textwidth}
+        \begin{block}{BISON's round function\vpPp}
+            \centering
+            \vspace{0.5\baselineskip}
+            For round keys $k_i\in \F_2^n$ and $w_i\in \F_2^{n-1}$ the round function computes
+            \begin{equation*}
+                R_{k_i, w_i}(x) \coloneqq x + f_{b(i)} \parens{w_i + \Phi_{k_i}\parens{x}} \cdot k_i.
+            \end{equation*}
+            \flushleft
+            where
+            \begin{itemize}
+                \item $\Phi_{k_i}$ and $f_{b(i)}$ are defined as
+            \end{itemize}
+            \vspace{-10pt}
+            \begin{columns}
+                \begin{column}{0.49\textwidth}
+                    \begin{align*}
+                        \Phi_k(x) : \F_2^n &\to \F_2^{n-1} \\
+                        \Phi_k(x) &\coloneqq (x + x[i(k)] \cdot k)[j]_{\tower{1 \leqslant j \leqslant n}{j \neq i(k)}}
+                    \end{align*}
+                \end{column}
+                \begin{column}{0.49\textwidth}
+                    \begin{align*}
+                        f_{b(i)} : \F_2^{\frac{n-1}{2}}\times \F_2^{\frac{n-1}{2}} &\to \F_2 \\
+                        f_{b(i)}(x,y) &\coloneqq \angles{x,y} + b(i),
+                    \end{align*}
+                \end{column}
+            \end{columns}
+            \begin{itemize}
+                \item and $b(i)$ is $0$ if $i \leqslant \frac{r}{2}$ and $1$ else.
+            \end{itemize}
+            \vspace{-0.25\baselineskip}
+        \end{block}
+    \end{minipage}
 \end{frame}
 
-\begin{frame}{\bison/}{Key Schedule}
-    \begin{block}{BISON's key schedule}
-        \vspace{0.5\baselineskip}
-        Given
-        \begin{itemize}
-            \item primitive $p_k$, $p_w \in \F_2[x]$ with $\deg(p_k) = n$ and $\deg(p_w) = n-1$ and companion matrices $C_k$, $C_w$.
-            \item master key $K = (k, w) \in \parens{\F_2^n \times \F_2^{n-1}} \setminus \set{0,0}$
-        \end{itemize}
-        The $i$th round keys are computed by
-        \begin{align*}
-            \ks_i : \F_2^n \times \F_2^{n-1} &\to \F_2^n \times \F_2^{n-1} \\
-            \ks_i(k, w) &\coloneqq (k_i, c_i + w_i)
-        \end{align*}
-        where \begin{equation*}
-                k_i = \parens{C_k}^i k, \qquad
-                c_i = \parens{C_w}^{-i} e_1, \qquad
-                w_i = \parens{C_w}^i w.
-            \end{equation*}
-        \vspace{0.5\baselineskip}
-    \end{block}
+\begin{frame}{\bison/}{Key Schedule\vpPp}
+    \vspace{-45pt}
+    \begin{minipage}[t][150pt][t]{0.985\textwidth}
+        \begin{block}{BISON's key schedule}
+            \vspace{0.5\baselineskip}
+            Given
+            \begin{itemize}
+                \item primitive $p_k$, $p_w \in \F_2[x]$ with degrees $n$, $n-1$ and companion matrices $C_k$, $C_w$.
+                \item master key $K = (k, w) \in \parens{\F_2^n \times \F_2^{n-1}} \setminus \set{0,0}$
+            \end{itemize}
+            The $i$th round keys are computed by
+            \begin{align*}
+                \ks_i : \F_2^n \times \F_2^{n-1} &\to \F_2^n \times \F_2^{n-1} \\
+                \ks_i(k, w) &\coloneqq (k_i, c_i + w_i)
+            \end{align*}
+            where \begin{equation*}
+                    k_i = \parens{C_k}^i k, \qquad
+                    c_i = \parens{C_w}^{-i} e_1, \qquad
+                    w_i = \parens{C_w}^i w.
+                \end{equation*}
+        \end{block}
+    \end{minipage}
 \end{frame}
 
 \section{Differential Analysis}
@@ -235,7 +279,35 @@
             \end{block}
         \end{column}
         \begin{column}{0.49\textwidth}
-            \includegraphics[width=\textwidth]{data/ddt-one-round}
+            \begin{tikzpicture}[scale=0.75]
+            \pgfplotsset{%
+                colormap={WhiteRedBlack}{%
+                    rgb255=(255,255,255)
+                    rgb255=(255,0,0)
+                    rgb255=(0,0,0)
+                },
+            }
+            \begin{axis}[%
+                every tick label/.append style={font=\tiny},
+                axis x line=top,
+                axis lines=box,
+                xlabel=$\beta$,
+                ylabel=$\alpha$,
+                ylabel style={rotate=-90},
+                xmin=-1, xmax=32,
+                ymin=-1, ymax=32,
+                point meta min=0,
+                point meta max=32,
+                point meta=explicit,
+                ytick={0, 5, ..., 32},
+                xtick={0, 5, ..., 32},
+                tick align=outside,
+                colorbar sampled line,
+                colormap name=WhiteRedBlack,
+            ]
+            \addplot[matrix plot, mesh/cols=32] table[meta=C] {"data/ddt-one-round.dat"};
+            \end{axis}
+            \end{tikzpicture}
         \end{column}
     \end{columns}
 \end{frame}
@@ -277,6 +349,7 @@
         \end{column}
         \begin{column}{0.49\textwidth}
             \begin{block}{Probabilities of output differences}
+                \vspace{-10pt}
                 \begin{equation*}
                     \Prob\bracket{\alpha \to \beta} = \begin{cases*}
                         2^{-r}   & if $\beta$ in normal branch\\
@@ -288,7 +361,7 @@
             \begin{alertblock}{Collapsing}
                 How many branches can collapse?
             \end{alertblock}
-            \begin{exampleblock}{Once}
+            \begin{exampleblock}{Only One}
                 For $r \leqslant n$ rounds and linearly indp.\ round keys this happens only once.
             \end{exampleblock}
         \end{column}
@@ -297,40 +370,75 @@
 
 \section{Further Analysis}
 \begin{frame}{Further Cryptanalysis}
-    \begin{itemize}
-        \item Linear Cryptanalysis
-        \item Impossible Differentials
-        \item Zero Correlation
-        \item Invariant Attacks
-    \end{itemize}
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Linear Cryptanalysis\vpPp}
+            For $r \geqslant n$ rounds, the correlation of any non-trivial linear trail for \bison/ is upper bounded by $2^{-\frac{n+1}{2}}$.
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Invariant Attacks\vpPp}
+            For $r \geqslant n$ rounds, neither invariant subspaces nor nonlinear invariant attacks do exist for \bison/.
+        \end{block}
+    \end{minipage}
+
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Zero Correlation\vpPp}
+            For $r \geqslant 2n$ rounds, \bison/ does not exhibit any zero correlation linear hulls.
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Impossible Differentials\vpPp}
+            For $r \geqslant n$ rounds, there are no impossible differentials for \bison/.
+        \end{block}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Conclusion/Questions}{Thank you for your attention!}
-    \begin{columns}
-        \begin{column}{0.5\textwidth}
-            \begin{block}{\bison/}
-                \begin{itemize}
-                    \item A first instance of the WSN construction
-                    \item Good results for differential cryptanalysis
-                \end{itemize}
-            \end{block}
-            \begin{block}{Open Problems}
-                \begin{itemize}
-                    \item Construction with similar good results for linear cryptanalysis
-                    \item Further analysis: division properties
-                \end{itemize}
-            \end{block}
-        \end{column}
-        \begin{column}{0.39\textwidth}
-        \begin{figure}[!htb]
-            \includegraphics[height=50mm]{data/flickr/questionmark.png}
-        \end{figure}
-        \end{column}
-    \end{columns}
-    \blfootnote{\scriptsize Mainboard \& Questionmark Images: flickr}
+    \vspace{-80pt}
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{\bison/\vpPp}
+            \begin{itemize}
+                \item A first instance of the WSN construction
+                \item Good results for differential cryptanalysis
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Open Problems}
+            \begin{itemize}
+                \item Construction for linear cryptanalysis
+                \item Further analysis: division properties
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+
+    \vspace{30pt}
+
+    \begin{tikzpicture}[overlay]
+        \node (thanks) at (4,0){};
+        \draw[rotate=3,line width=1.5pt,saphierblau,fill=gray!10]
+             ($(thanks)-(1.5,.35)$) rectangle ($(thanks)+(1.5,.35)$)
+             node[rotate=3] at (thanks) {\textcolor{saphierblau}{\textbf{Thank you!}}};
+
+        \node[right=100pt of thanks](questions){};
+        \draw[rotate=-7,line width=1.5pt,saphierblau,fill=gray!10]
+             ($(questions)-(1.15,.35)$) rectangle ($(questions)+(1.15,.35)$)
+             node[rotate=-7] at (questions) {\textcolor{saphierblau}{\textbf{Questions?}}};
+
+        \node[right=100pt of questions](eprint){};
+        \draw[rotate=14,line width=1.5pt,saphierblau,fill=gray!10]
+             ($(eprint)-(1.15,.35)$) rectangle ($(eprint)+(1.15,.35)$)
+             node[rotate=14] at (eprint) {\textcolor{saphierblau}{\textcolor{gelbgruen}{\textbf{\href{https://ia.cr/2018/XXX}{2018/XXX}}}}};
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
+    \begingroup
+        \scriptsize Mainboard Image: flickr\\[1em]
+    \endgroup
     \tiny
     \printbibliography{}
 \end{frame}
