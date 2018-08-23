@@ -1,11 +1,17 @@
 all: main.pdf
 
-main.pdf: main.tex
+main.pdf: main.tex data/differential-characteristic.pdf data/differential.pdf
 	cp ../correct_logo.pdf logo.pdf
 	cp ../correct_wortmarke.pdf wortmarke.pdf
 	latexmk -pdf -use-make main.tex
 	cp ../censored_logo.pdf logo.pdf
 	cp ../censored_wortmarke.pdf wortmarke.pdf
+
+data/differential-characteristic.pdf: data/differential-characteristic.tex
+	cd data && latexmk -pdf differential-characteristic.tex && cd ..
+
+data/differential.pdf: data/differential.tex
+	cd data && latexmk -pdf differential.tex && cd ..
 
 clean:
 	latexmk -c
