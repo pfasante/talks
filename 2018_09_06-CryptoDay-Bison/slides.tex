@@ -1,7 +1,7 @@
 \section{The WSN construction}
 \begin{frame}{The WSN construction}
     \centering
-    Published by \textcite{AC:Tessaro15} at AsiaCrypt 2015.
+    Published by \href{https://doi.org/10.1007/978-3-662-48800-3_18}{Tessaro at AsiaCrypt 2015} [\texttt{\href{https://ia.cr/2015/868}{ia.cr/2015/868}}].
     \begin{columns}
         \begin{column}{0.49\textwidth}
             \begin{block}{Overview\vpPp}
@@ -71,9 +71,30 @@
     \blfootnote{}
 \end{frame}
 
+\begin{frame}{An Implementation}
+    \visible<2->{%
+    \begin{minipage}{0.40\textwidth}
+        \centering
+        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.56\textwidth}
+        \centering
+        \begin{block}{Construction}
+            \begin{itemize}
+                \item $f(x) \coloneqq\ $?
+                \item Key schedule?
+                \item $\mathcal{O}(n)$ rounds?
+            \end{itemize}
+        \end{block}
+        \vspace{5pt}
+        Theoretical vs.\ practical constructions
+    \end{minipage}
+    }
+\end{frame}
+
 \section{Generic Analysis}
 \begin{frame}{Generic Analysis}{On the number of rounds}
-    \begingroup
     \centering
     \only<1>{%
     \begin{forest}
@@ -101,10 +122,6 @@
             ]
         ]
         \node[above of=root, yshift=-15pt] {Input};
-        \visible<2->{%
-        \draw[decorate,decoration={brace,amplitude=3pt}]
-            (right node.south east) -- (left node.south west) node[midway, below=4pt] {$\makebox[6pt][c]{$c$} \in \Span\set{k_1, k_2, k_3} + \makebox[6pt][c]{$p$}$};
-        }
     \end{forest}
     }\only<2>{%
     \begin{forest}
@@ -132,10 +149,6 @@
             ]
         ]
         \node[above of=root, yshift=-15pt] {Input};
-        \visible<2->{%
-        \draw[decorate,decoration={brace,amplitude=3pt}]
-            (right node.south east) -- (left node.south west) node[midway, below=4pt] {$\makebox[6pt][c]{$c$} \in \Span\set{k_1, k_2, k_3} + \makebox[6pt][c]{$p$}$};
-        }
     \end{forest}
     }\only<3>{%
     \begin{forest}
@@ -163,62 +176,17 @@
             ]
         ]
         \node[above of=root, yshift=-15pt] {Input};
-        \visible<2->{%
-        \draw[decorate,decoration={brace,amplitude=3pt}]
-            (right node.south east) -- (left node.south west) node[midway, below=4pt] {$\makebox[6pt][c]{$c$} \in \Span\set{k_1, k_2, k_3} + \makebox[6pt][c]{$p$}$};
-        }
-    \end{forest}
-    }\only<4->{%
-    \begin{forest}
-        %for tree={grow=east},
-        [{\color{alertred}$\makebox[6pt][c]{$\alpha$}$\vphantom{p}}, name=root
-            [{$\makebox[6pt][c]{$\alpha$}$\vphantom{p}}
-                [{$\makebox[6pt][c]{$\alpha$}$\vphantom{p}}
-                    [{$\makebox[6pt][c]{$\alpha$}$\vphantom{p}}, name=left node]
-                    [{$\makebox[6pt][c]{$\alpha$} + k_3$\vphantom{p}}]
-                ]
-                [{$\makebox[6pt][c]{$\alpha$} + k_2$\vphantom{p}}
-                    [{$\makebox[6pt][c]{$\alpha$} + k_2$\vphantom{p}}]
-                    [{$\makebox[6pt][c]{$\alpha$} + k_2 + k_3$\vphantom{p}}]
-                ]
-            ]
-            [{\color{alertred}$\makebox[6pt][c]{$\alpha$} + k_1$\vphantom{p}}, edge={thick, alertred}
-                [{$\makebox[6pt][c]{$\alpha$} + k_1$\vphantom{p}}
-                    [{$\makebox[6pt][c]{$\alpha$} + k_1$\vphantom{p}}]
-                    [{$\makebox[6pt][c]{$\alpha$} + k_1 + k_3$\vphantom{p}}]
-                ]
-                [{\color{alertred}$\makebox[6pt][c]{$\alpha$} + k_1 + k_2$\vphantom{p}}, edge={thick, alertred}
-                    [{\color{alertred}$\makebox[6pt][c]{$\alpha$} + k_1 + k_2$\vphantom{p}}, edge={thick, alertred}]
-                    [{$\makebox[6pt][c]{$\alpha$} + k_1 + k_2 + k_3$\vphantom{p}}, name=right node]
-                ]
-            ]
-        ]
-        \node[above of=root, yshift=-15pt] {Input Differences};
-        \visible<2->{%
-        \draw[decorate,decoration={brace,amplitude=3pt}]
-            (right node.south east) -- (left node.south west) node[midway, below=4pt] {$\makebox[6pt][c]{$\beta$} \in \Span\set{k_1, k_2, k_3} + \makebox[6pt][c]{$\alpha$}$};
-        }
     \end{forest}
     }
-    \endgroup
 
     \visible<2->{%
-    \vspace{-15pt}
+    %\vspace{-15pt}
     \begin{minipage}[t][55pt][t]{0.47\textwidth}
     \begin{block}{Encryption}
     \vspace{-5pt}
     \begin{equation*}
-        E_{k,w}(p) \coloneqq c = p + \sum_{i=1}^{r} \lambda_i k_i
+        E_{k,w}(p) \coloneqq p + \sum_{i=1}^{r} \lambda_i k_i = c
     \end{equation*}
-    \end{block}
-    \end{minipage}
-    }
-    \visible<4->{%
-    \begin{minipage}[t][55pt][t]{0.47\textwidth}
-    \begin{block}{Input/Output Differences}
-        \vspace{5pt}
-        For pairs $p_i, c_i$: $\Span \set{p_i + c_i} \subseteq \Span \set{k_j}$.
-        \vspace{5pt}
     \end{block}
     \end{minipage}
     }
@@ -235,26 +203,29 @@
                     \end{equation*}
                 \item For pairs $p_i, c_i$: $\Span \set{p_i + c_i} \subseteq \Span \set{k_j}$.
             \end{itemize}
-            \vspace{5pt}
+            \vspace{2pt}
         \end{block}
     \end{minipage}
     \hfill
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{alertblock}{Problematic because\vpPp}
-            \vspace{1.5pt}
-            \begin{itemize}
-                \item $\Span \set{k_j} \subset \F_2^n$ reveals information on the round keys\\[7pt]
-                \item for $r < n$ there exists probability one linear hulls (exploitable: easy),\\[7pt]
-                \item for $r < 2n - 3$ there exists zero correlation linear hulls (exploitable: ?).
-            \end{itemize}
-            \vspace{5pt}
+        \visible<2->{%
+        \begin{alertblock}{Distinguishing Attack for $r < n$ rounds\vpPp}
+            \vspace{2pt}
+            There is an $u \in \F_2^n \setminus \set{0}$, \st/ $\angles{u, p} = \angles{u, c}$ holds always:
+            \begin{align*}
+                        &\angles{u, c} = \angles{u, p + \sum \lambda_i k_i} \\
+                        =\ &\angles{u, p} + \angles{u, \sum \lambda_i k_i} = \angles{u, p} + 0
+                    \end{align*}
+            for all $u \in \Span\set{k_1, \ldots, k_r}^\perp \neq \set{0}$
+            \vspace{3pt}
         \end{alertblock}
+        }
     \end{minipage}
 
     \vspace{50pt}
 
     \begin{minipage}{0.985\textwidth}
-    \visible<2->{%
+    \visible<3->{%
     \begin{exampleblock}{Rationale 1}
         Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.\vphantom{$\frac{1}{2}$}
     \end{exampleblock}
@@ -266,13 +237,14 @@
     \vspace{-20pt}
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
         \begin{block}{Observation\vpPp}
-            \begin{itemize}
-                \item If the $f_i$ do not depend on a (linear combination of) bit(s), \ie/
-                    \begin{equation*}
-                        f_i(x) = f_i(x + \delta)
-                    \end{equation*}
-                    this difference propagates through the whole encryption with non-negligible probability.
-            \end{itemize}
+            If the $f_i$ do not depend on the MSB, \ie/
+            \begin{equation*}
+                f_i(x) = f_i(x + e_n)
+            \end{equation*}
+            then this propagates through $r$ rounds w.\,h.\,p.:
+            \begin{equation*}
+                \Prob\bracket{E_{k,w}(x) + E_{k,w}(x + e_n) = e_n} \geqslant \parens{1 - 2^{-1}}^r
+            \end{equation*}
         \end{block}
     \end{minipage}
     \hfill
@@ -280,8 +252,9 @@
         \begin{block}{Why could this happen?}
             \begin{itemize}
                 \item For example, when the difference does not influence the lexicographic ordering of $x$ and $x + k_i$.
+                \item Gets worse when depending on less bits.
+                \item Compare to AES\@! Its round function depends on only 32 out of 128 bits.
             \end{itemize}
-            \vspace{56pt}
         \end{block}
     \end{minipage}
 
@@ -297,6 +270,7 @@
 \end{frame}
 
 \begin{frame}{A genus of the WSN construction: BISON}
+    \centering
     \begin{block}{Generic properties of {\textbf{B}ent wh\textbf{I}tened \textbf{S}wap \textbf{O}r \textbf{N}ot}}
         \vspace{5pt}
         \begin{minipage}{0.51\textwidth}
@@ -308,48 +282,48 @@
         \begin{minipage}{0.44\textwidth}
         \begin{itemize}
             \item The round function depends on all bits
-            \item All derivatives are balanced (bent)
+            \item All derivatives are balanced (\emph{bent})
         \end{itemize}
         \end{minipage}
         \vspace{5pt}
     \end{block}
+    \textcolor{alertred}{Rational 1 \& 2: WSN is \emph{slow} in practice!}
     \vfill
-    \begin{center}
+    \begingroup
+        But what about\\[5pt]
         \Large
         Differential Cryptanalysis?
-    \end{center}
+    \endgroup
     \vfill
 \end{frame}
 
 \section{Differential Analysis}
 \begin{frame}{Differential Cryptanalysis}{Primer}
     \begin{minipage}{0.47\textwidth}
-        For block cipher $E_k(x)$
+        \centering
+        For block cipher $E_k(x)$ compute
         \begin{equation*}
-            \Prob\bracket{E_k(x) + E_k(x + \alpha) = \beta} = p_{E_k}(\alpha, \beta) =\ \text{?}
+            \Prob\bracket{E_k(x) + E_k(x + \alpha) = \beta} = p_{E_k}(\alpha, \beta).
         \end{equation*}
-        Often key-alternating cipher:
-        \begin{equation*}
-            E_k(x) = (+_{k_n} \circ R \circ \cdots \circ +_{k_2} \circ R \circ +_{k_1})(x)
-        \end{equation*}
+        Notation: $\Prob\bracket{\alpha \to \beta}$.
 
-        \only<1>{%
-        \begin{block}{Differential Characteristic}
-            Find \emph{differential characteristic's} of round $R$, by computing for all $\alpha$, $\beta$
-            \begin{itemize}
-                \item $\Prob\bracket{R(x) + R(x + \alpha) = \beta} = p_R(\alpha,\beta)$
-            \end{itemize}
-        \end{block}
-        }
+        %\only<1>{%
+        %\begin{block}{Differential Characteristic}
+        %    Find \emph{differential characteristic's} of round $R$, by computing for all $\alpha$, $\beta$
+        %    \begin{itemize}
+        %        \item $\Prob\bracket{R(x) + R(x + \alpha) = \beta} = p_R(\alpha,\beta)$
+        %    \end{itemize}
+        %\end{block}
+        %}
 
-        \only<2>{%
-        \begin{block}{Differential}
-            Assume for the \emph{differential} through $E_k$:
-            \begin{itemize}
-                \item $p_{E_k}(\alpha, \beta) \approx \displaystyle\sum_{\delta} \displaystyle\prod_{i} p_R(\delta_i, \delta_{i+1})$
-            \end{itemize}
-        \end{block}
-        }
+        %\only<2>{%
+        %\begin{block}{Differential}
+        %    Assume for the \emph{differential} through $E_k$:
+        %    \begin{itemize}
+        %        \item $p_{E_k}(\alpha, \beta) \approx \displaystyle\sum_{\delta} \displaystyle\prod_{i} p_R(\delta_i, \delta_{i+1})$
+        %    \end{itemize}
+        %\end{block}
+        %}
     \end{minipage}
     \begin{minipage}{0.47\textwidth}
         \centering
@@ -366,13 +340,13 @@
     \begin{columns}
         \begin{column}{0.49\textwidth}
             \begin{block}{Proposition}
-                \bison/'s DDT consists of the entries
+                For one round of \bison/, the probabilities are:
                 \begin{equation*}
-                    \text{DDT}_{R}[\alpha,\beta] = \begin{cases*}
-                        2^n     & if $\alpha = \beta = k$ or $\alpha = \beta = 0$\\
-                        2^{n-1} & else if $\beta \in \set{\alpha, \alpha + k}$\\
-                        0       & else
-                    \end{cases*}.
+                    \Prob\bracket{\alpha \to \beta} = \begin{cases*}
+                        1           & if $\alpha = \beta = k$ or $\alpha = \beta = 0$\\
+                        \frac{1}{2} & else if $\beta \in \set{\alpha, \alpha + k}$\\
+                        0           & else
+                    \end{cases*}
                 \end{equation*}
             \end{block}
         \end{column}
@@ -381,7 +355,7 @@
             \pgfplotsset{%
                 colormap={WhiteRedBlack}{%
                     rgb255=(255,255,255)
-                    rgb255=(255,0,0)
+                    rgb=(0.80,0.12,0.12)
                     rgb255=(0,0,0)
                 },
             }
@@ -409,7 +383,8 @@
                 colorbar sampled line,
                 colorbar style={%
                     ytick={0,16,32},
-                    ylabel={$\text{DDT}_R[\alpha,\beta]$},
+                    yticklabels={$0$,$\frac{1}{2}$,$1$},
+                    ylabel={$\Prob\bracket{\alpha \to \beta}$},
                     ylabel near ticks,
                 },
                 colormap name=WhiteRedBlack,
@@ -425,7 +400,7 @@
 \begin{frame}{Differential Cryptanalysis}{More rounds}
     \begin{columns}
         \begin{column}{0.49\textwidth}
-            \begin{block}{Differences over $r = 3$ rounds}
+            \begin{block}{Example differences over $r = 3$ rounds}
                 \centering
                 \begin{forest}
                     for tree={grow=east},
@@ -455,6 +430,7 @@
             \end{block}
         \end{column}
         \begin{column}{0.49\textwidth}
+            \visible<2->{%
             \begin{block}{Probabilities of output differences}
                 \vspace{-10pt}
                 \begin{equation*}
@@ -462,15 +438,19 @@
                         2^{-r}   & if $\beta$ in normal branch\\
                         2^{-r+1} & if $\beta$ in collapsed branch\\
                         0        & if $\beta$ in impossible branch
-                    \end{cases*}.
+                    \end{cases*}
                 \end{equation*}
             \end{block}
-            \visible<2->{%
+            }
+            \visible<3->{%
             \begin{alertblock}{Collapsing}
+                \centering
                 How many branches can collapse?
             \end{alertblock}
-            \begin{exampleblock}{Only One}
-                For $r \leqslant n$ rounds and linearly indp.\ round keys this happens only once.
+            \begin{exampleblock}{Only two}
+                \centering
+                For $r \leqslant n$ rounds and linearly indp.\\
+                round keys this happens only once.
             \end{exampleblock}
             }
         \end{column}
@@ -502,7 +482,7 @@
         \begin{block}{Design Decisions}
             \begin{itemize}
                 \item Choose number of rounds as $2 \cdot n$\\[5pt]
-                \item Round Keys derived from the state of LFSRs\\[5pt]
+                \item Round keys derived from the state of LFSRs\\[5pt]
                 \item Add round constants $c_i$ to $w_i$ round keys
             \end{itemize}
         \end{block}
@@ -520,6 +500,122 @@
 \end{frame}
 
 \begin{frame}{Addressing Rationale 2}{The Round Function}
+    \vspace{-60pt}
+    \begin{minipage}{0.985\textwidth}
+    \begin{exampleblock}{Rationale 2}
+        For any instance, the $f_i$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_i(x) = f_i(x + \delta)} \approx \frac{1}{2}$.
+    \end{exampleblock}
+    \end{minipage}
+
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Design Decisions}
+            \begin{itemize}
+                \item Choose $f : \F_2^n \to \F_2$ to be bent
+                \item Choose the simplest bent function known:
+                    \begin{equation*}
+                        f(x, y) \coloneqq \angles{x, y}
+                    \end{equation*}
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Implications}
+            \begin{itemize}
+                \item Bent functions only exists for even $n$\\[5pt]
+                \item Instance not possible for every block length $n$
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\section{Further Analysis}
+\begin{frame}{Further Cryptanalysis}
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Linear Cryptanalysis\vpPp}
+            For $r \geqslant n$ rounds, the correlation of any non-trivial linear trail for \bison/ is upper bounded by $2^{-\frac{n+1}{2}}$.
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Invariant Attacks\vpPp}
+            For $r \geqslant n$ rounds, neither invariant subspaces nor nonlinear invariant attacks do exist for \bison/.
+            \vspace{3pt}
+        \end{block}
+    \end{minipage}
+
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Zero Correlation\vpPp}
+            For $r \geqslant 2n$ rounds, \bison/ does not exhibit any zero correlation linear hulls.
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Impossible Differentials\vpPp}
+            For $r \geqslant n$ rounds, there are no impossible differentials for \bison/.
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Conclusion/Questions}{Thank you for your attention!}
+    \vspace{-80pt}
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{\bison/\vpPp}
+            \begin{itemize}
+                \item A first instance of the WSN construction
+                \item Good results for differential cryptanalysis
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{Open Problems}
+            \begin{itemize}
+                \item Construction for linear cryptanalysis
+                \item Further analysis: division properties
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+
+    \vspace{30pt}
+
+    \begin{tikzpicture}[overlay]
+        \node (thanks) at (5.25,0){};
+        \draw[rotate=-7,line width=1.5pt,saphierblau,fill=gray!10]
+             ($(thanks)-(1.5,.35)$) rectangle ($(thanks)+(1.5,.35)$)
+             node[rotate=-7] at (thanks) {\textcolor{saphierblau}{\textbf{Thank you!}}};
+
+        \node[right=100pt of thanks](questions){};
+        \draw[rotate=3,line width=1.5pt,saphierblau,fill=gray!10]
+             ($(questions)-(1.15,.35)$) rectangle ($(questions)+(1.15,.35)$)
+             node[rotate=3] at (questions) {\textcolor{saphierblau}{\textbf{Questions?}}};
+
+        %\node[right=100pt of questions](eprint){};
+        %\draw[rotate=14,line width=1.5pt,saphierblau,fill=gray!10]
+        %     ($(eprint)-(1.15,.35)$) rectangle ($(eprint)+(1.15,.35)$)
+        %     node[rotate=14] at (eprint) {\textcolor{saphierblau}{\textcolor{gelbgruen}{\textbf{\href{https://ia.cr/2018/XXX}{2018/XXX}}}}};
+    \end{tikzpicture}
+\end{frame}
+
+%\begin{frame}[allowframebreaks]{References}
+%    %\begingroup
+%    %    \scriptsize Title Image: \href{https://www.flickr.com/photos/bluetrailphoto/11095367173/in/photolist-hUsE72-7X4eFa-qd7u6B-eTa8pd-hiDwGF-cSTY2d-cSU6Ky-eSXJJt-cSTXLq-cSTUhq-arJDEr-cLkoTm-QWsSn3-6rEB3f-qAcyWm-r9yN4b-8Rh3wU-8msPC1-8VN8Qb-5Nyggn-bjUxdV-ent85f-DnwchP-cp6bmJ-wPFFSv-NhRU6s-cp69Kq-Nm4z1F-QnDuHm-HJcDrV-rEdDTc-MPZXa9-6bRMU6-KcegAy-aQCqMx-cp6d4L-X1c1Ym-aohLov-SSV7w-STFfT-atKAhj-qZXa1M-aecFP9-iRFVou-SSUb7-cp6dzu-cxr1qG-eJVbbv-oMb4qu-251se6T}{Blue Trail Photography: \enquote{Lords of the Plains (b\&w)}, \emph{flickr}}\\[1em]
+%    %\endgroup
+%    %\begingroup
+%    %    \scriptsize Questionmark Image: \emph{flickr}\\[1em]
+%    %\endgroup
+%    \tiny
+%    \printbibliography{}
+%\end{frame}
+
+\begin{frame}[plain]
+    \centering
+    \Huge
+    \vspace{-1\baselineskip}
+    Details
+\end{frame}
+
+\begin{frame}{Addressing Rationale 2}{The detailed answer}
     \vspace{-60pt}
     \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 2}
@@ -611,79 +707,4 @@
                 \end{equation*}
         \end{block}
     \end{minipage}
-\end{frame}
-
-\section{Further Analysis}
-\begin{frame}{Further Cryptanalysis}
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Linear Cryptanalysis\vpPp}
-            For $r \geqslant n$ rounds, the correlation of any non-trivial linear trail for \bison/ is upper bounded by $2^{-\frac{n+1}{2}}$.
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Invariant Attacks\vpPp}
-            For $r \geqslant n$ rounds, neither invariant subspaces nor nonlinear invariant attacks do exist for \bison/.
-        \end{block}
-    \end{minipage}
-
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Zero Correlation\vpPp}
-            For $r \geqslant 2n$ rounds, \bison/ does not exhibit any zero correlation linear hulls.
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Impossible Differentials\vpPp}
-            For $r \geqslant n$ rounds, there are no impossible differentials for \bison/.
-        \end{block}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}{Conclusion/Questions}{Thank you for your attention!}
-    \vspace{-80pt}
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{\bison/\vpPp}
-            \begin{itemize}
-                \item A first instance of the WSN construction
-                \item Good results for differential cryptanalysis
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{Open Problems}
-            \begin{itemize}
-                \item Construction for linear cryptanalysis
-                \item Further analysis: division properties
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-
-    \vspace{30pt}
-
-    \begin{tikzpicture}[overlay]
-        \node (thanks) at (5.25,0){};
-        \draw[rotate=-7,line width=1.5pt,saphierblau,fill=gray!10]
-             ($(thanks)-(1.5,.35)$) rectangle ($(thanks)+(1.5,.35)$)
-             node[rotate=-7] at (thanks) {\textcolor{saphierblau}{\textbf{Thank you!}}};
-
-        \node[right=100pt of thanks](questions){};
-        \draw[rotate=3,line width=1.5pt,saphierblau,fill=gray!10]
-             ($(questions)-(1.15,.35)$) rectangle ($(questions)+(1.15,.35)$)
-             node[rotate=3] at (questions) {\textcolor{saphierblau}{\textbf{Questions?}}};
-
-        %\node[right=100pt of questions](eprint){};
-        %\draw[rotate=14,line width=1.5pt,saphierblau,fill=gray!10]
-        %     ($(eprint)-(1.15,.35)$) rectangle ($(eprint)+(1.15,.35)$)
-        %     node[rotate=14] at (eprint) {\textcolor{saphierblau}{\textcolor{gelbgruen}{\textbf{\href{https://ia.cr/2018/XXX}{2018/XXX}}}}};
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}[allowframebreaks]{References}
-    \begingroup
-        \scriptsize Mainboard Image: flickr\\[1em]
-    \endgroup
-    \tiny
-    \printbibliography{}
 \end{frame}
