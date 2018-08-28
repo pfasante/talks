@@ -189,6 +189,15 @@
     \end{equation*}
     \end{block}
     \end{minipage}
+    \hfill
+    \begin{minipage}[t][55pt][t]{0.47\textwidth}
+    \begin{block}{Decryption}
+    \vspace{-5pt}
+    \begin{equation*}
+        {E_{k,w}}^{-1}(c) \coloneqq c + \sum_{i=r}^{1} \lambda_i k_i = p
+    \end{equation*}
+    \end{block}
+    \end{minipage}
     }
 \end{frame}
 
@@ -249,13 +258,14 @@
     \end{minipage}
     \hfill
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{Why could this happen?}
+        %\begin{block}{\vpPp}
+        \vfill
             \begin{itemize}
-                \item For example, when the difference does not influence the lexicographic ordering of $x$ and $x + k_i$.
                 \item Gets worse when depending on less bits.
                 \item Compare to AES\@! Its round function depends on only 32 out of 128 bits.
             \end{itemize}
-        \end{block}
+        \vfill
+        %\end{block}
     \end{minipage}
 
     \vspace{50pt}
