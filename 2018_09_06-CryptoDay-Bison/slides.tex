@@ -68,7 +68,6 @@
         \footnotesize
         $(p, q)$-secure: Attackers querying the encryption at most $p$ and the underlying $f_i$'s $q$ times have only negl.\ advantage.
     \endgroup
-    \blfootnote{}
 \end{frame}
 
 \begin{frame}{An Implementation}
@@ -150,7 +149,7 @@
         ]
         \node[above of=root, yshift=-15pt] {Input};
     \end{forest}
-    }\only<3>{%
+    }\only<3->{%
     \begin{forest}
         %for tree={grow=east},
         [{\color{green!90!blue}$\makebox[6pt][c]{$p$}$}, name=root
@@ -191,7 +190,7 @@
     \end{minipage}
     \hfill
     \begin{minipage}[t][55pt][t]{0.47\textwidth}
-    \begin{block}{Decryption}
+    \begin{block}{Decryption (Involution)}
     \vspace{-5pt}
     \begin{equation*}
         {E_{k,w}}^{-1}(c) \coloneqq c + \sum_{i=r}^{1} \lambda_i k_i = p
@@ -279,24 +278,27 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}{A genus of the WSN construction: BISON}
+\begin{frame}{A genus of the WSN family: BISON}
     \centering
     \begin{block}{Generic properties of {\textbf{B}ent wh\textbf{I}tened \textbf{S}wap \textbf{O}r \textbf{N}ot}}
         \vspace{5pt}
         \begin{minipage}{0.51\textwidth}
         \begin{itemize}
+            \item \only<1>{At least $n$ iterations of the round function}
+                  \only<2>{\textcolor{alertred}{At least $n$ iterations of the round function}}
             \item Consecutive round keys linearly independent
-            \item At least $n$ iterations of the round function
         \end{itemize}
         \end{minipage}
         \begin{minipage}{0.44\textwidth}
         \begin{itemize}
-            \item The round function depends on all bits
+            \item \only<1>{The round function depends on all bits}
+                  \only<2>{\textcolor{alertred}{The round function depends on all bits}}
             \item All derivatives are balanced (\emph{bent})
         \end{itemize}
         \end{minipage}
         \vspace{5pt}
     \end{block}
+    \visible<2->{%
     \textcolor{alertred}{Rational 1 \& 2: WSN is \emph{slow} in practice!}
     \vfill
     \begingroup
@@ -305,6 +307,7 @@
         Differential Cryptanalysis?
     \endgroup
     \vfill
+    }
 \end{frame}
 
 \section{Differential Analysis}
@@ -349,6 +352,8 @@
 \begin{frame}{Differential Cryptanalysis}{One round}
     \begin{columns}
         \begin{column}{0.49\textwidth}
+            \centering
+            \vspace{30pt}
             \begin{block}{Proposition}
                 For one round of \bison/, the probabilities are:
                 \begin{equation*}
@@ -359,6 +364,13 @@
                     \end{cases*}
                 \end{equation*}
             \end{block}
+            \begingroup
+                \vspace{-20pt}
+                \footnotesize
+                \begin{equation*}
+                    \text{Involution} \Rightarrow R_{k,w}(p) + R_{k,w}(p+k) = k\vphantom{\sum_{i}^{n}}
+                \end{equation*}
+            \endgroup
         \end{column}
         \begin{column}{0.49\textwidth}
             \begin{tikzpicture}
@@ -563,6 +575,7 @@
     \begin{minipage}[t][70pt][t]{0.47\textwidth}
         \begin{block}{Impossible Differentials\vpPp}
             For $r > n$ rounds, there are no impossible differentials for \bison/.
+            \vspace{2pt}
         \end{block}
     \end{minipage}
 \end{frame}
@@ -623,38 +636,6 @@
     \Huge
     \vspace{-1\baselineskip}
     Details
-\end{frame}
-
-\begin{frame}{Addressing Rationale 2}{The detailed answer}
-    \vspace{-60pt}
-    \begin{minipage}{0.985\textwidth}
-    \begin{exampleblock}{Rationale 2}
-        For any instance, the $f_i$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_i(x) = f_i(x + \delta)} \approx \frac{1}{2}$.
-    \end{exampleblock}
-    \end{minipage}
-
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{Design Decisions}
-            \begin{itemize}
-                \item Choose $f_i : \F_2^n \to \F_2$ to be bent
-                \item Replace $x \mapsto \max \set{x, x+k}$ by
-                        \begin{align*}
-                            \Phi_k(x) : \F_2^n &\to \F_2^{n-1} \\
-                            \Phi_k(x) &\coloneqq (x + x[i(k)] \cdot k)[j]_{\tower{1 \leqslant j \leqslant n}{j \neq i(k)}}
-                        \end{align*}
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{Implications}
-            \begin{itemize}
-                \item With $\Phi_k$ we preserve the bent properties\\[5pt]
-                \item Bent functions only exists for even $n$\\[5pt]
-                \item Encryption now only possible for odd block lengths
-            \end{itemize}
-        \end{block}
-    \end{minipage}
 \end{frame}
 
 \begin{frame}{\bison/}{Round Function}
