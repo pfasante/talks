@@ -53,14 +53,6 @@
 \usepackage{pgfplots}
 \usetikzlibrary{pgfplots.colormaps}
 
-\tikzset{%
-    invisible/.style={opacity=0},
-    visible on/.style={alt={#1{}{invisible}}},
-    alt/.code args={<#1>#2#3}{%
-        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
-    },
-}
-
 \newcommand{\repeatarrow}{%
     \begin{tikzpicture}[inner sep=0pt, baseline=(base)]%
     \node (n) {};
@@ -71,6 +63,23 @@
 
 \usepackage[beamer]{hf-tikz}
 \usepackage{forest}
+
+\tikzset{%
+    invisible/.style={opacity=0,text opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+}
+\forestset{%
+    visible on/.style={%
+        for tree={%
+            /tikz/visible on={#1},
+            edge+={/tikz/visible on={#1}}
+        }
+    }
+}
+
 
 \setbeamertemplate{bibliography item}[text]
 \usepackage[%

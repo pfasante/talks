@@ -1,73 +1,131 @@
 \section{The WSN construction}
+\begin{frame}{Block Ciphers}
+    \centering
+    Encrypt plaintext in blocks $p_i$ of $n$ bits, under a key of $n$ bits:
+    \begin{tikzpicture}
+        \begin{scope}
+            \node (f0) at ($0*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+            \node (m0) [above of=f0, node distance=2.75cm] {$p_0 \in \set{0,1}^n$};
+            \node (k0) [left of=f0, node distance=3.5cm] {$k \in \set{0,1}^n$};
+            \node (c0) [below of=f0, node distance=2.75cm] {$c_0 \in \set{0,1}^n$};
+            \draw[-latex, thick] (m0) -- (f0);
+            \draw[-latex, thick] (k0) -- (f0);
+            \draw[-latex, thick] (f0) -- (c0);
+        \end{scope}
+
+        \begin{scope}
+            \node (f1) at ($1*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+            \node (m1) [above of=f1, node distance=2.75cm] {$p_1 \in \set{0,1}^n$};
+            \node (k1) [right of=f1, node distance=3.5cm] {$k \in \set{0,1}^n$};
+            \node (c1) [below of=f1, node distance=2.75cm] {$c_1 \in \set{0,1}^n$};
+            \draw[-latex, thick] (m1) -- (f1);
+            \draw[-latex, thick] (k1) -- (f1);
+            \draw[-latex, thick] (f1) -- (c1);
+        \end{scope}
+    \end{tikzpicture}
+\end{frame}
+
 \begin{frame}{The WSN construction}
     \centering
     Published by \href{https://doi.org/10.1007/978-3-662-48800-3_18}{Tessaro at AsiaCrypt 2015} [\texttt{\href{https://ia.cr/2015/868}{ia.cr/2015/868}}].
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Overview\vpPp}
-                \centering
-                \vspace*{13pt}
-                \begin{tikzpicture}[scale=1]
-                    \tikzstyle{every node}=[transform shape];
+    \begin{minipage}[t][90pt][t]{0.47\textwidth}
+        \begin{block}{Overview round, iterated $r$ times\vpPp}
+            \centering
+            \vfill
+            \includegraphics{data/wsn-schematic-1round}
+            \vfill
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][90pt][t]{0.47\textwidth}
+        \begin{block}{Whitened Swap-Or-Not round function}
+            \vspace*{-12.5pt}
+            \begin{gather*}
+                x, k \in \set{0,1}^n \quad\text{and}\quad f : \set{0,1}^n \to \set{0,1} \\
+                y = \begin{cases*}
+                    x + k & if $f_{k}(x) = 1$ \\
+                    x     & if $f_{k}(x) = 0$
+                    \end{cases*}
+            \end{gather*}
+        \end{block}
+    \end{minipage}
 
-                    \node (mux) [trapezium, trapezium angle=-60, rounded corners=2pt, minimum width=20mm, draw, thick] {$0/1$};
+    \visible<2->{%
+    \begin{minipage}[t][60pt][t]{0.47\textwidth}
+        \begin{block}{Properties of $f$ (needed for decryption)\vpPp}
+            \vspace{-5pt}
+            \begin{equation*}
+                f_k(x) = f_k(x + k)
+            \end{equation*}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][60pt][t]{0.47\textwidth}
+        \begin{block}{Security Proposition (informal)}
+            \centering
+            The WSN construction with $r = \mathcal{O}(n)$ rounds is\\
+                $(2^{n-\mathcal{O}(\log n)}, 2^{n-\mathcal{O}(1)})\text{-secure}$.
+            \vspace{1.5pt}
+        \end{block}
+    \end{minipage}
 
-                    \node (f) [left=7mm of mux,rectangle, rounded corners=2pt, minimum width=10mm, minimum height=15mm, draw, thick] {$f_i$};
-                    \node (f-w) [left=-5pt of f.north,yshift=6.75mm] {\vphantom{$k$}$w_i$};
-                    \node (f-k) [right=0.0mm of f.north,yshift=-1.25mm] {};
-                    \node (k) [right=5.5mm of f.north,yshift=6.75mm] {$k_i$};
-                    \draw[thick] (k) -- +(0,-3.5mm);
-
-                    \node (xor) [below=5mm of mux.south, XOR] {};
-
-                    \node (input) [left=30mm of xor] {$x_i$};
-                    \node (output) [right=10mm of xor] {$x_{i+1}$};
-
-                    \node (mux-k) [left=2.5mm of mux.north,yshift=-1.25mm] {};
-
-                    %f input
-                    \draw[thick, -latex] (input.east)+(2.5mm,0) -| (f.south);
-                    \draw[thick, -latex] (f-w) -- +(0,-6.75mm);
-                    \draw[thick, -latex] (k)+(0,-3.5mm) -| (f-k);
-                    \draw[thick, -latex] (k)+(0,-3.5mm) -| (mux-k);
-
-                    %mux input
-                    \node (mux-zero) [right=2.5mm of mux.north,yshift=2.5mm+7mm] {0};
-                    \draw[thick, -latex] (mux-zero.south) -- +(0,-7.125mm);
-
-                    % mux control
-                    \draw[thick, -latex] (f.east) -- (mux.west);
-
-                    % xor input
-                    \draw[thick, -latex] (input.east) -- (xor.west);
-                    \draw[thick, -latex] (mux.south) -- (xor.north);
-
-                    \draw[thick, -latex] (xor.east) -- (output.west);
-                \end{tikzpicture}
-                \vspace*{13pt}
-            \end{block}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Whitened Swap-Or-Not round function}
-                \vspace*{-10pt}
-                \begin{equation*}
-                    x_i \mapsto x_i + f_{b(i)}(w_i + \max \set{x_i, x_i + k_i}) \cdot k_i
-                \end{equation*}
-            \end{block}
-
-            \begin{block}{Security Proposition (informal)}
-                The WSN construction with $\mathcal{O}(n)$ rounds is
-                \begin{equation*}
-                    (2^{n-\mathcal{O}(\log n)}, 2^{n-\mathcal{O}(1)})\text{-secure}.
-                \end{equation*}
-            \end{block}
-        \end{column}
-    \end{columns}
     \begingroup
         \vspace{10pt}
         \footnotesize
         $(p, q)$-secure: Attackers querying the encryption at most $p$ and the underlying $f_i$'s $q$ times have only negl.\ advantage.
     \endgroup
+    }
+\end{frame}
+
+\begin{frame}{The WSN construction}{Encryption}
+    \centering
+    \begin{forest}
+        %for tree={grow=east},
+        [{\textcolor{green!90!blue}{$x$}},
+        name=root,
+        for children={visible on=<2->}
+            [{$x$},
+            for children={visible on=<3->}
+                [{$x$},
+                for children={visible on=<4->}
+                    [{$x$}, name=left node]
+                    [{$x + k_2$}]
+                ]
+                [{$x + k_1$},
+                for children={visible on=<4->}
+                    [{$x + k_1$}]
+                    [{$x + k_1 + k_2$}]
+                ]
+            ]
+            [{\textcolor{green!90!blue}{$x + k_0$}},
+            edge={thick, green!90!blue},
+            for children={visible on=<3->}
+                [{\textcolor{green!90!blue}{$x + k_0$}},
+                edge={thick, green!90!blue},
+                for children={visible on=<4->}
+                    [{$x + k_0$}]
+                    [{\textcolor{green!90!blue}{$x + k_0 + k_2$}},
+                    edge={thick, green!90!blue}
+                    ]
+                ]
+                [{$x + k_0 + k_1$},
+                for children={visible on=<4->}
+                    [{$x + k_0 + k_1$}]
+                    [{$x + k_0 + k_1 + k_2$}, name=right node]
+                ]
+            ]
+        ]
+        \node[above of=root, yshift=-15pt] {Input};
+    \end{forest}
+
+    \visible<4->{%
+    %\vspace{-15pt}
+    \begin{equation*}
+        \text{Encryption:}\qquad
+        E_{k}(x) \coloneqq x + \sum_{i=1}^{r} \lambda_i k_i = y
+    \end{equation*}
+    }
+
 \end{frame}
 
 \begin{frame}{An Implementation}
@@ -94,122 +152,15 @@
 
 \section{Generic Analysis}
 \begin{frame}{Generic Analysis}{On the number of rounds}
-    \centering
-    \only<1>{%
-    \begin{forest}
-        %for tree={grow=east},
-        [{$\makebox[6pt][c]{$p$}$}, name=root
-            [{$\makebox[6pt][c]{$p$}$}
-                [{$\makebox[6pt][c]{$p$}$}
-                    [{$\makebox[6pt][c]{$p$}$}, name=left node]
-                    [{$\makebox[6pt][c]{$p$} + k_3$}]
-                ]
-                [{$\makebox[6pt][c]{$p$} + k_2$}
-                    [{$\makebox[6pt][c]{$p$} + k_2$}]
-                    [{$\makebox[6pt][c]{$p$} + k_2 + k_3$}]
-                ]
-            ]
-            [{$\makebox[6pt][c]{$p$} + k_1$}
-                [{$\makebox[6pt][c]{$p$} + k_1$}
-                    [{$\makebox[6pt][c]{$p$} + k_1$}]
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_3$}]
-                ]
-                [{$\makebox[6pt][c]{$p$} + k_1 + k_2$}
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_2$}]
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_2 + k_3$}, name=right node]
-                ]
-            ]
-        ]
-        \node[above of=root, yshift=-15pt] {Input};
-    \end{forest}
-    }\only<2>{%
-    \begin{forest}
-        %for tree={grow=east},
-        [{\color{green!90!blue}$\makebox[6pt][c]{$p$}$}, name=root
-            [{\color{green!90!blue}$\makebox[6pt][c]{$p$}$}, edge={thick, green!90!blue}
-                [{$\makebox[6pt][c]{$p$}$}
-                    [{$\makebox[6pt][c]{$p$}$}, name=left node]
-                    [{$\makebox[6pt][c]{$p$} + k_3$}]
-                ]
-                [{\color{green!90!blue}$\makebox[6pt][c]{$p$} + k_2$}, edge={thick, green!90!blue}
-                    [{\color{green!90!blue}$\makebox[6pt][c]{$p$} + k_2$}, edge={thick, green!90!blue}]
-                    [{$\makebox[6pt][c]{$p$} + k_2 + k_3$}]
-                ]
-            ]
-            [{$\makebox[6pt][c]{$p$} + k_1$}
-                [{$\makebox[6pt][c]{$p$} + k_1$}
-                    [{$\makebox[6pt][c]{$p$} + k_1$}]
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_3$}]
-                ]
-                [{$\makebox[6pt][c]{$p$} + k_1 + k_2$}
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_2$}]
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_2 + k_3$}, name=right node]
-                ]
-            ]
-        ]
-        \node[above of=root, yshift=-15pt] {Input};
-    \end{forest}
-    }\only<3->{%
-    \begin{forest}
-        %for tree={grow=east},
-        [{\color{green!90!blue}$\makebox[6pt][c]{$p$}$}, name=root
-            [{\color{green!90!blue}$\makebox[6pt][c]{$p$}$}, edge={thick, green!90!blue}
-                [{$\makebox[6pt][c]{$p$}$}
-                    [{$\makebox[6pt][c]{$p$}$}, name=left node]
-                    [{$\makebox[6pt][c]{$p$} + k_3$}]
-                ]
-                [{\color{green!90!blue}$\makebox[6pt][c]{$p$} + k_2$}, edge={thick, green!90!blue}
-                    [{\color{green!90!blue}$\makebox[6pt][c]{$p$} + k_2$}, edge={thick, green!90!blue}]
-                    [{$\makebox[6pt][c]{$p$} + k_2 + k_3$}]
-                ]
-            ]
-            [{\color{blue}$\makebox[6pt][c]{$p$} + k_1$}, edge={thick, blue}
-                [{\color{blue}$\makebox[6pt][c]{$p$} + k_1$}, edge={thick, blue}
-                    [{\color{blue}$\makebox[6pt][c]{$p$} + k_1$}, edge={thick, blue}]
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_3$}]
-                ]
-                [{$\makebox[6pt][c]{$p$} + k_1 + k_2$}
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_2$}]
-                    [{$\makebox[6pt][c]{$p$} + k_1 + k_2 + k_3$}, name=right node]
-                ]
-            ]
-        ]
-        \node[above of=root, yshift=-15pt] {Input};
-    \end{forest}
-    }
-
-    \visible<2->{%
-    %\vspace{-15pt}
-    \begin{minipage}[t][55pt][t]{0.47\textwidth}
-    \begin{block}{Encryption}
-    \vspace{-5pt}
-    \begin{equation*}
-        E_{k,w}(p) \coloneqq p + \sum_{i=1}^{r} \lambda_i k_i = c
-    \end{equation*}
-    \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][55pt][t]{0.47\textwidth}
-    \begin{block}{Decryption (Involution)}
-    \vspace{-5pt}
-    \begin{equation*}
-        {E_{k,w}}^{-1}(c) \coloneqq c + \sum_{i=r}^{1} \lambda_i k_i = p
-    \end{equation*}
-    \end{block}
-    \end{minipage}
-    }
-\end{frame}
-
-\begin{frame}{Generic Analysis}{On the number of rounds}
     \vspace{-20pt}
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
         \begin{block}{Observation\vpPp}
             \begin{itemize}
-                \item The ciphertext is the plaintext plus a random subset of the round keys:
+                \item The ciphertext is the plaintext plus a subset of the round keys:
                     \begin{equation*}
-                        c = p + \sum_{i=1}^{r} \lambda_i k_i
+                        y = x + \sum_{i=1}^{r} \lambda_i k_i
                     \end{equation*}
-                \item For pairs $p_i, c_i$: $\Span \set{p_i + c_i} \subseteq \Span \set{k_j}$.
+                \item For pairs $x_i, y_i$: $\Span \set{x_i + y_i} \subseteq \Span \set{k_j}$.
             \end{itemize}
             \vspace{2pt}
         \end{block}
@@ -219,10 +170,10 @@
         \visible<2->{%
         \begin{alertblock}{Distinguishing Attack for $r < n$ rounds\vpPp}
             \vspace{2pt}
-            There is an $u \in \F_2^n \setminus \set{0}$, \st/ $\angles{u, p} = \angles{u, c}$ holds always:
+            There is an $u \in \F_2^n \setminus \set{0}$, \st/ $\angles{u, x} = \angles{u, y}$ holds always:
             \begin{align*}
-                        &\angles{u, c} = \angles{u, p + \sum \lambda_i k_i} \\
-                        =\ &\angles{u, p} + \angles{u, \sum \lambda_i k_i} = \angles{u, p} + 0
+                        &\angles{u, y} = \angles{u, x + \sum \lambda_i k_i} \\
+                        =\ &\angles{u, x} + \angles{u, \sum \lambda_i k_i} = \angles{u, x} + 0
                     \end{align*}
             for all $u \in \Span\set{k_1, \ldots, k_r}^\perp \neq \set{0}$
             \vspace{3pt}
@@ -235,47 +186,20 @@
     \begin{minipage}{0.985\textwidth}
     \visible<3->{%
     \begin{exampleblock}{Rationale 1}
-        Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.\vphantom{$\frac{1}{2}$}
+        Any instance must iterate at least n rounds; any set of n consecutive keys should be linearly indp.\vphantom{$\frac{1}{2}$}
     \end{exampleblock}
     }
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Generic Analysis}{On the Boolean functions $f_i$}
-    \vspace{-20pt}
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{Observation\vpPp}
-            If the $f_i$ do not depend on the MSB, \ie/
-            \begin{equation*}
-                f_i(x) = f_i(x + e_n)
-            \end{equation*}
-            then this propagates through $r$ rounds w.\,h.\,p.:
-            \begin{equation*}
-                \Prob\bracket{E_{k,w}(x) + E_{k,w}(x + e_n) = e_n} \geqslant \parens{1 - 2^{-1}}^r
-            \end{equation*}
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        %\begin{block}{\vpPp}
-        \vfill
-            \begin{itemize}
-                \item Gets worse when depending on less bits.
-                \item Compare to AES\@! Its round function depends on only 32 out of 128 bits.
-            \end{itemize}
-        \vfill
-        %\end{block}
-    \end{minipage}
+\begin{frame}{Generic Analysis}{On the Boolean functions $f$}
+    \centering
 
-    \vspace{50pt}
+    A bit out of the blue sky, but:
 
-    \begin{minipage}{0.985\textwidth}
-    \visible<2->{%
     \begin{exampleblock}{Rationale 2}
-        For any instance, the $f_i$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_i(x) = f_i(x + \delta)} \approx \frac{1}{2}$.
+        For any instance, $f$ has to depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f(x) = f(x + \delta)} \approx \frac{1}{2}$.
     \end{exampleblock}
-    }
-    \end{minipage}
 \end{frame}
 
 \begin{frame}{A genus of the WSN family: BISON}
@@ -293,7 +217,7 @@
         \begin{itemize}
             \item \only<1>{The round function depends on all bits}
                   \only<2>{\textcolor{alertred}{The round function depends on all bits}}
-            \item All derivatives are balanced (\emph{bent})
+            \item $\forall \delta :\ \Pr\bracket{f(x) = f(x + \delta)} = \frac{1}{2}$ (\emph{bent})
         \end{itemize}
         \end{minipage}
         \vspace{5pt}
@@ -312,44 +236,69 @@
 
 \section{Differential Analysis}
 \begin{frame}{Differential Cryptanalysis}{Primer}
-    \begin{minipage}{0.47\textwidth}
-        \centering
-        For block cipher $E_k(x)$ compute
-        \begin{equation*}
-            \Prob\bracket{E_k(x) + E_k(x + \alpha) = \beta} = p_{E_k}(\alpha, \beta).
-        \end{equation*}
-        Notation: $\Prob\bracket{\alpha \to \beta}$.
+    \centering
+    \begin{tikzpicture}
+    \tikzfading[name=fade out, inner color=transparent!0, outer color=transparent!100]
+    \only<1>{%
+        \node (f0) at ($0*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+        \node (m0) [above=10pt of f0.north] {$p$};
+        \node (k0) [left=10pt of f0.west] {$k$};
+        \node (c0) [below=10pt of f0.south] {$c$\vphantom{$^\prime$}};
+        \draw[-latex, thick] (m0) -- (f0);
+        \draw[-latex, thick] (k0) -- (f0);
+        \draw[-latex, thick] (f0) -- (c0);
 
-        %\only<1>{%
-        %\begin{block}{Differential Characteristic}
-        %    Find \emph{differential characteristic's} of round $R$, by computing for all $\alpha$, $\beta$
-        %    \begin{itemize}
-        %        \item $\Prob\bracket{R(x) + R(x + \alpha) = \beta} = p_R(\alpha,\beta)$
-        %    \end{itemize}
-        %\end{block}
-        %}
+        \node (f1) at ($1*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+        \node (m1) [above=10pt of f1.north] {$p^\prime$};
+        \node (k1) [right=10pt of f1.east] {$k$};
+        \node (c1) [below=10pt of f1.south] {$c^\prime$};
+        \draw[-latex, thick] (m1) -- (f1);
+        \draw[-latex, thick] (k1) -- (f1);
+        \draw[-latex, thick] (f1) -- (c1);
 
-        %\only<2>{%
-        %\begin{block}{Differential}
-        %    Assume for the \emph{differential} through $E_k$:
-        %    \begin{itemize}
-        %        \item $p_{E_k}(\alpha, \beta) \approx \displaystyle\sum_{\delta} \displaystyle\prod_{i} p_R(\delta_i, \delta_{i+1})$
-        %    \end{itemize}
-        %\end{block}
-        %}
-    \end{minipage}
-    \begin{minipage}{0.47\textwidth}
-        \centering
-        \only<1>{%
-        \includegraphics[height=0.8\textheight]{data/differential-characteristic}
-        }
-        \only<2>{%
-        \includegraphics[height=0.8\textheight]{data/differential}
-        }
-    \end{minipage}
+        \node (xor-in) [right=57.5pt of m0] {$\oplus$};
+        \node (xor-out) [right=57.5pt of c0] {$\oplus$};
+        \node (delta-in) [right=80pt of m1] {$= \alpha$};
+        \node (delta-out) [right=80pt of c1] {$= \beta$};
+    }
+    \only<2->{%
+        \begin{scope}[opacity=0.2]
+        \node (f0) at ($0*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=white,draw] {{\sc Enc}};
+        \node (m0) [above=10pt of f0.north] {$p$};
+        \node (k0) [left=10pt of f0.west] {$k$};
+        \node (c0) [below=10pt of f0.south] {$c$\vphantom{$^\prime$}};
+        \draw[-latex, thick] (m0) -- (f0);
+        \draw[-latex, thick] (k0) -- (f0);
+        \draw[-latex, thick] (f0) -- (c0);
+
+        \node (f1) at ($1*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=white,draw] {{\sc Enc}};
+        \node (m1) [above=10pt of f1.north] {$p^\prime$};
+        \node (k1) [right=10pt of f1.east] {$k$};
+        \node (c1) [below=10pt of f1.south] {$c^\prime$};
+        \draw[-latex, thick] (m1) -- (f1);
+        \draw[-latex, thick] (k1) -- (f1);
+        \draw[-latex, thick] (f1) -- (c1);
+
+        \node (xor-in) [right=57.5pt of m0] {$\oplus$};
+        \node (xor-out) [right=57.5pt of c0] {$\oplus$};
+        \node (delta-in) [right=80pt of m1] {$= \alpha$};
+        \node (delta-out) [right=80pt of c1] {$= \beta$};
+        \end{scope}
+    }
+
+    \only<2>{%
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.5) rectangle (4.5, -3.5);
+        \node (diff-char) [below=-20pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential-characteristic}};
+    }
+    \only<3>{%
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.5) rectangle (4.5, -3.5);
+        \node (diff) [below=-20pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential}};
+    }
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Differential Cryptanalysis}{One round}
+    \vspace{-30pt}
     \begin{columns}
         \begin{column}{0.49\textwidth}
             \centering
@@ -364,119 +313,90 @@
                     \end{cases*}
                 \end{equation*}
             \end{block}
-            \begingroup
-                \vspace{-20pt}
-                \footnotesize
-                \begin{equation*}
-                    \text{Involution} \Rightarrow R_{k,w}(p) + R_{k,w}(p+k) = k\vphantom{\sum_{i}^{n}}
-                \end{equation*}
-            \endgroup
         \end{column}
         \begin{column}{0.49\textwidth}
-            \begin{tikzpicture}
-            \pgfplotsset{%
-                colormap={WhiteRedBlack}{%
-                    rgb255=(255,255,255)
-                    rgb=(0.80,0.12,0.12)
-                    rgb255=(0,0,0)
-                },
+            \vspace{40pt}
+            \centering
+            \vfill
+            \visible<2->{%
+            Possible differences:
+            \begin{alignat*}{5}
+                        &x   &          &+ \hphantom{(} f_k(x)\ &                                \cdot &k \\
+                \oplus\ &x\  &+\ \alpha &                       &+\ f_k(x + \alpha) \hphantom{)} \cdot &k \\
+                =\      &    &\alpha\   &+ (f_k(x)\             &+\ f_k(x + \alpha))             \cdot &k
+            \end{alignat*}
             }
-            \begin{axis}[%
-                small,
-                every tick label/.append style={font=\tiny},
-                tick align=outside,
-                minor tick num=5,
-                %
-                xlabel=$\beta$,
-                xticklabel pos=right,
-                xlabel near ticks,
-                xmin=-1, xmax=32,
-                xtick={0, 5, ..., 31},
-                %
-                ylabel=$\alpha$,
-                ylabel style={rotate=-90},
-                ymin=-1, ymax=32,
-                ytick={0, 5, ..., 31},
-                %
-                point meta min=0,
-                point meta max=32,
-                point meta=explicit,
-                %
-                colorbar sampled line,
-                colorbar style={%
-                    ytick={0,16,32},
-                    yticklabels={$0$,$\frac{1}{2}$,$1$},
-                    ylabel={$\Prob\bracket{\alpha \to \beta}$},
-                    ylabel near ticks,
-                },
-                colormap name=WhiteRedBlack,
-                scale mode=scale uniformly,
-            ]
-            \addplot[matrix plot, mesh/cols=32] table[meta=C] {"data/ddt-one-round.dat"};
-            \end{axis}
-            \end{tikzpicture}
+            \vfill
         \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}{Differential Cryptanalysis}{More rounds}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{block}{Example differences over $r = 3$ rounds}
-                \centering
-                \begin{forest}
-                    for tree={grow=east},
-                    [$\alpha$
-                        [{$\alpha$}, edge label={node[midway,below,font=\scriptsize] {$\frac{1}{2}$}}, tikz={\node[draw,dashed,very thick,white,inner sep=0,fit to=tree]{};}
-                            [{$\alpha$}
-                                [{$\alpha$}]
-                                [{$\alpha + k_3$}]
-                            ]
-                            [{$\alpha + k_2$}
-                                [{$\alpha + k_2$}]
-                                [{$\alpha + k_2 + k_3$}]
-                            ]
-                        ]
-                        [{$\alpha + k_1$}, edge label={node[midway,above,font=\scriptsize] {$\frac{1}{2}$}}
-                            [{$\alpha + k_1$}, edge={thick}, edge label={node[midway,below,xshift=-1mm,font=\scriptsize] {$1$}}, tikz={\node[draw,dashed,very thick,white,inner sep=0,fit to=tree]{};}
-                                [{$\alpha + k_1$}]
-                                [{$\alpha + k_1 + k_3$}]
-                            ]
-                            [{$\alpha + k_1 + k_2$}, edge={thick,dotted}, edge label={node[midway,above,xshift=-1mm,font=\scriptsize] {$0$}}, tikz={\node[draw,dashed,very thick,white,inner sep=0,fit to=tree]{};}
-                                [{$\alpha + k_1 + k_2$}]
-                                [{$\alpha + k_1 + k_2 + k_3$}]
-                            ]
-                        ]
-                    ]
-                \end{forest}
-            \end{block}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \visible<2->{%
-            \begin{block}{Probabilities of output differences}
-                \vspace{-10pt}
-                \begin{equation*}
-                    \Prob\bracket{\alpha \to \beta} = \begin{cases*}
-                        2^{-r}   & if $\beta$ in normal branch\\
-                        2^{-r+1} & if $\beta$ in collapsed branch\\
-                        0        & if $\beta$ in impossible branch
-                    \end{cases*}
-                \end{equation*}
-            \end{block}
-            }
-            \visible<3->{%
-            \begin{alertblock}{Collapsing}
-                \centering
-                How many branches can collapse?
-            \end{alertblock}
-            \begin{exampleblock}{Only two}
-                \centering
-                For $r \leqslant n$ rounds and linearly indp.\\
-                round keys this happens only once.
-            \end{exampleblock}
-            }
-        \end{column}
-    \end{columns}
+    Example differences over $r = 3$ rounds:\\[\baselineskip]
+
+    \begin{center}
+    \only<1>{%
+    \begin{forest}
+        [{$\alpha$}
+            [{$\alpha$},
+            edge label={node[midway,left,yshift=2mm,font=\scriptsize] {$\frac{1}{2}$}}
+                [{$\alpha$}
+                    [{$\alpha$}]
+                    [{$\alpha + k_3$}]
+                ]
+                [{$\alpha + k_2$}
+                    [{$\alpha + k_2$}]
+                    [{$\alpha + k_2 + k_3$}]
+                ]
+            ]
+            [{$\alpha + k_1$},
+            edge label={node[midway,right,yshift=2mm,font=\scriptsize] {$\frac{1}{2}$}}
+                [{$\alpha + k_1$}
+                    [{$\alpha + k_1$}]
+                    [{$\alpha + k_1 + k_3$}]
+                ]
+                [{$\alpha + k_1 + k_2$}
+                    [{$\alpha + k_1 + k_2$}]
+                    [{$\alpha + k_1 + k_2 + k_3$}]
+                ]
+            ]
+        ]
+    \end{forest}}\only<2>{%
+    \begin{forest}
+        [\textcolor{alertred}{$\alpha$}
+            [\textcolor{alertred}{$\alpha$},
+            edge={color=alertred, thick},
+            edge label={node[midway,left,yshift=2mm,font=\scriptsize] {$\frac{1}{2}$}}
+                [{$\alpha$}
+                    [{$\alpha$}]
+                    [{$\alpha + k_3$}]
+                ]
+                [\textcolor{alertred}{$\alpha + k_2$},
+                edge={color=alertred, thick}
+                    [\textcolor{alertred}{$\alpha + k_2$},
+                    edge={color=alertred, thick}]
+                    [{$\alpha + k_2 + k_3$}]
+                ]
+            ]
+            [{$\alpha + k_1$},
+            edge label={node[midway,right,yshift=2mm,font=\scriptsize] {$\frac{1}{2}$}}
+                [{$\alpha + k_1$}
+                    [{$\alpha + k_1$}]
+                    [{$\alpha + k_1 + k_3$}]
+                ]
+                [{$\alpha + k_1 + k_2$}
+                    [{$\alpha + k_1 + k_2$}]
+                    [{$\alpha + k_1 + k_2 + k_3$}]
+                ]
+            ]
+        ]
+    \end{forest}}
+    \vspace{20pt}
+
+    \visible<2->{%
+    For fixed \textcolor{alertred}{$\alpha$} and \textcolor{alertred}{$\beta$} there is only \emph{one} path!
+    }
+    \end{center}
 \end{frame}
 
 \section{The concrete Instance}
@@ -496,7 +416,7 @@
     \vspace{-60pt}
     \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 1}
-        Any instance must iterate at least n rounds; any set of n consecutive keys should be linear indp.\vphantom{$\frac{1}{2}$}
+        Any instance must iterate at least n rounds; any set of n consecutive keys should be linearly indp.\vphantom{$\frac{1}{2}$}
     \end{exampleblock}
     \end{minipage}
 
@@ -525,14 +445,18 @@
     \vspace{-60pt}
     \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 2}
-        For any instance, the $f_i$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_i(x) = f_i(x + \delta)} \approx \frac{1}{2}$.
+        For any instance, the $f$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f(x) = f(x + \delta)} \approx \frac{1}{2}$.
     \end{exampleblock}
     \end{minipage}
 
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
         \begin{block}{Design Decisions}
             \begin{itemize}
-                \item Choose $f : \F_2^n \to \F_2$ to be bent
+                \item Choose $f : \F_2^n \to \F_2$ \st/
+                      \begin{equation*}
+                          \delta \in \F_2^n:\ \Pr\bracket{f(x) = f(x + \delta)} = \frac{1}{2},
+                      \end{equation*}
+                      that is, $f$ is a bent function.
                 \item Choose the simplest bent function known:
                     \begin{equation*}
                         f(x, y) \coloneqq \angles{x, y}
@@ -544,38 +468,10 @@
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
         \begin{block}{Implications}
             \begin{itemize}
+                \item Bent functions well studied\\[5pt]
                 \item Bent functions only exists for even $n$\\[5pt]
                 \item Instance not possible for every block length $n$
             \end{itemize}
-        \end{block}
-    \end{minipage}
-\end{frame}
-
-\section{Further Analysis}
-\begin{frame}{Further Cryptanalysis}
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Linear Cryptanalysis\vpPp}
-            For $r \geqslant n$ rounds, the correlation of any non-trivial linear trail for \bison/ is upper bounded by $2^{-\frac{n+1}{2}}$.
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Invariant Attacks\vpPp}
-            For $r \geqslant n$ rounds, neither invariant subspaces nor nonlinear invariant attacks do exist for \bison/.
-            \vspace{3pt}
-        \end{block}
-    \end{minipage}
-
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Zero Correlation\vpPp}
-            For $r > 2n-2$ rounds, \bison/ does not exhibit any zero correlation linear hulls.
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][70pt][t]{0.47\textwidth}
-        \begin{block}{Impossible Differentials\vpPp}
-            For $r > n$ rounds, there are no impossible differentials for \bison/.
-            \vspace{2pt}
         \end{block}
     \end{minipage}
 \end{frame}
@@ -638,6 +534,7 @@
     Details
 \end{frame}
 
+\section{Specification}
 \begin{frame}{\bison/}{Round Function}
     \vspace{-45pt}
     \begin{minipage}[t][150pt][t]{0.985\textwidth}
@@ -696,6 +593,35 @@
                     c_i = \parens{C_w}^{-i} e_1, \qquad
                     w_i = \parens{C_w}^i w.
                 \end{equation*}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\section{Further Analysis}
+\begin{frame}{Further Cryptanalysis}
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Linear Cryptanalysis\vpPp}
+            For $r \geqslant n$ rounds, the correlation of any non-trivial linear trail for \bison/ is upper bounded by $2^{-\frac{n+1}{2}}$.
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Invariant Attacks\vpPp}
+            For $r \geqslant n$ rounds, neither invariant subspaces nor nonlinear invariant attacks do exist for \bison/.
+            \vspace{3pt}
+        \end{block}
+    \end{minipage}
+
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Zero Correlation\vpPp}
+            For $r > 2n-2$ rounds, \bison/ does not exhibit any zero correlation linear hulls.
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][70pt][t]{0.47\textwidth}
+        \begin{block}{Impossible Differentials\vpPp}
+            For $r > n$ rounds, there are no impossible differentials for \bison/.
+            \vspace{2pt}
         \end{block}
     \end{minipage}
 \end{frame}
