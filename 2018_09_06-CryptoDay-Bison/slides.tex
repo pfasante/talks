@@ -64,16 +64,10 @@
         \begin{block}{Security Proposition (informal)}
             \centering
             The WSN construction with $r = \mathcal{O}(n)$ rounds is\\
-                $(2^{n-\mathcal{O}(\log n)}, 2^{n-\mathcal{O}(1)})\text{-secure}$.
+            \emph{Full Domain} secure.
             \vspace{1.5pt}
         \end{block}
     \end{minipage}
-
-    \begingroup
-        \vspace{10pt}
-        \footnotesize
-        $(p, q)$-secure: Attackers querying the encryption at most $p$ and the underlying $f_i$'s $q$ times have only negl.\ advantage.
-    \endgroup
     }
 \end{frame}
 
@@ -139,7 +133,7 @@
         \centering
         \begin{block}{Construction}
             \begin{itemize}
-                \item $f(x) \coloneqq\ $?
+                \item $f_k(x) \coloneqq\ $?
                 \item Key schedule?
                 \item $\mathcal{O}(n)$ rounds?
             \end{itemize}
@@ -198,12 +192,18 @@
     A bit out of the blue sky, but:
 
     \begin{exampleblock}{Rationale 2}
-        For any instance, $f$ has to depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f(x) = f(x + \delta)} \approx \frac{1}{2}$.
+        For any instance, $f$ has to depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_k(x) = f_k(x + \delta)} \approx \frac{1}{2}$.
     \end{exampleblock}
 \end{frame}
 
 \begin{frame}{A genus of the WSN family: BISON}
     \centering
+    \begin{exampleblock}{Rationale 1}
+        Any instance must iterate at least n rounds; any set of n consecutive keys should be linearly indp.\vphantom{$\frac{1}{2}$}
+    \end{exampleblock}
+    \begin{exampleblock}{Rationale 2}
+        For any instance, $f$ has to depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_k(x) = f_k(x + \delta)} \approx \frac{1}{2}$.
+    \end{exampleblock}
     \begin{block}{Generic properties of {\textbf{B}ent wh\textbf{I}tened \textbf{S}wap \textbf{O}r \textbf{N}ot}}
         \vspace{5pt}
         \begin{minipage}{0.51\textwidth}
@@ -217,7 +217,7 @@
         \begin{itemize}
             \item \only<1>{The round function depends on all bits}
                   \only<2>{\textcolor{alertred}{The round function depends on all bits}}
-            \item $\forall \delta :\ \Pr\bracket{f(x) = f(x + \delta)} = \frac{1}{2}$ (\emph{bent})
+            \item $\forall \delta :\ \Pr\bracket{f_k(x) = f_k(x + \delta)} = \frac{1}{2}$ (\emph{bent})
         \end{itemize}
         \end{minipage}
         \vspace{5pt}
@@ -325,8 +325,11 @@
                 \oplus\ &x\  &+\ \alpha &                       &+\ f_k(x + \alpha) \hphantom{)} \cdot &k \\
                 =\      &    &\alpha\   &+ (f_k(x)\             &+\ f_k(x + \alpha))             \cdot &k
             \end{alignat*}
-            }
+            \begin{equation*}
+                \Pr\bracket{f_k(x) = f_k(x + \alpha)} = \frac{1}{2}
+            \end{equation*}
             \vfill
+            }
         \end{column}
     \end{columns}
 \end{frame}
@@ -445,21 +448,21 @@
     \vspace{-60pt}
     \begin{minipage}{0.985\textwidth}
     \begin{exampleblock}{Rationale 2}
-        For any instance, the $f$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f(x) = f(x + \delta)} \approx \frac{1}{2}$.
+        For any instance, the $f$ should depend on all bits, and for any $\delta \in \F_2^n:\ \Pr\bracket{f_k(x) = f_k(x + \delta)} \approx \frac{1}{2}$.
     \end{exampleblock}
     \end{minipage}
 
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
         \begin{block}{Design Decisions}
             \begin{itemize}
-                \item Choose $f : \F_2^n \to \F_2$ \st/
+                \item Choose $f_k : \F_2^n \to \F_2$ \st/
                       \begin{equation*}
-                          \delta \in \F_2^n:\ \Pr\bracket{f(x) = f(x + \delta)} = \frac{1}{2},
+                          \delta \in \F_2^n:\ \Pr\bracket{f_k(x) = f_k(x + \delta)} = \frac{1}{2},
                       \end{equation*}
-                      that is, $f$ is a bent function.
+                      that is, $f_k$ is a bent function.
                 \item Choose the simplest bent function known:
                     \begin{equation*}
-                        f(x, y) \coloneqq \angles{x, y}
+                        f_k(x, y) \coloneqq \angles{x, y}
                     \end{equation*}
             \end{itemize}
         \end{block}
