@@ -1,9 +1,11 @@
 \section{The WSN construction}
 \begin{frame}{Block Ciphers}
     \centering
-    Encrypt plaintext in blocks $p_i$ of $n$ bits, under a key of $n$ bits:
     \begin{tikzpicture}
+    \only<1>{%
         \begin{scope}
+            \node (title) [xshift=70pt, yshift=95pt] {Encrypt plaintext in blocks $p_i$ of $n$ bits, under a key of $n$ bits:};
+
             \node (f0) at ($0*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
             \node (m0) [above of=f0, node distance=2.75cm] {$p_0 \in \set{0,1}^n$};
             \node (k0) [left of=f0, node distance=3.5cm] {$k \in \set{0,1}^n$};
@@ -11,9 +13,7 @@
             \draw[-latex, thick] (m0) -- (f0);
             \draw[-latex, thick] (k0) -- (f0);
             \draw[-latex, thick] (f0) -- (c0);
-        \end{scope}
 
-        \begin{scope}
             \node (f1) at ($1*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
             \node (m1) [above of=f1, node distance=2.75cm] {$p_1 \in \set{0,1}^n$};
             \node (k1) [right of=f1, node distance=3.5cm] {$k \in \set{0,1}^n$};
@@ -22,6 +22,33 @@
             \draw[-latex, thick] (k1) -- (f1);
             \draw[-latex, thick] (f1) -- (c1);
         \end{scope}
+    }
+    \only<2>{%
+        \begin{scope}[opacity=0.2]
+            \node (title) [xshift=70pt, yshift=95pt] {Encrypt plaintext in blocks $p_i$ of $n$ bits, under a key of $n$ bits:};
+
+            \node (f0) at ($0*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+            \node (m0) [above of=f0, node distance=2.75cm] {$p_0 \in \set{0,1}^n$};
+            \node (k0) [left of=f0, node distance=3.5cm] {$k \in \set{0,1}^n$};
+            \node (c0) [below of=f0, node distance=2.75cm] {$c_0 \in \set{0,1}^n$};
+            \draw[-latex, thick] (m0) -- (f0);
+            \draw[-latex, thick] (k0) -- (f0);
+            \draw[-latex, thick] (f0) -- (c0);
+
+            \node (f1) at ($1*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+            \node (m1) [above of=f1, node distance=2.75cm] {$p_1 \in \set{0,1}^n$};
+            \node (k1) [right of=f1, node distance=3.5cm] {$k \in \set{0,1}^n$};
+            \node (c1) [below of=f1, node distance=2.75cm] {$c_1 \in \set{0,1}^n$};
+            \draw[-latex, thick] (m1) -- (f1);
+            \draw[-latex, thick] (k1) -- (f1);
+            \draw[-latex, thick] (f1) -- (c1);
+        \end{scope}
+    }
+    \visible<2->{%
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.8) rectangle (4.5, -3.2);
+        \node (xor-in) [right=37.5pt of m0] {};
+        \node (diff-char) [below=-35pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/spn}};
+    }
     \end{tikzpicture}
 \end{frame}
 
@@ -258,8 +285,9 @@
 
         \node (xor-in) [right=57.5pt of m0] {$\oplus$};
         \node (xor-out) [right=57.5pt of c0] {$\oplus$};
-        \node (delta-in) [right=80pt of m1] {$= \alpha$};
-        \node (delta-out) [right=80pt of c1] {$= \beta$};
+        \node (delta-in) [right=80pt of m1] {$= \textcolor{alertred}{\alpha}$};
+        \node (delta-out) [right=80pt of c1] {$= \textcolor{alertred}{\beta}$};
+        \draw[-latex, thick, dashed, color=alertred] (delta-in)+(4.5pt, -5pt) -- +(4.5pt, -172pt);
     }
     \only<2->{%
         \begin{scope}[opacity=0.2]
@@ -281,18 +309,19 @@
 
         \node (xor-in) [right=57.5pt of m0] {$\oplus$};
         \node (xor-out) [right=57.5pt of c0] {$\oplus$};
-        \node (delta-in) [right=80pt of m1] {$= \alpha$};
-        \node (delta-out) [right=80pt of c1] {$= \beta$};
+        \node (delta-in) [right=80pt of m1] {$= \textcolor{alertred}{\alpha}$};
+        \node (delta-out) [right=80pt of c1] {$= \textcolor{alertred}{\beta}$};
+        \draw[-latex, thick, dashed, color=alertred] (delta-in)+(4.5pt, -5pt) -- +(4.5pt, -172pt);
         \end{scope}
     }
 
-    \only<2>{%
-        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.5) rectangle (4.5, -3.5);
-        \node (diff-char) [below=-20pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential-characteristic}};
+    \visible<2>{%
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.6) rectangle (4.5, -3.4);
+        \node (diff-char) [below=-22pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential-characteristic}};
     }
-    \only<3>{%
-        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.5) rectangle (4.5, -3.5);
-        \node (diff) [below=-20pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential}};
+    \visible<3>{%
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.6) rectangle (4.5, -3.4);
+        \node (diff) [below=-22pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential}};
     }
     \end{tikzpicture}
 \end{frame}
@@ -437,7 +466,7 @@
         \begin{block}{Implications}
             \begin{itemize}
                 \item Clocking an LFSR is cheap
-                \item For an LFSR with feedback polynomial of degree $n$, every $n$ consecutive states are linearly independent
+                \item For an LFSR with irreducible feedback polynomial of degree $n$, every $n$ consecutive states are linearly independent
                 \item Round constants avoid structural weaknesses
             \end{itemize}
         \end{block}
