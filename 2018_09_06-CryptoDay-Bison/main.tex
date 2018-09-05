@@ -81,30 +81,30 @@
 }
 
 
-\setbeamertemplate{bibliography item}[text]
-\usepackage[%
-    backend=biber,
-    bibencoding=ascii,
-    style=alphabetic,
-    sortcites,
-    sorting=ynt,
-    maxbibnames=10,
-    maxcitenames=2,
-    giveninits=true,
-]{biblatex}
-\DefineBibliographyStrings{english}{%
-    andothers = {\etal/}
-}
-\DeclareFieldFormat{eprint:iacr}{%
-\mkbibacro{iacr}\addcolon\space{}
-    \href{https://eprint.iacr.org/#1}{\nolinkurl{#1}}
-}
-\DeclareFieldFormat{eprint:iacrconf}{%
-\mkbibacro{iacr}\addcolon\space{}
-    \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
-}
-\renewcommand\bibfont{\scriptsize}
-\bibliography{bibliography}
+%\setbeamertemplate{bibliography item}[text]
+%\usepackage[%
+%    backend=biber,
+%    bibencoding=ascii,
+%    style=alphabetic,
+%    sortcites,
+%    sorting=ynt,
+%    maxbibnames=10,
+%    maxcitenames=2,
+%    giveninits=true,
+%]{biblatex}
+%\DefineBibliographyStrings{english}{%
+%    andothers = {\etal/}
+%}
+%\DeclareFieldFormat{eprint:iacr}{%
+%\mkbibacro{iacr}\addcolon\space{}
+%    \href{https://eprint.iacr.org/#1}{\nolinkurl{#1}}
+%}
+%\DeclareFieldFormat{eprint:iacrconf}{%
+%\mkbibacro{iacr}\addcolon\space{}
+%    \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
+%}
+%\renewcommand\bibfont{\scriptsize}
+%\bibliography{bibliography}
 
 \newcommand{\blfootnote}[1]{%
     \begingroup

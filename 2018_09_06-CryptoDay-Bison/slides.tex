@@ -250,14 +250,19 @@
         \vspace{5pt}
     \end{block}
     \visible<2->{%
-    \textcolor{alertred}{Rational 1 \& 2: WSN is \emph{slow} in practice!}
-    \vfill
-    \begingroup
-        But what about\\[5pt]
-        \Large
-        Differential Cryptanalysis?
-    \endgroup
-    \vfill
+        \vfill
+        \begin{minipage}{0.47\textwidth}
+            \centering
+            \textcolor{alertred}{Rational 1 \& 2: WSN is \emph{slow} in practice!}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.47\textwidth}
+            \centering
+            But what about\\
+            \Large
+            Differential Cryptanalysis?
+        \end{minipage}
+        \vfill
     }
 \end{frame}
 
@@ -329,11 +334,13 @@
 \begin{frame}{Differential Cryptanalysis}{One round}
     \vspace{-30pt}
     \begin{columns}
-        \begin{column}{0.49\textwidth}
+        \begin{column}{0.58\textwidth}
             \centering
             \vspace{30pt}
             \begin{block}{Proposition}
-                For one round of \bison/, the probabilities are:
+                %\centering
+                For one round of \bison/
+                the probabilities are:
                 \begin{equation*}
                     \Prob\bracket{\alpha \to \beta} = \begin{cases*}
                         1           & if $\alpha = \beta = k$ or $\alpha = \beta = 0$\\
@@ -343,22 +350,31 @@
                 \end{equation*}
             \end{block}
         \end{column}
-        \begin{column}{0.49\textwidth}
+        \begin{column}{0.40\textwidth}
             \vspace{40pt}
             \centering
             \vfill
             \visible<2->{%
-            Possible differences:
-            \begin{alignat*}{5}
-                        &x   &          &+ \hphantom{(} f_k(x)\ &                                \cdot &k \\
-                \oplus\ &x\  &+\ \alpha &                       &+\ f_k(x + \alpha) \hphantom{)} \cdot &k \\
-                =\      &    &\alpha\   &+ (f_k(x)\             &+\ f_k(x + \alpha))             \cdot &k
-            \end{alignat*}
-            \begin{equation*}
-                \Pr\bracket{f_k(x) = f_k(x + \alpha)} = \frac{1}{2}
-            \end{equation*}
-            \vfill
+                \begin{block}{Possible differences}
+                    \vspace{-20pt}
+                    \begin{alignat*}{5}
+                                &x   &          &+ \hphantom{(} f_k(x)\ &                                \cdot &k \\
+                        \oplus\ &x\  &+\ \alpha &                       &+\ f_k(x + \alpha) \hphantom{)} \cdot &k \\
+                        =\      &    &\alpha\   &+ (f_k(x)\             &+\ f_k(x + \alpha))             \cdot &k
+                    \end{alignat*}
+                    \vspace{-17pt}
+                \end{block}
             }
+            \visible<3->{%
+                \begin{block}{Remember}
+                    \vspace{-10pt}
+                    \begin{equation*}
+                        \Pr\bracket{f_k(x) = f_k(x + \alpha)} = \frac{1}{2}
+                    \end{equation*}
+                    \vspace{-10pt}
+                \end{block}
+            }
+            \vfill
         \end{column}
     \end{columns}
 \end{frame}
@@ -383,11 +399,15 @@
             ]
             [{$\alpha + k_1$},
             edge label={node[midway,right,yshift=2mm,font=\scriptsize] {$\frac{1}{2}$}}
-                [{$\alpha + k_1$}
+                [{$\alpha + k_1$},
+                edge={thick},
+                edge label={node[midway, left, yshift=2mm, font=\scriptsize] {$1$}}
                     [{$\alpha + k_1$}]
                     [{$\alpha + k_1 + k_3$}]
                 ]
-                [{$\alpha + k_1 + k_2$}
+                [{$\alpha + k_1 + k_2$},
+                edge={dotted, thick},
+                edge label={node[midway, right, yshift=2mm, font=\scriptsize] {$0$}}
                     [{$\alpha + k_1 + k_2$}]
                     [{$\alpha + k_1 + k_2 + k_3$}]
                 ]
@@ -412,11 +432,15 @@
             ]
             [{$\alpha + k_1$},
             edge label={node[midway,right,yshift=2mm,font=\scriptsize] {$\frac{1}{2}$}}
-                [{$\alpha + k_1$}
+                [{$\alpha + k_1$},
+                edge={thick},
+                edge label={node[midway, left, yshift=2mm, font=\scriptsize] {$1$}}
                     [{$\alpha + k_1$}]
                     [{$\alpha + k_1 + k_3$}]
                 ]
-                [{$\alpha + k_1 + k_2$}
+                [{$\alpha + k_1 + k_2$},
+                edge={dotted, thick},
+                edge label={node[midway, right, yshift=2mm, font=\scriptsize] {$0$}}
                     [{$\alpha + k_1 + k_2$}]
                     [{$\alpha + k_1 + k_2 + k_3$}]
                 ]
