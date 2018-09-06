@@ -68,7 +68,7 @@
         \begin{block}{Whitened Swap-Or-Not round function}
             \vspace*{-12.5pt}
             \begin{gather*}
-                x, k \in \set{0,1}^n \quad\text{and}\quad f : \set{0,1}^n \to \set{0,1} \\
+                x, k \in \set{0,1}^n \quad\text{and}\quad f_{k} : \set{0,1}^n \to \set{0,1} \\
                 y = \begin{cases*}
                     x + k & if $f_{k}(x) = 1$ \\
                     x     & if $f_{k}(x) = 0$
@@ -79,7 +79,7 @@
 
     \visible<2->{%
     \begin{minipage}[t][60pt][t]{0.47\textwidth}
-        \begin{block}{Properties of $f$ (needed for decryption)\vpPp}
+        \begin{block}{Properties of $f_{k}$ (needed for decryption)\vpPp}
             \vspace{-5pt}
             \begin{equation*}
                 f_k(x) = f_k(x + k)
