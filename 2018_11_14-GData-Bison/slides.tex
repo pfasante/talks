@@ -481,7 +481,7 @@
             \begin{itemize}
                 \item Choose number of rounds as $3 \cdot n$\\[5pt]
                 \item Round keys derived from the state of LFSRs\\[5pt]
-                \item Add round constants round keys
+                \item Add round constants to round keys
             \end{itemize}
         \end{block}
     \end{minipage}
@@ -524,64 +524,13 @@
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
         \begin{block}{Implications}
             \begin{itemize}
-                \item Bent functions well studied\\[5pt]
-                \item Bent functions only exists for even $n$\\[5pt]
+                \item Bent functions are well studied\\[5pt]
+                \item Bent functions only exist for even $n$\\[5pt]
                 \item Instance not possible for every block length $n$
             \end{itemize}
         \end{block}
     \end{minipage}
 \end{frame}
-
-\begin{frame}{Conclusion/Questions}{Thank you for your attention!}
-    \vspace{-80pt}
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{\bison/\vpPp}
-            \begin{itemize}
-                \item A first instance of the WSN construction
-                \item Good results for differential cryptanalysis
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t][85pt][t]{0.47\textwidth}
-        \begin{block}{Open Problems}
-            \begin{itemize}
-                \item Construction for linear cryptanalysis
-                \item Further analysis: division properties
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-
-    \vspace{30pt}
-
-    \begin{tikzpicture}[overlay]
-        \node (thanks) at (3.5,0){};
-        \draw[rotate=-7,line width=1.5pt,saphierblau,fill=gray!10]
-             ($(thanks)-(1.5,.35)$) rectangle ($(thanks)+(1.5,.35)$)
-             node[rotate=-7] at (thanks) {\textcolor{saphierblau}{\textbf{Thank you!}}};
-
-        \node[right=100pt of thanks](questions){};
-        \draw[rotate=3,line width=1.5pt,saphierblau,fill=gray!10]
-             ($(questions)-(1.15,.35)$) rectangle ($(questions)+(1.15,.35)$)
-             node[rotate=3] at (questions) {\textcolor{saphierblau}{\textbf{Questions?}}};
-
-        \node[right=100pt of questions](eprint){};
-        \draw[rotate=14,line width=1.5pt,saphierblau,fill=gray!10]
-             ($(eprint)-(1.15,.35)$) rectangle ($(eprint)+(1.15,.35)$)
-             node[rotate=14] at (eprint) {\textcolor{saphierblau}{\textcolor{gelbgruen}{\textbf{\href{https://ia.cr/2018/XXX}{2018/XXX}}}}};
-    \end{tikzpicture}
-\end{frame}
-
-%\begin{frame}[allowframebreaks]{References}
-%    %\begingroup
-%    %    \scriptsize Title Image: \href{https://www.flickr.com/photos/bluetrailphoto/11095367173/in/photolist-hUsE72-7X4eFa-qd7u6B-eTa8pd-hiDwGF-cSTY2d-cSU6Ky-eSXJJt-cSTXLq-cSTUhq-arJDEr-cLkoTm-QWsSn3-6rEB3f-qAcyWm-r9yN4b-8Rh3wU-8msPC1-8VN8Qb-5Nyggn-bjUxdV-ent85f-DnwchP-cp6bmJ-wPFFSv-NhRU6s-cp69Kq-Nm4z1F-QnDuHm-HJcDrV-rEdDTc-MPZXa9-6bRMU6-KcegAy-aQCqMx-cp6d4L-X1c1Ym-aohLov-SSV7w-STFfT-atKAhj-qZXa1M-aecFP9-iRFVou-SSUb7-cp6dzu-cxr1qG-eJVbbv-oMb4qu-251se6T}{Blue Trail Photography: \enquote{Lords of the Plains (b\&w)}, \emph{flickr}}\\[1em]
-%    %\endgroup
-%    %\begingroup
-%    %    \scriptsize Questionmark Image: \emph{flickr}\\[1em]
-%    %\endgroup
-%    \tiny
-%    \printbibliography{}
-%\end{frame}
 
 \begin{frame}[plain]
     \centering
@@ -617,7 +566,7 @@
                 \begin{column}{0.49\textwidth}
                     \begin{align*}
                         f_{b(i)} : \F_2^{\frac{n-1}{2}}\times \F_2^{\frac{n-1}{2}} &\to \F_2 \\
-                        f_{b(i)}(x,y) &\coloneqq \angles{x,y} + b(i),
+                        f_{b(i)}(x,y) &\coloneqq \angles{x,y} {\color{black}\ +\ b(i)},
                     \end{align*}
                 \end{column}
             \end{columns}
@@ -626,6 +575,47 @@
             \end{itemize}
             \vspace{-0.25\baselineskip}
         \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{\bison/}{Round Function -- what's different}
+    \vspace{-45pt}
+    \begin{minipage}[t][150pt][t]{0.985\textwidth}
+        \begin{block}{BISON's round function\vpPp}
+            \centering
+            \vspace{0.5\baselineskip}
+            For round keys $k_i\in \F_2^n$ and $w_i\in \F_2^{n-1}$ the round function computes
+            \begin{equation*}
+                R_{k_i, {\color{alertred}w_i}}(x) \coloneqq x + f_{\color{alertred}b(i)} \parens{{\color{alertred}w_i + \Phi_{k_i}}\parens{x}} \cdot k_i.
+            \end{equation*}
+            \flushleft
+            where
+            \begin{itemize}
+                \item $\Phi_{k_i}$ and $f_{b(i)}$ are defined as
+            \end{itemize}
+            \vspace{-10pt}
+            \begin{columns}
+                \begin{column}{0.49\textwidth}
+                    \begin{align*}
+                        \Phi_k(x) : \F_2^n &\to \F_2^{n-1} \\
+                        \Phi_k(x) &\coloneqq (x + x[i(k)] \cdot k)[j]_{\tower{1 \leqslant j \leqslant n}{j \neq i(k)}}
+                    \end{align*}
+                \end{column}
+                \begin{column}{0.49\textwidth}
+                    \begin{align*}
+                        f_{\color{alertred}b(i)} : \F_2^{\frac{n-1}{2}}\times \F_2^{\frac{n-1}{2}} &\to \F_2 \\
+                        f_{\color{alertred}b(i)}(x,y) &\coloneqq \angles{x,y} {\color{alertred}\ +\ b(i)},
+                    \end{align*}
+                \end{column}
+            \end{columns}
+            \begin{itemize}
+                \item and $b(i)$ is $0$ if $i \leqslant \frac{r}{2}$ and $1$ else.
+            \end{itemize}
+            \vspace{-0.25\baselineskip}
+        \end{block}
+        \begin{center}
+        $\Phi_{k}$ basically ensures $f_k(x) = f_k(x + k)$ (the property we need for decryption).
+        \end{center}
     \end{minipage}
 \end{frame}
 
@@ -681,3 +671,46 @@
         \end{block}
     \end{minipage}
 \end{frame}
+
+\begin{frame}{Conclusion/Questions}{Thank you for your attention!}
+    \vspace{-100pt}
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \begin{block}{\bison/\vpPp}
+            \begin{itemize}
+                \item A first instance of the WSN construction
+                \item Good results for differential cryptanalysis
+            \end{itemize}
+        \end{block}
+        \begin{block}{Open Problems}
+            \begin{itemize}
+                \item Construction for linear cryptanalysis
+            \end{itemize}
+        \end{block}
+        \vspace{10pt}
+        \visible<3->{%
+        \begin{tikzpicture}[overlay]
+            \node (thanks) at (2.25,0){};
+            \draw[rotate=-7,line width=1.5pt,saphierblau,fill=gray!10]
+                ($(thanks)-(1.5,.35)$) rectangle ($(thanks)+(1.5,.35)$)
+                node[rotate=-7] at (thanks) {\textcolor{saphierblau}{\textbf{Thank you!}}};
+
+            \node[below=20pt of thanks](questions){};
+            \draw[rotate=3,line width=1.5pt,saphierblau,fill=gray!10]
+                ($(questions)-(1.15,.35)$) rectangle ($(questions)+(1.15,.35)$)
+                node[rotate=3] at (questions) {\textcolor{saphierblau}{\textbf{Questions?}}};
+
+            \node[right=75pt of questions,yshift=10pt](eprint){};
+            \draw[rotate=-4,line width=1.5pt,saphierblau,fill=gray!10]
+                ($(eprint)-(1.15,.35)$) rectangle ($(eprint)+(1.15,.35)$)
+                node[rotate=-4] at (eprint) {\textcolor{saphierblau}{\textcolor{gelbgruen}{\textbf{\href{https://ia.cr/2018/1011}{2018/1011}}}}};
+        \end{tikzpicture}
+    }
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t][85pt][t]{0.47\textwidth}
+        \vspace{25pt}
+        \visible<2->{\missingfigure{redacted}}
+    \end{minipage}
+
+\end{frame}
+
