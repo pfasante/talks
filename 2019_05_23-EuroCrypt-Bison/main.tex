@@ -35,7 +35,9 @@
 \usepackage{mathtools}
 
 \usepackage{etoolbox,siunitx}
-\sisetup{binary-units}
+\sisetup{%
+    binary-units
+}
 
 \usepackage{booktabs}
 
@@ -142,11 +144,21 @@
 
 \begin{frame}
     \titlepage{}
-\note{\begin{itemize}
+\note{%
+\begin{itemize}
+    \item Talk mainly about two parts of the paper: \begin{itemize}
+        \item Why do we need so many rounds\\
+              (easy to understand argument)
+        \item Security against differential cryptanalysis\\
+              (again relative simple argument that gives strong security here)
+    \end{itemize}
+\end{itemize}
+\begin{itemize}
     \item Whitened Swap-Or-Not Construction developed by Hoang et al.\ and Tessaro
     \item Way of building block ciphers
     \item As this is one of the few talks here at EuroCrypt about block ciphers, lets start simple
-\end{itemize}}
+\end{itemize}
+}
 \end{frame}
 
 \input{slides.tex}
