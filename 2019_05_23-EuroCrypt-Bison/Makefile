@@ -1,6 +1,6 @@
 all: main.pdf
 
-main.pdf: main.tex data/spn.pdf data/differential-characteristic.pdf data/differential.pdf
+main.pdf: main.tex data/spn.pdf data/differential1.pdf data/differential-characteristic.pdf data/differential2.pdf
 	cp ../correct_logo.pdf logo.pdf
 	cp ../correct_wortmarke.pdf wortmarke.pdf
 	latexmk -pdf -use-make main.tex
@@ -13,8 +13,11 @@ data/spn.pdf: data/spn.tex
 data/differential-characteristic.pdf: data/differential-characteristic.tex
 	cd data && latexmk -pdf differential-characteristic.tex && cd ..
 
-data/differential.pdf: data/differential.tex
-	cd data && latexmk -pdf differential.tex && cd ..
+data/differential1.pdf: data/differential1.tex
+	cd data && latexmk -pdf differential1.tex && cd ..
+
+data/differential2.pdf: data/differential2.tex
+	cd data && latexmk -pdf differential2.tex && cd ..
 
 clean:
 	latexmk -c

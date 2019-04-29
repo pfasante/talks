@@ -2,57 +2,37 @@
 \begin{frame}{Block Ciphers}
     \centering
     \begin{tikzpicture}
-    \only<1>{%
-        \begin{scope}
-            \node (title) [xshift=70pt, yshift=95pt] {Encrypt plaintext in blocks $p_i$ of $n$ bits, under a key of $n$ bits:};
+    \begin{scope}
+        \node (f0) at (-4,0) [minimum size=3cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+        \node (m0) [above of=f0, node distance=2.25cm] {$p_0 \in \set{0,1}^n$};
+        \node (k0) [left of=f0, node distance=2.75cm] {$k \in \set{0,1}^n$};
+        \node (c0) [below of=f0, node distance=2.25cm] {$c_0 \in \set{0,1}^n$};
+        \draw[-latex, thick] (m0) -- (f0);
+        \draw[-latex, thick] (k0) -- (f0);
+        \draw[-latex, thick] (f0) -- (c0);
 
-            \node (f0) at ($0*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
-            \node (m0) [above of=f0, node distance=2.75cm] {$p_0 \in \set{0,1}^n$};
-            \node (k0) [left of=f0, node distance=3.5cm] {$k \in \set{0,1}^n$};
-            \node (c0) [below of=f0, node distance=2.75cm] {$c_0 \in \set{0,1}^n$};
-            \draw[-latex, thick] (m0) -- (f0);
-            \draw[-latex, thick] (k0) -- (f0);
-            \draw[-latex, thick] (f0) -- (c0);
+        \node (title) [above of=m0, xshift=0pt, yshift=0pt, align=center] {Encrypt plaintext in blocks $p_i$ of $n$ bits,\\under a key of $n$ bits:};
+    \end{scope}
+    \visible<2->{%
+    \begin{scope}
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.8) rectangle (4.5, -3.2);
+        \node (xor-in) [right=150pt of m0, yshift=15pt] {};
+        \node (diff-char) [below=-35pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/spn}};
 
-            \node (f1) at ($1*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
-            \node (m1) [above of=f1, node distance=2.75cm] {$p_1 \in \set{0,1}^n$};
-            \node (k1) [right of=f1, node distance=3.5cm] {$k \in \set{0,1}^n$};
-            \node (c1) [below of=f1, node distance=2.75cm] {$c_1 \in \set{0,1}^n$};
-            \draw[-latex, thick] (m1) -- (f1);
-            \draw[-latex, thick] (k1) -- (f1);
-            \draw[-latex, thick] (f1) -- (c1);
-        \end{scope}
+    \end{scope}
     }
+    \end{tikzpicture}
     \visible<1->{%
-    \note{%
-    \begin{itemize}
-        \item<1-> Block ciphers encrypt \emph{blocks} of $n$-bit inputs under an $n$-bit master key
-        \item<1-> As a basic cryptographic primitive, we need special modes of operations,\\
-                  if the data to be encrypted is not of exactly $n$-bit length.
-        \item<1-> This we do not consider here, instead we want to look at how to build this black box.
-    \end{itemize}
+        \note{%
+        \begin{itemize}
+            \item<1-> Block ciphers encrypt \emph{blocks} of $n$-bit inputs under an $n$-bit master key
+            \item<1-> As a basic cryptographic primitive, we need special modes of operations,\\
+                    if the data to be encrypted is not of exactly $n$-bit length.
+            \item<1-> This we do not consider here, instead we want to look at how to build this black box.
+        \end{itemize}
+        }
     }
-    }
-    \only<2>{%
-        \begin{scope}[opacity=0.2]
-            \node (title) [xshift=70pt, yshift=95pt] {Encrypt plaintext in blocks $p_i$ of $n$ bits, under a key of $n$ bits:};
-
-            \node (f0) at ($0*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
-            \node (m0) [above of=f0, node distance=2.75cm] {$p_0 \in \set{0,1}^n$};
-            \node (k0) [left of=f0, node distance=3.5cm] {$k \in \set{0,1}^n$};
-            \node (c0) [below of=f0, node distance=2.75cm] {$c_0 \in \set{0,1}^n$};
-            \draw[-latex, thick] (m0) -- (f0);
-            \draw[-latex, thick] (k0) -- (f0);
-            \draw[-latex, thick] (f0) -- (c0);
-
-            \node (f1) at ($1*(5cm,0)$) [minimum size=4cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
-            \node (m1) [above of=f1, node distance=2.75cm] {$p_1 \in \set{0,1}^n$};
-            \node (k1) [right of=f1, node distance=3.5cm] {$k \in \set{0,1}^n$};
-            \node (c1) [below of=f1, node distance=2.75cm] {$c_1 \in \set{0,1}^n$};
-            \draw[-latex, thick] (m1) -- (f1);
-            \draw[-latex, thick] (k1) -- (f1);
-            \draw[-latex, thick] (f1) -- (c1);
-        \end{scope}
+    \visible<2->{%
         \note{%
         \begin{itemize}
             \item Typicall approach is an SPN structure, where key-addition, S-box layer and\\
@@ -63,12 +43,6 @@
         \end{itemize}
         }
     }
-    \visible<2->{%
-        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.8) rectangle (4.5, -3.2);
-        \node (xor-in) [right=37.5pt of m0] {};
-        \node (diff-char) [below=-35pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/spn}};
-    }
-    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{The WSN construction}
@@ -97,19 +71,11 @@
     \end{minipage}
 
     \visible<2->{%
-    \begin{minipage}[t][60pt][t]{0.47\textwidth}
-        \begin{block}{Properties of $f_{k}$ (needed for decryption)\vpPp}
-            \vspace{-5pt}
-            \begin{equation*}
-                f_k(x) = f_k(x + k)
-            \end{equation*}
-        \end{block}
-    \end{minipage}
-    \hspace{5pt}
-    \begin{minipage}[t][60pt][t]{0.47\textwidth}
+    \vspace*{5pt}
+    \begin{minipage}[t][60pt][t]{0.98\textwidth}
         \begin{block}{Security Proposition (informal)}
             \centering
-            The WSN construction with $r = \mathcal{O}(n)$ rounds is\\
+            The WSN construction with $r = \Theta(n)$ rounds is
             \emph{Full Domain} secure.
             \vspace{3pt}
         \end{block}
@@ -126,7 +92,7 @@
         \item So why is this nice?
     \end{itemize}}}
     \only<2->{\note{\begin{itemize}
-        \item Tessaro was able to show that this construction, when iterated over $\mathcal{O}(n)$ rounds, achieves \emph{Full Domain} security (what ever that means).
+        \item Tessaro was able to show that this construction, when iterated over $\Theta(n)$ rounds, achieves \emph{Full Domain} security (what ever that means).
         \item One further property of $f$ which we need for decryption is that $x$ and $x+k$ maps to the same output.
     \end{itemize}}}
 \end{frame}
@@ -199,22 +165,22 @@
 
 \begin{frame}{An Implementation}
     \visible<2->{%
-    \begin{minipage}{0.40\textwidth}
-        \centering
-        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
-    \end{minipage}
-    \hfill
     \begin{minipage}{0.56\textwidth}
         \centering
         \begin{block}{Construction}
             \begin{itemize}
                 \item $f_k(x) \coloneqq\ $?
                 \item Key schedule?
-                \item $\mathcal{O}(n)$ rounds?
+                \item $\Theta(n)$ rounds?
             \end{itemize}
         \end{block}
         \vspace{5pt}
         Theoretical vs.\ practical constructions
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.40\textwidth}
+        \centering
+        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
     \end{minipage}
     }
     \only<1->{\note{\begin{itemize}
@@ -225,7 +191,7 @@
         \item But uggh\dots
         \item How does this Boolean function $f_k$ actually looks like?
         \item What about a key schedule? How do we derive the round keys?
-        \item And how many are $\mathcal{O}(n)$ rounds?
+        \item And how many are $\Theta(n)$ rounds?
     \end{itemize}
     \begin{itemize}
         \item So, from a theoretical point of view we have a nice construction.
@@ -377,7 +343,7 @@
     \begin{tikzpicture}
     \tikzfading[name=fade out, inner color=transparent!0, outer color=transparent!100]
     \only<1>{%
-        \node (f0) at ($0*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+        \node (f0) at (0,0) [minimum size=3cm, minimum height=4cm, rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
         \node (m0) [above=10pt of f0.north] {$p$};
         \node (k0) [left=10pt of f0.west] {$k$};
         \node (c0) [below=10pt of f0.south] {$c$\vphantom{$^\prime$}};
@@ -385,7 +351,7 @@
         \draw[-latex, thick] (k0) -- (f0);
         \draw[-latex, thick] (f0) -- (c0);
 
-        \node (f1) at ($1*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
+        \node (f1) at (5cm, 0) [minimum size=3cm, minimum height=4cm, rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
         \node (m1) [above=10pt of f1.north] {$p^\prime$};
         \node (k1) [right=10pt of f1.east] {$k$};
         \node (c1) [below=10pt of f1.south] {$c^\prime$};
@@ -397,11 +363,11 @@
         \node (xor-out) [right=57.5pt of c0] {$\oplus$};
         \node (delta-in) [right=80pt of m1] {$= \textcolor{alertred}{\alpha}$};
         \node (delta-out) [right=80pt of c1] {$= \textcolor{alertred}{\beta}$};
-        \draw[-latex, thick, dashed, color=alertred] (delta-in)+(4.5pt, -5pt) -- +(4.5pt, -172pt);
+        \draw[-latex, thick, dashed, color=alertred] (delta-in)+(4.5pt, -5pt) -- +(4.5pt, -145pt);
     }
     \only<2->{%
         \begin{scope}[opacity=0.2]
-        \node (f0) at ($0*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=white,draw] {{\sc Enc}};
+        \node (f0) at (0,0) [minimum size=3cm, minimum height=4cm, rounded corners=1ex,fill=white,draw] {{\sc Enc}};
         \node (m0) [above=10pt of f0.north] {$p$};
         \node (k0) [left=10pt of f0.west] {$k$};
         \node (c0) [below=10pt of f0.south] {$c$\vphantom{$^\prime$}};
@@ -409,7 +375,7 @@
         \draw[-latex, thick] (k0) -- (f0);
         \draw[-latex, thick] (f0) -- (c0);
 
-        \node (f1) at ($1*(5cm,0)$) [minimum size=4cm, minimum height=5cm, rounded corners=1ex,fill=white,draw] {{\sc Enc}};
+        \node (f1) at (5cm,0) [minimum size=3cm, minimum height=4cm, rounded corners=1ex,fill=white,draw] {{\sc Enc}};
         \node (m1) [above=10pt of f1.north] {$p^\prime$};
         \node (k1) [right=10pt of f1.east] {$k$};
         \node (c1) [below=10pt of f1.south] {$c^\prime$};
@@ -421,17 +387,46 @@
         \node (xor-out) [right=57.5pt of c0] {$\oplus$};
         \node (delta-in) [right=80pt of m1] {$= \textcolor{alertred}{\alpha}$};
         \node (delta-out) [right=80pt of c1] {$= \textcolor{alertred}{\beta}$};
-        \draw[-latex, thick, dashed, color=alertred] (delta-in)+(4.5pt, -5pt) -- +(4.5pt, -172pt);
+        \draw[-latex, thick, dashed, color=alertred] (delta-in)+(4.5pt, -5pt) -- +(4.5pt, -145pt);
         \end{scope}
     }
 
-    \visible<2>{%
-        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.6) rectangle (4.5, -3.4);
-        \node (diff-char) [below=-22pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential-characteristic}};
+    \visible<2->{%
+        \fill [fill=white, opacity=0.8, rounded corners=1ex] (-1.75, 3.4) rectangle (8.25, -3.4);
     }
+
+    \visible<2>{%
+        \node (diff-char) [below=-22pt of xor-in, xshift=-50pt, yshift=11pt] {\includegraphics[height=0.8\textheight]{data/differential1}};
+    }
+    \visible<2->{%
+        \node (prob-diff1) [right=10pt of diff-char, yshift=70pt, align=center] {%
+            $\begin{aligned}
+                \Prob\bracket{\alpha \stackrel{E_k}{\to} \beta} =\ ?
+            \end{aligned}$
+        };
+    }
+
     \visible<3>{%
-        \fill [fill=white, opacity=0.8, rounded corners=1ex] (0, 3.6) rectangle (4.5, -3.4);
-        \node (diff) [below=-22pt of xor-in, xshift=-6pt] {\includegraphics[height=0.8\textheight]{data/differential}};
+        \node (diff-char) [below=-22pt of xor-in, xshift=-50pt, yshift=11pt] {\includegraphics[height=0.8\textheight]{data/differential-characteristic}};
+    }
+    \visible<3->{%
+        \node (prob-char) [right=10pt of diff-char, yshift=0pt, align=center] {%
+            $\begin{aligned}
+                p_\theta &= \Prob\bracket{\theta_0 \stackrel{R}{\to} \theta_1 \stackrel{R}{\to} \cdots \stackrel{R}{\to} \theta_r} \\
+                         &= \prod_{i=0}^{r-1} \Prob\bracket{\theta_i \stackrel{R}{\to} \theta_{i+1}}
+            \end{aligned}$
+        };
+    }
+
+    \visible<4->{%
+        \node (diff) [below=-22pt of xor-in, xshift=-50pt, yshift=11pt] {\includegraphics[height=0.8\textheight]{data/differential2}};
+    }
+    \visible<4->{%
+        \node (prob-diff2) [right=10pt of diff, yshift=-70pt, align=center] {%
+            $\begin{aligned}
+                \Prob\bracket{\alpha \stackrel{E_k}{\to} \beta} = \sum_{\theta} p_\theta
+            \end{aligned}$
+        };
     }
     \end{tikzpicture}
     \only<1->{\note{\begin{itemize}
@@ -440,10 +435,12 @@
     \end{itemize}}}
     \only<2->{\note{\begin{itemize}
         \item To say anything, we usually look for single so called \emph{trails} through the inner building blocks.
+    \end{itemize}}}
+    \only<3->{\note{\begin{itemize}
         \item Now, computing the probability of one such trail is actually doable.
         \item But, trails can go several alternative ways through non-linear parts, thus we have to cope with a branching effect\ldots
     \end{itemize}}}
-    \only<3->{\note{\begin{itemize}
+    \only<4->{\note{\begin{itemize}
         \item And eventually, several of these trails cluster in a so called \emph{differential}.
         \item While in this example it is still feasible, computing the \emph{exact} probability in a real cipher is not.
         \item We thus have to restrain on bounding or approximating this probability.
@@ -487,17 +484,20 @@
                     \end{alignat*}
                     \vspace{-17pt}
                 \end{block}
-            }
-            \visible<3->{%
-                \begin{block}{Remember}
+                \begin{block}{Properties of $f_{k}$\vpPp}
+                    \vspace{-5pt}
+                    \begin{equation}
+                        f_k(x) = f_k(x + k)
+                    \end{equation}
+                    \visible<3->{%
                     \vspace{-10pt}
-                    \begin{equation*}
+                    \begin{equation}
                         \Pr\bracket{f_k(x) = f_k(x + \alpha)} = \frac{1}{2}
-                    \end{equation*}
-                    \vspace{-10pt}
+                    \end{equation}
+                }
+                    %\vspace{-10pt}
                 \end{block}
             }
-            \vfill
         \end{column}
     \end{columns}
     \only<1->{\note{\begin{itemize}
@@ -507,7 +507,7 @@
     \only<2->{\note{\begin{itemize}
         \item Remember that one round computes the output as $x + f_k(x) \cdot k$.
         \item With the input difference $\alpha$ we get as possible output differences $\beta \in \set{0, \alpha, k, \alpha + k}$.
-        \item Remember that for decryption we need that $x$ and $x+k$ are mapped to the same value by $f_k$
+        \item For decryption we need that $x$ and $x+k$ are mapped to the same value by $f_k$
         \item Thus, $\beta = \alpha$ with probability one, if and only if $\alpha = k$ or $\alpha = 0$
         \item If $\beta$ is not one of the above four values, such an input/output pair cannot occur,\\
               thus the probability is zero.
@@ -519,8 +519,7 @@
 \end{frame}
 
 \begin{frame}{Differential Cryptanalysis}{More rounds}
-    Example differences over $r = 3$ rounds:\\[\baselineskip]
-
+    Example differences over $r = 3$ rounds ($\alpha = k_1 + k_2$):\\
     \begin{center}
     \only<1>{%
     \begin{forest}
@@ -586,10 +585,15 @@
             ]
         ]
     \end{forest}}
-    \vspace{20pt}
+    %\vspace{10pt}
 
     \visible<2->{%
-    For fixed \textcolor{alertred}{$\alpha$} and \textcolor{alertred}{$\beta$} there is only \emph{one} path!
+        \begin{theorem}[Differentials in \bison/]
+            \vspace{5pt}
+            Let $\alpha$, $\beta \in \F_2^n$.
+            Then the probability for the differential $\alpha \to \beta$ is
+            $\displaystyle \Prob\bracket{\alpha \to \beta} = \sum_\theta p_\theta = p_{(\alpha, \theta_1, \ldots, \theta_{r-1}, \beta)}$.
+        \end{theorem}
     }
     \end{center}
     \only<1->{\note{\begin{itemize}
@@ -661,7 +665,7 @@
         \end{block}
     \end{minipage}
     \only<1->{\note{\begin{itemize}
-        \item Due to further analysis, we chose $3n$ rounds.
+        \item Due to analysis of the alg.~deg., we chose $3n$ rounds, see last slide.
         \item Deriving round keys from the states of LFSRs is efficiently implementable and\\
               fullfils our requirements for linear independent round keys.
         \item For those of you how attended Gregors talk at FSE:
@@ -720,6 +724,84 @@
     \end{itemize}}}
 \end{frame}
 
+\begin{frame}{An Implementation}
+    \only<1>{%
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \vspace*{-40pt}
+        \begin{block}{Construction}
+            \begin{itemize}
+                \item \only<1>{$f_k(x) \coloneqq\ $?}\only<2->{$f_k(x, y) \coloneqq\ \angles{x, y}$}
+                \item Key schedule\only<1>{?}\only<2->{: LFSRs.}
+                \item \only<1>{$\Theta(n)$ rounds?}\only<2->{$\Theta(n) = 3n$ rounds}
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.50\textwidth}
+        \centering
+        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
+    \end{minipage}
+    }
+    \only<2->{
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \begin{block}{Construction}
+            \begin{itemize}
+                \item $f_k(x, y) \coloneqq\ \angles{x, y}$
+                \item Key schedule: LFSRs.
+                \item $\Theta(n) = 3n$ rounds.
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \vspace*{20pt}
+    \hfill
+    \visible<3->{%
+        \begin{minipage}{0.47\textwidth}
+            \centering
+            \sisetup{%
+                group-digits = integer,
+                group-separator = {\,},
+                group-minimum-digits = 4,
+                table-text-alignment = center,
+                table-number-alignment = center,
+                table-figures-integer = 4,
+                table-figures-decimal = 2,
+            }
+            \tabcolsep=5pt
+            \begin{tabular}{ccS}
+                \toprule
+                Cipher    & Block size & {Cycles/Byte} \\
+                            &    (bit)   &    {mean}     \\
+                \midrule
+                AES$^{*}$ &     128    &       0.65    \\
+                \bison/$^{\dag}$ &     129    &    3064.08    \\
+                \bottomrule
+            \end{tabular}
+        \end{minipage}
+    }
+
+    \visible<3->{%
+        {\footnotesize
+        $^{*}$~AES-128 on Skylake Intel\textregistered{} Core i7-7800X @ 3.5GHz, see Daemen et al.~[\href{https://tosc.iacr.org/article/view/7359}{The design of Xoodoo and Xoofff}, Table~5].
+        $^{\dag}$~\bison/ on CoffeeLake Intel\textregistered{} Core i7-8700 @ 3.7 GHz.
+        }
+    }
+    }
+    \only<1->{\note{\begin{itemize}
+        \item Coming back to our initial question.
+        \item And basically only for the sake of completeness, as we already saw this is going to be slow.
+    \end{itemize}}}
+    \only<2->{\note{\begin{itemize}
+        \item We have specified everything, so let's benchmark against AES (what else).
+    \end{itemize}}}
+    \only<3->{\note{\begin{itemize}
+        \item OK, told you so, \bison/ is like 4\,700 times slower than AES\@.
+        \item Or: more than three orders of magnitude.
+        \item Optimising this will not help enough.
+    \end{itemize}}}
+\end{frame}
+
 \section{Further Analysis}
 \begin{frame}{Further Cryptanalysis}
     \vspace*{-15pt}
@@ -766,84 +848,6 @@
         \item We show that it grows only linearly -- which is especially bad in comparison to SPN ciphers.
         \item The result on the algebraic degree also applies to NLFSRs or maximally unbalanced Feistel networks.
         \item Conservative estimation: might work for more than $2n$ rounds, but not for $3n$ or more.
-    \end{itemize}}}
-\end{frame}
-
-\begin{frame}{An Implementation}
-    \only<1>{%
-    \begin{minipage}{0.50\textwidth}
-        \centering
-        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.47\textwidth}
-        \centering
-        \vspace*{-40pt}
-        \begin{block}{Construction}
-            \begin{itemize}
-                \item \only<1>{$f_k(x) \coloneqq\ $?}\only<2->{$f_k(x, y) \coloneqq\ \angles{x, y}$}
-                \item Key schedule\only<1>{?}\only<2->{: LFSRs.}
-                \item \only<1>{$\mathcal{O}(n)$ rounds?}\only<2->{$\mathcal{O}(n) = 3n$ rounds}
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-    }
-    \only<2->{
-    \visible<3->{%
-        \begin{minipage}{0.47\textwidth}
-            \centering
-            \sisetup{%
-                group-digits = integer,
-                group-separator = {\,},
-                group-minimum-digits = 4,
-                table-text-alignment = center,
-                table-number-alignment = center,
-                table-figures-integer = 4,
-                table-figures-decimal = 2,
-            }
-            \tabcolsep=5pt
-            \begin{tabular}{ccS}
-                \toprule
-                Cipher    & Block size & {Cycles/Byte} \\
-                            &    (bit)   &    {mean}     \\
-                \midrule
-                AES$^{*}$ &     128    &       0.65    \\
-                \bison/$^{\dag}$ &     129    &    3064.08    \\
-                \bottomrule
-            \end{tabular}
-        \end{minipage}
-    }
-    \hfill
-    \begin{minipage}{0.47\textwidth}
-        \centering
-        \begin{block}{Construction}
-            \begin{itemize}
-                \item $f_k(x, y) \coloneqq\ \angles{x, y}$
-                \item Key schedule: LFSRs.
-                \item $\mathcal{O}(n) = 3n$ rounds.
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-
-    \visible<3->{%
-        \vspace{20pt}
-        {\footnotesize
-        $^{*}$~AES-128 on Skylake Intel\textregistered{} Core i7-7800X @ 3.5GHz, see Daemen et al.~[\href{https://tosc.iacr.org/article/view/7359}{The design of Xoodoo and Xoofff}, Table~5].\\
-        $^{\dag}$~\bison/ on CoffeeLake Intel\textregistered{} Core i7-8700 @ 3.7 GHz.
-        }
-    }
-    }
-    \only<1->{\note{\begin{itemize}
-        \item Coming back to our initial question.
-        \item And basically only for the sake of completeness, as we already saw this is going to be slow.
-    \end{itemize}}}
-    \only<2->{\note{\begin{itemize}
-        \item We have specified everything, so let's benchmark against AES (what else).
-    \end{itemize}}}
-    \only<3->{\note{\begin{itemize}
-        \item OK, told you so, \bison/ is like 4\,700 times slower than AES\@.
-        \item Or: more than three orders of magnitude.
-        \item Optimising this will not help enough.
     \end{itemize}}}
 \end{frame}
 
