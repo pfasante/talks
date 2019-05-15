@@ -97,6 +97,47 @@
     \end{itemize}}}
 \end{frame}
 
+\begin{frame}{An Implementation}
+    \visible<2->{%
+    \begin{minipage}{0.56\textwidth}
+        \centering
+        \begin{block}{Construction}
+            \begin{itemize}
+                \item $f_k(x) \coloneqq\ $?
+                \item Key schedule?
+                \item $\Theta(n)$ rounds?
+            \end{itemize}
+        \end{block}
+        \vspace{5pt}
+        Theoretical vs.\ practical constructions
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.40\textwidth}
+        \centering
+        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
+    \end{minipage}
+    }
+    \only<1->{\note{\begin{itemize}
+        \item Sounds all very great.
+        \item So from a practitioners point of view the natural next point is: lets implement it.
+    \end{itemize}}}
+    \only<2->{\note{\begin{itemize}
+        \item But uggh\dots
+        \item How does this Boolean function $f_k$ actually looks like?
+        \item What about a key schedule? How do we derive the round keys?
+        \item And how many are $\Theta(n)$ rounds?
+    \end{itemize}
+    \begin{itemize}
+        \item So, from a theoretical point of view we have a nice construction.
+        \item But from a practical point of view it is basically useless.
+    \end{itemize}
+    \begin{itemize}
+        \item OK, let us fix this.
+    \end{itemize}}
+    }
+\end{frame}
+
+\section{Generic Analysis}
 \begin{frame}{The WSN construction}{Encryption}
     \centering
     \begin{forest}
@@ -163,47 +204,6 @@
 
 \end{frame}
 
-\begin{frame}{An Implementation}
-    \visible<2->{%
-    \begin{minipage}{0.56\textwidth}
-        \centering
-        \begin{block}{Construction}
-            \begin{itemize}
-                \item $f_k(x) \coloneqq\ $?
-                \item Key schedule?
-                \item $\Theta(n)$ rounds?
-            \end{itemize}
-        \end{block}
-        \vspace{5pt}
-        Theoretical vs.\ practical constructions
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.40\textwidth}
-        \centering
-        \includegraphics[height=0.6\textheight]{data/flickr/questionmark-alertred}
-    \end{minipage}
-    }
-    \only<1->{\note{\begin{itemize}
-        \item Sounds all very great.
-        \item So from a practitioners point of view the natural next point is: lets implement it.
-    \end{itemize}}}
-    \only<2->{\note{\begin{itemize}
-        \item But uggh\dots
-        \item How does this Boolean function $f_k$ actually looks like?
-        \item What about a key schedule? How do we derive the round keys?
-        \item And how many are $\Theta(n)$ rounds?
-    \end{itemize}
-    \begin{itemize}
-        \item So, from a theoretical point of view we have a nice construction.
-        \item But from a practical point of view it is basically useless.
-    \end{itemize}
-    \begin{itemize}
-        \item OK, let us fix this.
-    \end{itemize}}
-    }
-\end{frame}
-
-\section{Generic Analysis}
 \begin{frame}{Generic Analysis}{On the number of rounds}
     \vspace{-20pt}
     \begin{minipage}[t][85pt][t]{0.47\textwidth}
