@@ -597,13 +597,9 @@
     \end{center}
     \only<1->{\note{\begin{itemize}
         \item When we look at more rounds, we can depict these cases again in this tree structure.
-        \item Starting with the input difference $\alpha$, assume it is different from the first round key $k_0$ and nonzero.
-        \item After one round the two differences $\alpha$ and $\alpha + k_0$ occur with equal probability one half.
-        \item As long as the intermediate difference is different from the next round key and nonzero,\\
-              this argument iterates.
-        \item At the point where the difference equals the next round key,\\
-              these two choices collide into a deterministic propagation with probability one,\\
-              where the round key is not added to the difference.
+        \item Starting with the input difference $\alpha$, choosing an input value $x$ determines the path we take through the tree.
+        \item Now assuming that $\alpha = k_1 + k_2$ it can not happen that the differential characteristic takes twice the right branch.
+        \item This would result in a zero difference, which is not possible for permutations as long as the input difference is non-zero.
     \end{itemize}}}
     \only<2->{\note{\begin{itemize}
         \item Regarding differentials, the important observation is:
