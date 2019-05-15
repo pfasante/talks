@@ -4,14 +4,14 @@
     \begin{tikzpicture}
     \begin{scope}
         \node (f0) at (-4,0) [minimum size=3cm,rounded corners=1ex,fill=black!80!white,draw] {{\sc \textcolor{white}{Enc}}};
-        \node (m0) [above of=f0, node distance=2.25cm] {$p_0 \in \set{0,1}^n$};
+        \node (m0) [above of=f0, node distance=2.25cm] {$p \in \set{0,1}^n$};
         \node (k0) [left of=f0, node distance=2.75cm] {$k \in \set{0,1}^n$};
-        \node (c0) [below of=f0, node distance=2.25cm] {$c_0 \in \set{0,1}^n$};
+        \node (c0) [below of=f0, node distance=2.25cm] {$c \in \set{0,1}^n$};
         \draw[-latex, thick] (m0) -- (f0);
         \draw[-latex, thick] (k0) -- (f0);
         \draw[-latex, thick] (f0) -- (c0);
 
-        \node (title) [above of=m0, xshift=0pt, yshift=0pt, align=center] {Encrypt plaintext in blocks $p_i$ of $n$ bits,\\under a key of $n$ bits:};
+        \node (title) [above of=m0, xshift=0pt, yshift=0pt, align=center] {Encrypt plaintext in blocks $p$ of $n$ bits,\\under a key of $n$ bits:};
     \end{scope}
     \visible<2->{%
     \begin{scope}
