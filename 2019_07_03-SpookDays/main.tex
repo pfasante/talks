@@ -67,10 +67,18 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
 \usetikzlibrary{shapes}
+
+\usetikzlibrary{chains,shapes.arrows,fit}
+\definecolor{arrowcolor}{RGB}{201,216,232}% color for the arrow filling
+\definecolor{circlecolor}{RGB}{79,129,189}% color for the inner circles filling
+\colorlet{textcolor}{white}% color for the text inside the circles
+\colorlet{bordercolor}{white}% color for the outer border of circles
+
 \usetikzlibrary{crypto.symbols}
 \tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
 \usepackage{pgfplots}
 \usetikzlibrary{pgfplots.colormaps}
+
 
 \newcommand{\repeatarrow}{%
     \begin{tikzpicture}[inner sep=0pt, baseline=(base)]%
@@ -100,7 +108,86 @@
 }
 
 
-%\setbeamertemplate{bibliography item}[text]
+
+\newcounter{task}
+
+\newlength\taskwidth% width of the box for the task description
+\newlength\taskvsep% vertical distance between the task description and arrow
+
+\setlength\taskwidth{2.75cm}
+\setlength\taskvsep{20pt}
+
+\def\taskpos{}
+\def\taskanchor{}
+
+\newcommand\task[1]{%
+  {\parbox[t]{\taskwidth}{\scriptsize\centering#1}}}
+
+\tikzset{
+inner/.style={
+  on chain,
+  circle,
+  inner sep=4pt,
+  fill=circlecolor,
+  line width=1.5pt,
+  draw=bordercolor,
+  text width=3.5em,
+  align=center,
+  text height=1.25ex,
+  text depth=0ex
+},
+on grid
+}
+
+\newcommand\Task[2][]{%
+\node[inner xsep=0pt] (c1) {\phantom{A}};
+\stepcounter{task}
+\ifodd\thetask\relax
+  \renewcommand\taskpos{\taskvsep}\renewcommand\taskanchor{south}
+\else
+  \renewcommand\taskpos{-\taskvsep}\renewcommand\taskanchor{north}
+\fi
+\node[inner,font=\footnotesize\sffamily\color{textcolor}]    
+  (c\the\numexpr\value{task}+1\relax) {#1};
+\node[anchor=\taskanchor,yshift=\taskpos] 
+  at (c\the\numexpr\value{task}+1\relax) {\task{#2}};
+}
+
+\newcommand\drawarrow{% the arrow is placed in the background layer 
+                                                     % after the node for the tasks have been placed
+\ifnum\thetask=0\relax
+  \node[on chain] (c1) {}; % if no \task command is used, the arrow will be drawn
+\fi
+\node[on chain] (f) {};
+\begin{pgfonlayer}{background}
+\node[
+  inner sep=10pt,
+  single arrow,
+  single arrow head extend=0.8cm,
+  draw=none,
+  fill=arrowcolor,
+  fit= (c1) (f)
+] (arrow) {};
+\fill[white] % the decoration at the tail of the arrow
+  (arrow.before tail) -- (c1|-arrow.west) -- (arrow.after tail) -- cycle;
+\end{pgfonlayer}
+}
+
+\newenvironment{timeline}[1][node distance=.75\taskwidth]
+  {\par\noindent\begin{tikzpicture}[start chain,#1]}
+  {\drawarrow\end{tikzpicture}\par}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\colorlet{arrowcolor}{saphierblau}
+\colorlet{circlecolor}{white}
+\colorlet{bordercolor}{gelbgruen}
+\colorlet{textcolor}{saphierblau}
+
+
+
+\setbeamertemplate{bibliography item}[text]
 \usepackage[%
     backend=biber,
     bibencoding=ascii,
@@ -144,6 +231,12 @@
 \def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
 \makeatother
 
+\def\printcipher/{PRINTcipher}
+\def\robin/{Robin}
+\def\iscream/{iSCREAM}
+\def\scream/{SCREAM}
+\def\midori/{Midori}
+\def\zorro/{Zorro}
 \def\spook/{\textsf{Spook}}
 \def\clyde/{Clyde}
 \def\shadow/{Shadow}
@@ -155,12 +248,16 @@
     Horst Görtz Institut für IT Sicherheit, Ruhr-Universität Bochum
 }
 
-\date{July 2nd, 2019}
+\date{July 3rd, 2019}
 
 \begin{document}
 
 \begin{frame}
     \titlepage{}
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents{}
 \end{frame}
 
 \input{slides.tex}
