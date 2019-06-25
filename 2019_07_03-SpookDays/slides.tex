@@ -143,35 +143,36 @@
     \end{columns}
     \end{block}
     }
-        \begin{itemize}
-            \item Due to its tweakey schedule, every tweakey equals the fourth next tweakey: $\mathrm{TK}_i = \mathrm{TK}_{i+3}$.
-            \item After each step (two rounds), a tweakey is added.
-            \item We need at least four round constant differences; looking at the round constant additions, this implies at least three steps (six rounds), so that $W_L$ can achieve full dimension.
-            \item In particular, the set of round constant differences, for the six steps \clyde/ uses, is:
-                \begin{align*}
-                    D &= D_{\mathrm{TK}_0} \cup D_{\mathrm{TK}_1} \cup D_{\mathrm{TK}_2} \cup D_0\\[5pt]
-                    D_{\mathrm{TK}_0} &= \set{0 + W(5), 0 + W(11), W(5) + W(11)} \\
-                    D_{\mathrm{TK}_1} &= \set{W(1) + W(7)} \\
-                    D_{\mathrm{TK}_2} &= \set{W(3) + W(9)} \\
-                    D_{0} &= \set{a + b \given a, b \in \set{W(0), W(2), W(4), W(6), W(8), W(10)}, a \neq b}
-                \end{align*}
-            \item This gives us 20 round constant differences.
-        \end{itemize}
-%
-%    For \clyde/ (cont.):
-%    \begin{itemize}
-%        \item Computing $W_L$ is efficiently doable (takes $\approx$ 10 seconds on my laptop).
-%        \item For the round constants chosen for \clyde/, $\dim W_L(D) = 128 = n$.
-%        \item Thus, we can apply:
-%              \begin{block}{Proposition~2 (\cite{C:BCLR17})}
-%                  Suppose that the dimension of $W_L(D)$ is at least $n-1$.
-%                  Then any invariant $g$ is linear or constant.
-%                  As a consequence, there is no non-trivial invariant $g$ of the S-box layer, unless the S-box layer has a component of degree 1.
-%              \end{block}
-%        \item Such an S-box would be attackable by linear cryptanalysis.
-%        \item We conclude that we cannot find any $g$ for \clyde/ which is at the same time invariant for the S-box layer and for the linear layer.
-%    \end{itemize}
-%    }
+    \visible<3->{%
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            \missingfigure{overview of clydes encryption over all 12 rounds}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \begin{align*}
+                D &= D_{\mathrm{TK}_0} \cup D_{\mathrm{TK}_1} \cup D_{\mathrm{TK}_2} \cup D_0\\[5pt]
+                D_{\mathrm{TK}_0} &= \set{0 + W(5), 0 + W(11), W(5) + W(11)} \\
+                D_{\mathrm{TK}_1} &= \set{W(1) + W(7)} \\
+                D_{\mathrm{TK}_2} &= \set{W(3) + W(9)} \\
+                D_{0} &= \set{a + b \given a, b \in D^\prime, a \neq b} \\
+                D^\prime &= \set{W(0), W(2), W(4), W(6), W(8), W(10)}
+            \end{align*}
+        \end{column}
+    \end{columns}
+    }
+\end{frame}
+
+\begin{frame}{Invariant Attacks}{Application to \clyde/}
+    \begin{itemize}
+        \item Computing $W_L$ is efficiently doable (takes $\approx$ 10 seconds on my laptop).
+        \item For the round constants chosen for \clyde/, $\dim W_L(D) = 128 = n$.
+        \item Thus, we can apply:
+              \begin{block}{Proposition~2 \cite{C:BCLR17}}
+                  Suppose that the dimension of $W_L(D)$ is $n$.
+                  Then any invariant $g$ is constant (and thus trivial).
+              \end{block}
+        \item We conclude that we cannot find any non-trivial $g$ for \clyde/ which is at the same time invariant for the S-box layer and for the linear layer.
+    \end{itemize}
 \end{frame}
 
 \section{Subspace Trails}
@@ -504,6 +505,8 @@
     \begin{block}{Future Work/Cryptanalysis}
         \begin{itemize}
             \item Cryptagraph~\cite{ToSC:HalVej18}
+            \item Post cryptanalysis results on mailinglist?
+            \item Eprint Write-Up?
         \end{itemize}
     \end{block}
     \end{minipage}
