@@ -1,8 +1,6 @@
 \section{Invariant Attacks -- Round Constants}
-\begin{frame}
-    \centering
-    \Huge
-    Invariant Attacks
+\begin{frame}[plain]
+    \sectionpage
     \vfill
 \end{frame}
 
@@ -41,7 +39,7 @@
         \end{tikzpicture}
     \end{block}
     \visible<3->{%
-    \begin{block}{Invariant Subspace Attacks~\cite{C:LAAZ11} (CRYPTO'11)}
+    \begin{block}{Invariant Subspace Attacks~[Lea+11] (CRYPTO'11)}
         \vspace{0.25em}
         Let $U \subseteq \F_2^n$, $c, d \in U^\perp$, and $F : \F_2^n \to \F_2^n$.
         Then $U$ is an \emph{invariant subspace} (IS) if and only if
@@ -274,7 +272,7 @@
     \end{itemize}
     \begin{itemize}
         \item Thus, we can apply:
-              \begin{block}{Proposition~2 \cite{C:BCLR17}}
+              \begin{block}{Proposition~2 [Bei+17]}
                   Suppose that the dimension of $W_L(D)$ is $n$.
                   Then any invariant $g$ is constant (and thus trivial).
               \end{block}
@@ -285,7 +283,7 @@
 \end{frame}
 
 \begin{frame}{Invariant Attacks}{Improvable?}
-    \begin{block}{Bounding the dimension of $W_L$,~\cite[Theorem~1]{C:BCLR17}}
+    \begin{block}{Bounding the dimension of $W_L$, [Bei+17, Theorem~1]}
         Given a linear layer $L$.
         Denote by $Q_i$ its \emph{invariant factors}.
         Then

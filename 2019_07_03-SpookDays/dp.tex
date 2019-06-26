@@ -1,8 +1,6 @@
 \section{Division Property}
-\begin{frame}
-    \centering
-    \Huge
-    Division Property
+\begin{frame}[plain]
+    \sectionpage
     \vfill
 \end{frame}
 
@@ -93,14 +91,167 @@
     \end{block}
 \end{frame}
 
-\begin{frame}{Division Property}{MILP model}
-    \begin{block}{MILP}
-        What is a MILP
-    \end{block}
-    \begin{itemize}
-        \item Objective function
-        \item Starting DP
-        \item Propagation Rules
-        \item Stopping Rule
-    \end{itemize}
+\frame<1-3>[label=dp-milp-model]
+{
+\frametitle{Division Property}
+\framesubtitle{MILP model}
+    \vfill
+    \begin{columns}
+        \begin{column}{0.475\textwidth}
+            \begin{block}{Mixed Integer Linear Programs}
+                \centering
+                Typical description of a MILP\\[10pt]
+                \begin{tabular}{cccc}
+                    \toprule
+                    Objective           & & $\max$/$\min$ & $c^\top x$       \\
+                    linear inequalities & & \textrm{subject to} & $Ax \leqslant b$ \\
+                    \bottomrule
+                \end{tabular}
+                \vspace{10pt}
+                \begin{itemize}
+                    \item $A, b, c$ known coefficients
+                    \item $x$ unknown variables
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \pause
+        \begin{column}{0.475\textwidth}
+            \begin{block}{Applying MILPs to find Division Properties}
+                \textbf{Goal}: Model Division Property as a MILP\\[6.5pt]
+
+                We need:
+                \begin{itemize}
+                    \colorize<4> \item Objective function
+                    \colorize<4> \item Starting DP
+                    \colorize<3> \item Propagation Rules
+                    \colorize<4> \item Stopping Rule
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+    \vfill
+    \visible<5->{%
+        \centering
+        Using this, we can now model the DP search for \clyde/
+    }
+    \vfill
+}
+
+\begin{frame}{Division Property}{Modeling Propagation Rules: $\mathrm{copy}$}
+    \begin{columns}
+        \begin{column}{0.35\textwidth}
+            \begin{block}{Propagation Rule}
+                \vspace*{-15pt}
+                \begin{gather*}
+                    \mathrm{copy} : x \mapsto (x, x) \\
+                    \mathcal{D}^1_x \stackrel{\mathrm{copy}}{\to} \begin{cases*}
+                        \mathcal{D}^1_{(0,0)}       & if $x = 0$ \\
+                        \mathcal{D}^1_{(0,1),(1,0)} & if $x = 1$
+                    \end{cases*}
+                \end{gather*}
+                \vspace*{-3pt}
+            \end{block}
+            \begin{block}{Valid Transitions}
+                \begin{enumerate}
+                    \item \quad $(0) \stackrel{\mathrm{copy}}{\to} (0, 0)$
+                    \item \quad $(1) \stackrel{\mathrm{copy}}{\to} (0, 1)$
+                    \item \quad $(1) \stackrel{\mathrm{copy}}{\to} (1, 0)$
+                \end{enumerate}
+            \end{block}
+            \pause
+        \end{column}
+        \begin{column}{0.575\textwidth}
+            \begin{block}{MILP Model}
+                \begin{itemize}
+                    \item Given division trail $(x) \stackrel{\mathrm{copy}}{\to} (y, z)$\\[2pt]
+                    \item Propagation represented by the (in)equality
+                        \begin{gather*}
+                            x - y - z = 0\\
+                            x, y, z \in \set{0,1}
+                        \end{gather*}
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
+
+\begin{frame}{Division Property}{Modeling Propagation Rules: $\mathrm{xor}$}
+    \begin{columns}
+        \begin{column}{0.35\textwidth}
+            \begin{block}{Propagation Rule}
+            \vspace*{-10pt}
+            \begin{gather*}
+                \mathrm{xor} : (x,y) \mapsto x + y \\
+                \mathcal{D}^{1,2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
+            \end{gather*}
+            \end{block}
+            \begin{block}{Valid Transitions}
+                \begin{enumerate}
+                    \item \quad $(0,0) \stackrel{\mathrm{xor}}{\to} (0)$
+                    \item \quad $(1,0) \stackrel{\mathrm{xor}}{\to} (1)$
+                    \item \quad $(0,1) \stackrel{\mathrm{xor}}{\to} (1)$
+                \end{enumerate}
+            \end{block}
+            \pause
+        \end{column}
+        \begin{column}{0.575\textwidth}
+            \begin{block}{MILP Model}
+            \begin{itemize}
+                \item Given division trail $(x, y) \stackrel{\mathrm{xor}}{\to} (z)$\\[2pt]
+                \item Propagation represented by the (in)equality:
+                    \begin{gather*}
+                        x + y - z = 0\\
+                        x, y, z \in \set{0,1}
+                    \end{gather*}
+            \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Division Property}{Modeling Propagation Rules: S-box}
+    \begin{columns}
+        \begin{column}{0.35\textwidth}
+            \begin{block}{Propagation Rule}
+                \centering
+                S-box $S : \F_2^n \to \F_2^n$:\\
+                see~\cite[Algorithm~2]{AC:XZBL16},
+                computes for all $u \in \F_2^n$\\
+                \vspace*{-15pt}
+                \begin{equation*}
+                    \mathcal{D}^{1,n}_{u} \stackrel{S}{\to} \mathcal{D}^{1,n}_V
+                \end{equation*}
+            \end{block}
+            \begin{block}{Valid Transitions}
+                \begin{columns}
+                    \begin{column}{0.5\linewidth}
+                        \begin{enumerate}
+                            \item \quad $u \stackrel{S}{\to} v_1$
+                            \item[] \quad \hspace{4pt} $\cdots$
+                            \item[\tikz{\node[scale=0.8,minimum width=2pt,minimum height=2pt,color=white,fill=saphierblau]{\scriptsize$k$}}] \quad $u \stackrel{S}{\to} v_k$
+                        \end{enumerate}
+                    \end{column}
+                    \begin{column}{0.5\linewidth}
+                        for $v_i \in V$
+                    \end{column}
+                \end{columns}
+            \end{block}
+            \pause
+        \end{column}
+        \begin{column}{0.575\textwidth}
+            \begin{block}{MILP Model}
+            \begin{itemize}
+                \item Interpret set of all $(u, v) \in \F_2^{2n}$ as polyhedron
+                \item Choose inequalities from its H-representation
+            \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\againframe<3-4>{dp-milp-model}
+
+\begin{frame}{Division Property}{Start, Stop, Objective}
+\end{frame}
+
+\againframe<4-5>{dp-milp-model}

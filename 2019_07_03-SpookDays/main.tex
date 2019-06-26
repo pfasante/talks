@@ -112,6 +112,9 @@
     }
 }
 
+\def\colorize<#1>{%
+    \temporal<#1>{\color{black}}{\color{alertred}}{\color{black!50}}%
+}
 
 
 \newcounter{task}
@@ -266,7 +269,7 @@ on grid
 
 \begin{document}
 
-\begin{frame}
+\begin{frame}[plain]
     \titlepage{}
 \end{frame}
 
@@ -277,7 +280,31 @@ on grid
 \input{ia.tex}
 \input{st.tex}
 \input{dp.tex}
-\input{results.tex}
+
+\begin{frame}[plain]
+    \centering
+    \Huge
+    Conclusion
+    \vfill
+\end{frame}
+\begin{frame}{Conclusion}{Thanks for your attention!}
+    \centering
+    \begin{minipage}{0.5\textwidth}
+    \begin{block}{Future Work/Cryptanalysis}
+        \begin{itemize}
+            \item Cryptagraph~\cite{ToSC:HalVej18}
+            \item Post cryptanalysis results on mailinglist?
+            \item Eprint Write-Up?
+        \end{itemize}
+    \end{block}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{figure}[!htb]
+            \includegraphics[height=50mm]{data/flickr/questionmark.png}
+        \end{figure}
+    \end{minipage}
+\end{frame}
 
 \begin{frame}[allowframebreaks]{References}
     \tiny
