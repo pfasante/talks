@@ -1,0 +1,106 @@
+\section{Division Property}
+\begin{frame}
+    \centering
+    \Huge
+    Division Property
+    \vfill
+\end{frame}
+
+\begin{frame}{Division Property}
+    \begin{block}{Main Idea: Division Property}
+        \begin{itemize}
+            \item Generalisation of Integral and Higher Order Differential attacks
+            \item Captures properties of bits in a set
+            \item For standard integral attacks: zero-sum, all or constant
+            \item The Division Property allows to capture properties \enquote{in between} these\\
+                  (even if they do not have such a nice description as \eg/ the zero-sum)
+        \end{itemize}
+    \end{block}
+    \begin{block}{Division Property}
+        ???
+    \end{block}
+\end{frame}
+
+\begin{frame}{Division Property}{Related Work}
+    \begin{timeline}
+        \Task[\cite{EC:Todo15}]{Publication of DP attack}
+        \Task[\cite{C:Todo15}]{DP attack breaking\\ full \misty/}
+        \Task[\cite{C:BouCan16}]{Analysis of DP, S-box properties to resist\\ this attack}
+        \Task[\cite{FSE:TodMor16}]{Bit-based DP}
+        \Task[\cite{AC:XZBL16}]{MILP based search of\\ DP distinguishers}
+        \Task[%
+                \cite{C:TIHM17}\\
+                \cite{C:WHTLIM18}
+            ]{DP based Cube attacks on stream ciphers}
+    \end{timeline}
+\end{frame}
+
+\begin{frame}{Division Trails}
+    \begin{block}{Division Trail}
+        ???
+    \end{block}
+    \begin{block}{Propagating Bit-Based Division Trails}
+    \begin{columns}
+    \begin{column}{0.3\textwidth}
+        \vspace*{-10pt}
+        \begin{gather*}
+            \mathrm{copy} : x \mapsto (x, x) \\
+            \mathcal{D}^1_x \stackrel{\mathrm{copy}}{\to} \begin{cases*}
+                \mathcal{D}^1_{(0,0)}       & if $x = 0$ \\
+                \mathcal{D}^1_{(0,1),(1,0)} & if $x = 1$
+            \end{cases*}
+        \end{gather*}
+        \vspace*{-3pt}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+        \vspace*{-10pt}
+        \begin{gather*}
+            \mathrm{xor} : (x,y) \mapsto x + y \\
+            \mathcal{D}^{1,2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
+        \end{gather*}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+        \centering
+        S-box $S : \F_2^n \to \F_2^n$:\\
+        see~\cite[Algorithm~2]{AC:XZBL16},
+        computes for all $u \in \F_2^n$\\
+        \vspace*{-15pt}
+        \begin{equation*}
+            \mathcal{D}^{1,n}_{u} \stackrel{S}{\to} \mathcal{D}^{1,n}_V
+        \end{equation*}
+        \st/ $u \to v$ is a DT $\forall v \in V$.
+    \end{column}
+    \end{columns}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Division Property}
+    \begin{block}{\textbf{Goal}: Apply security argument from}
+    \begin{quote}
+        \fullcite{AC:XZBL16}.
+    \end{quote}
+    \end{block}
+    \begin{exampleblock}{What do we get from this?}
+        \centering
+        Number of rounds for which a division property/integral distinguisher exists.
+    \end{exampleblock}
+    \begin{block}{Approach (similiar to Subspace Trails)}
+        \begin{itemize}
+            \item Pick starting DPs in a way that covers all possibilities
+            \item Model division trail propagations as MILP
+            \item Find solutions for this over increasing number of rounds
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Division Property}{MILP model}
+    \begin{block}{MILP}
+        What is a MILP
+    \end{block}
+    \begin{itemize}
+        \item Objective function
+        \item Starting DP
+        \item Propagation Rules
+        \item Stopping Rule
+    \end{itemize}
+\end{frame}

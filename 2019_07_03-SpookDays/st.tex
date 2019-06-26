@@ -1,0 +1,266 @@
+\section{Subspace Trails}
+\begin{frame}
+    \centering
+    \Huge
+    Subspace Trails
+
+    {\Large
+        Probability~1~Truncated Differentials
+    }
+
+    \vfill
+\end{frame}
+
+\begin{frame}{Subspace Trails}
+    \begin{block}{Main Idea: Subspace Trails}
+        \centering
+        \vspace{0.25em}
+        \begin{tikzpicture}[scale=0.8]
+            \tikzstyle{every node}=[transform shape];
+
+            \node (left2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (1,0) {};
+            \draw[thick] (left2-space.west)+(0,1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_r}$} +(3cm,1.125cm);
+            \draw[thick] (left2-space.west)+(0,-0.25cm) -- node[above, yshift=5mm] {\dots} +(3cm,-0.25cm);
+            \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_1}$}
+                                                            node[below, yshift=-1.5mm] {$U$} +(3cm,-1.125cm);
+
+            \node (middle-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (5,0) {};
+            \draw[thick] (middle-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=45] (vbs) {$\coset{V}{b_s}$} +(-1.5cm,-1.5cm);
+            \draw[thick] (middle-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] (middle-dots) {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
+            \draw[thick] (middle-space.east)+(-0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=45] (vb1) {$\coset{V}{b_1}$}
+                                                        node[below, yshift=-0.5mm, rotate=45] (v) {$V$} +(-1.5cm,-2cm);
+
+            \draw[-latex] (1.75,-1.5) to [bend left] (4.75,-1.5);
+            \visible<2->{%
+            \draw[-latex] (1.75,-0.5) to [bend left] (6.325,-1.0);
+            \draw[-latex] (1.75,+1.5) to [bend left] (middle-dots);
+            }
+
+            \node (left-f) at (3,0) {$F$};
+
+            \visible<3->{%
+            \node (right-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (9,0) {};
+            \draw[thick] (right-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=-45] (wct) {$\coset{W}{c_t}$} +(+1.5cm,-1.5cm);
+            \draw[thick] (right-space.west)+(0.5pt,1cm) -- node[above, yshift=10mm, rotate=-45] (right-dots) {\dots} +(3cm-1.25pt,-2cm+1.25pt);
+            \draw[thick] (right-space.west)+(0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=-45] (wc1) {$\coset{W}{c_1}$}
+                                                        node[below, yshift=-0.5mm, rotate=-45] (w) {$W$} +(+1.5cm,-2cm);
+
+            \node (middle-f) at (7,0) {$F$};
+            \node (right-f) at (11,0) {$\ldots$};
+
+            \draw[-latex] (vb1) to [bend left] (w);
+            \draw[-latex] (v) to [bend left] (wc1);
+            \draw[-latex] (vbs) to [bend right] (9.625,+1.75);
+            }
+        \end{tikzpicture}
+    \end{block}
+    \visible<3->{%
+    \begin{block}{Subspace Trail Cryptanalysis~[GRR16] (FSE'16)}
+        \vspace{0.25em}
+        \centering
+        Let $U_0, \ldots, U_r \subseteq \F_2^n$, and $F : \F_2^n \to \F_2^n$.
+        Then these form a \emph{subspace trail} (ST), $U_0 \through{F} \cdots \through{F} U_r$, iff
+        \begin{equation*}
+            \forall a \in U_i^\perp : \exists b \in U_{i+1}^\perp : \qquad F(\coset{U_i}{a}) \subseteq \coset{U_{i+1}}{b}
+        \end{equation*}
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{Computing Subspace Trails}
+    \centering
+    \begin{minipage}{0.45\textwidth}
+    Given a starting subspace $U$, we can efficiently compute the corresponding longest subspace trail.
+
+    \begin{lemma}
+        \vspace{14pt}
+        Let $U \through{F} V$ be a ST\@.
+        Then for all $u \in U$ and all~$x$: $F(x) + F(x + u) \in V$.
+        \vspace{14pt}
+    \end{lemma}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+    \visible<2->{%
+    \begin{block}{Proof}
+        \centering
+        \begin{tikzpicture}[scale=0.75]
+            \tikzstyle{every node}=[transform shape];
+
+            \node (left2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (1,0) {};
+            \draw[thick] (left2-space.west)+(0,1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_s}$} +(3cm,1.125cm);
+            \draw[thick] (left2-space.west)+(0,-0.25cm) -- node[above, yshift=5mm] {\dots} +(3cm,-0.25cm);
+            \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[below, yshift=-1.5mm] {$U$} +(3cm,-1.125cm);
+
+            \node (right2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (5,0) {};
+            \draw[thick] (right2-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=45] {$\coset{V}{b_t}$} +(-1.5cm,-1.5cm);
+            \draw[thick] (right2-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
+            \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[below, yshift=-0.5mm, rotate=45] {$V$} +(-1.5cm,-2cm);
+
+            \node[xshift=-20pt, yshift=-18pt] (x1) at (left2-space) {$\cdot$};
+            \node[above] (x1-label) at (x1) {$x$};
+
+            \node[xshift=32pt, yshift=-4pt] (y1) at (right2-space) {$\cdot$};
+            \node[above] (y1-label) at (y1) {$F(x)$};
+
+            \draw[-latex] (x1) to [bend left] node[below,yshift=-5pt] {$F$} (y1);
+
+            \visible<3->{%
+                \node[xshift=25pt, yshift=-24pt] (x2) at (left2-space) {$\cdot$};
+                \node[above] (x2-label) at (x2) {$x+u$};
+
+                \node[xshift=-12pt, yshift=-42pt] (y2) at (right2-space) {$\cdot$};
+                \node[below] (y2-label) at (y2) {$F(x+u)$};
+
+                \draw[-latex] (x1) -- node[below,draw,fill=white,inner sep=1pt,circle] (u-label) {$u$} (x2);
+                \node[xshift=17pt, yshift=-23pt] at (u-label) (u) {$\cdot$};
+
+                \draw[-latex] (u-label) -- (u);
+
+                \draw[-latex] (x2) to [bend left] (y2);
+            }
+
+            \visible<4->{%
+                \draw[-latex] (y1) -- node[below,xshift=2pt,draw,fill=white,inner sep=1pt,circle] (v-label) {$v$} (y2);
+                \node[xshift=22pt, yshift=-9pt] at (v-label) (v) {$\cdot$};
+
+                \draw[-latex] (v-label) -- (v);
+            }
+
+        \end{tikzpicture}
+    \end{block}
+    }
+    \end{minipage}
+    \visible<5->{%
+    \begin{minipage}{0.925\textwidth}
+    \begin{block}{Computing the subspace trail}
+        \begin{itemize}
+            \item To compute the next subspace, we have to compute the image of the derivatives.
+        \end{itemize}
+    \end{block}
+    \end{minipage}
+    }
+\end{frame}
+
+\begin{frame}{Computing Subspace Trails}{Algorithm}
+    \centering
+    \begin{minipage}{0.7\textwidth}
+    \centering
+    \begin{block}{Compute Subspace Trails}
+    \begin{algorithmic}[1]
+        \Require{A nonlinear, bijective function $F : \F_2^n \to \F_2^n$ and a subspace $U$.}
+        \Ensure{The longest ST starting in $U$ over $F$.}
+        \Statex{}
+        \Function{Compute Trail}{$F$, $U$}
+        \If{$\dim(U) = n$}
+            \State{}\Return{$U$}
+        \EndIf{}
+        \State{}$V \leftarrow \emptyset$
+        \For{$u_i$ basis vectors of $U$}
+            \For{enough $x \in_\mathrm{R} \F_2^n$}\label{alg:compute_trail_1line}
+                \Comment \eg/ $n+20$ $x$'s are enough
+                \State{} $V \leftarrow V \cup \Delta_{u_i}(F)(x)$\label{alg:compute_trail_2line}
+                \Comment $\Delta_a(F)(x) \coloneqq F(x) + F(x+a)$
+            \EndFor{}
+        \EndFor{}
+        \State{}$V \leftarrow \mathrm{span}(V)$
+        \State{}\Return{the subspace trail $U \rightarrow \textsc{Compute Trail}(F, V)$}
+        \EndFunction{}
+    \end{algorithmic}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Subspace Trails}{Proving Resistance}
+    \begin{block}{\textbf{Goal}: Apply security argument from}
+    \begin{quote}
+        \fullcite{ToSC:LeaTezWie18}.
+    \end{quote}
+    \end{block}
+    \begin{exampleblock}{What do we get from this?}
+        \begin{itemize}
+            \item (Tight) upper bound on the length of any ST for an SPN construction
+        \end{itemize}
+    \end{exampleblock}
+    \begin{alertblock}{Why is the \textsc{Compute Trail} algorithm not enough?}
+        \begin{itemize}
+            \item Exhaustively checking all possible starting points is to costly.
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Subspace Trails}{How to bound the length of any subspace trail}
+    \begin{columns}[t,onlytextwidth]
+        \begin{column}{0.35\textwidth}
+            \begin{block}{Observation\vphantom{g}}
+                \vspace{0.5em}
+                \centering
+                \begin{tikzpicture}
+                \foreach \z in {0,1,2,3} {%
+                    \node[] (i\z) at ($(-0.25, \z*3em)+(0,0.35)$) {};
+                    \node[] (o\z) at ($(0, \z*3em)+(3em,0.35)$) {};
+                    \draw[thick,solid] (i\z) -- (o\z.center);
+                }
+
+                %% SBoxes
+                \foreach \z in {0,1,2,3} {%
+                    \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sl\z) at ($(i\z) + (2em,0em)$) {$S$};
+                }
+
+                \draw [draw=none] (i1) -- node[left,xshift=-0.5em] (U) {$U$} (i2);
+
+                \draw [draw=none] (o1) -- node[right,xshift=0.5em] (V) {$V \ \ni$} (o2);
+                \node [xshift=1em] at (V.east) {$\begin{pmatrix}0 \\ \\ \alpha \\ \\ 0 \\ \\ 0 \end{pmatrix}$} (o2);
+                \end{tikzpicture}
+                \vspace{0.5em}
+            \end{block}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \visible<2->{%
+            \begin{block}{Algorithm Idea}
+                %\begin{minipage}[t][117.5pt][t]{\textwidth}
+                \vspace{0.25em}
+                Compute the subspace trails for any starting point $W_{i,\alpha} \in \mathcal{W}$, with
+                    \begin{equation*}
+                        W_{i,\alpha} \coloneqq (\underbrace{0, \ldots, 0}_{i-1}, \alpha, 0, \ldots, 0)
+                    \end{equation*}
+                %\end{minipage}
+            \end{block}
+            \begin{block}{Complexity (Size of $\mathcal{W}$)}
+                \centering
+                For an S-box layer $S : \F_2^{kn} \to \F_2^{kn}$ with $k$ S-boxes, each $n$-bit:\\
+                $\abs{\mathcal{W}} = k \cdot (2^n-1)$
+            \end{block}
+            }
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Subspace Trails}{Algorithm}
+    \centering
+    \begin{block}{Generic Subspace Trail Search}
+    \begin{algorithmic}[1]
+        \Require{A linear layer matrix $M : \F_2^{n \cdot k \times n \cdot k}$, and an S-box $S : \F_2^n \to \F_2^n$.}
+        \Ensure{A bound on the length of all STs over $F = M \circ S^k$.}
+        \Statex{}
+        \Function{Generic Subspace Trail Length}{$M$, $S$}
+        \State{}empty list $L$
+        \For{possible initial subspaces represented by $W_{i,\alpha} \in \mathcal{W}$}
+            \Comment Overall $k \cdot (2^n-1)$ iterations
+            \State{}$L.\mathrm{append}(\textsc{Compute Trail}(S^k \circ M, \set{W_{i,\alpha}}))$
+            \Comment $S^k$ denotes the S-box layer
+        \EndFor{}
+        \State{}\Return{$\max{\set{\mathrm{len}(t) \given t \in L}}$}
+        \EndFunction{}
+    \end{algorithmic}
+    \end{block}
+
+    \begin{block}{Overall Complexity}
+        \centering
+        \begin{tabular}{lccccc}
+            \toprule
+            Algorithm  & \textsc{Compute Trail} & \textsc{Generic Subspace Trail Length} &           Overall          &  \clyde/ & \shadow/ \\
+            Complexity & $\mathcal{O}(k^2 n^2)$ &          $\mathcal{O}(k2^n)$           & $\mathcal{O}(k^3 n^2 2^n)$ & $2^{23}$ & $2^{29}$ \\
+            \bottomrule
+        \end{tabular}
+    \end{block}
+\end{frame}

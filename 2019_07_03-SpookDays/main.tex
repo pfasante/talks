@@ -152,14 +152,14 @@ on grid
 \else
   \renewcommand\taskpos{-\taskvsep}\renewcommand\taskanchor{north}
 \fi
-\node[inner,font=\footnotesize\sffamily\color{textcolor}]    
+\node[inner,font=\footnotesize\sffamily\color{textcolor}]
   (c\the\numexpr\value{task}+1\relax) {#1};
-\node[anchor=\taskanchor,yshift=\taskpos] 
+\node[anchor=\taskanchor,yshift=\taskpos]
   at (c\the\numexpr\value{task}+1\relax) {\task{#2}};
 }
 
-\newcommand\drawarrow{% the arrow is placed in the background layer 
-                                                     % after the node for the tasks have been placed
+\newcommand\drawarrow{% the arrow is placed in the background layer
+                      % after the node for the tasks have been placed
 \ifnum\thetask=0\relax
   \node[on chain] (c1) {}; % if no \task command is used, the arrow will be drawn
 \fi
@@ -173,7 +173,7 @@ on grid
   fill=arrowcolor,
   fit= (c1) (f)
 ] (arrow) {};
-\fill[white] % the decoration at the tail of the arrow
+\fill % the decoration at the tail of the arrow
   (arrow.before tail) -- (c1|-arrow.west) -- (arrow.after tail) -- cycle;
 \end{pgfonlayer}
 }
@@ -199,6 +199,7 @@ on grid
     style=alphabetic,
     sortcites,
     sorting=ynt,
+    hyperref=true,
     maxbibnames=10,
     maxcitenames=5,
     giveninits=true,
@@ -216,6 +217,13 @@ on grid
 }
 \renewcommand\bibfont{\scriptsize}
 \bibliography{bibliography}
+
+\hypersetup{%
+    colorlinks=true,
+    citecolor=black!70!green,
+    linkcolor=black!70!red,
+    urlcolor=black!20!blue,
+}
 
 \newcommand{\blfootnote}[1]{%
     \begingroup
@@ -241,6 +249,7 @@ on grid
 \def\iscream/{iSCREAM}
 \def\scream/{SCREAM}
 \def\midori/{Midori}
+\def\misty/{Misty}
 \def\zorro/{Zorro}
 \def\spook/{\textsf{Spook}}
 \def\clyde/{Clyde}
@@ -265,6 +274,14 @@ on grid
     \tableofcontents{}
 \end{frame}
 
-\input{slides.tex}
+\input{ia.tex}
+\input{st.tex}
+\input{dp.tex}
+\input{results.tex}
+
+\begin{frame}[allowframebreaks]{References}
+    \tiny
+    \printbibliography{}
+\end{frame}
 
 \end{document}
