@@ -138,23 +138,132 @@
             \end{column}
     \end{columns}
     \end{block}
-    \pause
     \begin{columns}
-        \begin{column}{0.45\textwidth}
-            \missingfigure{overview of clydes encryption over all 12 rounds}
+        \visible<3->{
+        \begin{column}{0.49\textwidth}
+            \begin{tikzpicture}[background rectangle/.style={fill=white}, show background rectangle]
+                \begin{scope}[scale=0.75, transform shape]
+                \tikzstyle{every node}=[transform shape];
+                \tikzstyle{every node}=[node distance=25pt];
+
+                \node (XOR11) [XOR,scale=1.2] {};
+
+                \node [left of=XOR11] (x) {$x$};
+                \path[line] (x) edge (XOR11);
+
+                \foreach \i in {1, 2, 3, 4} {
+                    \node (f1\i) [right of=XOR1\i,draw,rectangle,thick,rounded corners,minimum width=0.25cm,minimum height=0.75cm] {$R$};
+                    \path[line] (XOR1\i) edge (f1\i);
+                    \pgfmathtruncatemacro\tmp{\i+1}
+                    \node (XOR1\tmp) [right of=f1\i,XOR,scale=1.2] {};
+                    \path[line] (f1\i) edge (XOR1\tmp);
+                }
+
+                \node (f21) [below=50pt of XOR15,draw,rectangle,thick,rounded corners,minimum width=0.25cm,minimum height=0.75cm] {$R$};
+                \path[line] (XOR15.east) -- +(20pt,0) |- (f21.east);
+                \node (XOR21) [left of=f21,XOR,scale=1.2] {};
+                \path[line] (f21) edge (XOR21);
+
+                \foreach \i in {2, 3, 4} {
+                    \pgfmathtruncatemacro\tmp{\i-1}
+                    \node (f2\i) [left of=XOR2\tmp,draw,rectangle,thick,rounded corners,minimum width=0.25cm,minimum height=0.75cm] {$R$};
+                    \path[line] (XOR2\tmp) edge (f2\i);
+                    \node (XOR2\i) [left of=f2\i,XOR,scale=1.2] {};
+                    \path[line] (f2\i) edge (XOR2\i);
+                }
+
+                \node (f31) [below=50pt of XOR24,draw,rectangle,thick,rounded corners,minimum width=0.25cm,minimum height=0.75cm] {$R$};
+                \path[line] (XOR24.west) -- +(-20pt,0) |- (f31.west);
+                \node (XOR31) [right of=f31,XOR,scale=1.2] {};
+                \path[line] (f31) edge (XOR31);
+
+                \foreach \i in {2, 3, 4} {
+                    \pgfmathtruncatemacro\tmp{\i-1}
+                    \node (f3\i) [right of=XOR3\tmp,draw,rectangle,thick,rounded corners,minimum width=0.25cm,minimum height=0.75cm] {$R$};
+                    \path[line] (XOR3\tmp) edge (f3\i);
+                    \node (XOR3\i) [right of=f3\i,XOR,scale=1.2] {};
+                    \path[line] (f3\i) edge (XOR3\i);
+                }
+
+                \node [right = 20pt of XOR34.east] (y) {$y$};
+                \path[line] (XOR34) edge (y);
+
+                \node (k00) [above=25pt of XOR11,marked on=<4>] {\small $\mathrm{TK}(0)$};
+                \path[line,marked on=<4>] (k00) edge (XOR11);
+
+                \node (k10) [above=25pt of XOR13,marked on=<5>] {\small $\mathrm{TK}(1)$};
+                \path[line,marked on=<5>] (k10) edge (XOR13);
+
+                \node (k20) [above=25pt of XOR15,marked on=<6>] {\small $\mathrm{TK}(2)$};
+                \path[line,marked on=<6>] (k20) edge (XOR15);
+
+
+                \node (k01) [above=25pt of XOR22,marked on=<4>] {\small $\mathrm{TK}(0)$};
+                \path[line,marked on=<4>] (k01) edge (XOR22);
+
+                \node (k11) [above=25pt of XOR24,marked on=<5>] {\small $\mathrm{TK}(1)$};
+                \path[line,marked on=<5>] (k11) edge (XOR24);
+
+
+                \node (k22) [above=25pt of XOR32,marked on=<6>] {\small $\mathrm{TK}(2)$};
+                \path[line,marked on=<6>] (k22) edge (XOR32);
+
+                \node (k02) [above=25pt of XOR34,marked on=<4>] {\small $\mathrm{TK}(0)$};
+                \path[line,marked on=<4>] (k02) edge (XOR34);
+
+
+                \node (w00) [below=25pt of XOR12,marked on=<7>] {\small $W(0)$};
+                \path[line,marked on=<7>] (w00) edge (XOR12);
+
+                \node (w10) [below=25pt of XOR13,marked on=<5>] {\small $W(1)$};
+                \path[line,marked on=<5>] (w10) edge (XOR13);
+
+                \node (w20) [below=25pt of XOR14,marked on=<7>] {\small $W(2)$};
+                \path[line,marked on=<7>] (w20) edge (XOR14);
+
+                \node (w30) [below=25pt of XOR15,marked on=<6>] {\small $W(3)$};
+                \path[line,marked on=<6>] (w30) edge (XOR15);
+
+
+                \node (w01) [below=25pt of XOR21,marked on=<7>] {\small $W(4)$};
+                \path[line,marked on=<7>] (w01) edge (XOR21);
+
+                \node (w11) [below=25pt of XOR22,marked on=<4>] {\small $W(5)$};
+                \path[line,marked on=<4>] (w11) edge (XOR22);
+
+                \node (w21) [below=25pt of XOR23,marked on=<7>] {\small $W(6)$};
+                \path[line,marked on=<7>] (w21) edge (XOR23);
+
+                \node (w31) [below=25pt of XOR24,marked on=<5>] {\small $W(7)$};
+                \path[line,marked on=<5>] (w31) edge (XOR24);
+
+
+                \node (w02) [below=25pt of XOR31,marked on=<7>] {\small $W(8)$};
+                \path[line,marked on=<7>] (w02) edge (XOR31);
+
+                \node (w12) [below=25pt of XOR32,marked on=<6>] {\small $W(9)$};
+                \path[line,marked on=<6>] (w12) edge (XOR32);
+
+                \node (w22) [below=25pt of XOR33,marked on=<7>] {\small $W(10)$};
+                \path[line,marked on=<7>] (w22) edge (XOR33);
+
+                \node (w32) [below=25pt of XOR34,marked on=<4>] {\small $W(11)$};
+                \path[line,marked on=<4>] (w32) edge (XOR34);
+            \end{scope}
+            \end{tikzpicture}
         \end{column}
-        \pause
         \begin{column}{0.45\textwidth}
             \vspace*{-10pt}
             \begin{align*}
-                D &= D_{\mathrm{TK}_0} \cup D_{\mathrm{TK}_1} \cup D_{\mathrm{TK}_2} \cup D_0\\[5pt]
-                D_{\mathrm{TK}_0} &= \set{0 + W(5), 0 + W(11), W(5) + W(11)} \\
-                D_{\mathrm{TK}_1} &= \set{W(1) + W(7)} \\
-                D_{\mathrm{TK}_2} &= \set{W(3) + W(9)} \\
-                D_{0} &= \set{a + b \given a, b \in D^\prime, a \neq b} \\
-                D^\prime &= \set{W(0), W(2), W(4), W(6), W(8), W(10)}
+                             D &= {\only<4>{\color{alertred}}D_{\mathrm{TK}(0)}} \cup {\only<5>{\color{alertred}}D_{\mathrm{TK}(1)}} \cup {\only<6>{\color{alertred}}D_{\mathrm{TK}(2)}} \cup {\only<7>{\color{alertred}}D_0}\\[5pt]
+                \visible<4->{\only<4>{\color{alertred}}D_{\mathrm{TK}(0)} &\only<4>{\color{alertred}}= \set{0 + W(5), 0 + W(11), W(5) + W(11)}} \\
+                \visible<5->{\only<5>{\color{alertred}}D_{\mathrm{TK}(1)} &\only<5>{\color{alertred}}= \set{W(1) + W(7)}} \\
+                \visible<6->{\only<6>{\color{alertred}}D_{\mathrm{TK}(2)} &\only<6>{\color{alertred}}= \set{W(3) + W(9)}} \\
+                \visible<7->{\only<7>{\color{alertred}}D_{0} &\only<7>{\color{alertred}}= \set{a + b \given a, b \in D^\prime, a \neq b}} \\
+                \visible<7->{\only<7>{\color{alertred}}D^\prime &\only<7>{\color{alertred}}= \set{W(0), W(2), W(4), W(6), W(8), W(10)}}
             \end{align*}
         \end{column}
+        }
     \end{columns}
 \end{frame}
 

@@ -63,6 +63,7 @@
 
 \usepackage{tikz}
 \usepackage{tikzsymbols}
+\usetikzlibrary{backgrounds}
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 \usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
@@ -97,6 +98,10 @@
     alt/.code args={<#1>#2#3}{%
         \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
     },
+    marked/.style={
+        color=alertred,
+    },
+    marked on/.style={alt=#1{marked}{}},
 }
 \forestset{%
     visible on/.style={%
