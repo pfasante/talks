@@ -95,60 +95,57 @@
         \pause
     \end{column}
     \begin{column}{0.6\textwidth}
+    \begin{block}{Linear Structures}
+        Let $f : \F_2^n \to \F_2$.
+        Then its \emph{linear structures} are
+        \vspace*{-5pt}
+        \begin{equation*}
+            \mathrm{LS} \coloneqq \set{a \given f(x) + f(x+a) \text{ is constant}}\;.
+        \end{equation*}
+        \vspace*{-15pt}
+    \end{block}
     \begin{block}{The smallest $L$-invariant subspace}
         $W_L(c_1, \dots, c_t)$ is the \emph{smallest $L$-invariant subspace} of~$\F_2^n$ containing all~$c_i$
+        \vspace*{-5pt}
         \begin{equation*}
             \Leftrightarrow \forall x \in W_L(c_1, \dots, c_t): L(x) \in W_L(c_1, \dots, c_t)
         \end{equation*}
+        \vspace*{-15pt}
     \end{block}
     \pause
     \begin{exampleblock}{The simple case}
-        If $W_L(c_1, \dots, c_t)$ contains the whole $\F_2^n$, only trivial invariants for $L$ and the round key addition are possible (constant 0 and 1 function).
+        If $W_L(c_1, \dots, c_t) = \F_2^n$, only trivial invariants for $L$ and key addition are possible (constant 0 and 1 function).
     \end{exampleblock}
     \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}{Invariant Attacks}{Recap Security Argument (II)}
-    \only<1-2>{%
-    \begin{block}{Bounding the dimension of $W_L$,~\cite[Theorem~1]{C:BCLR17}}
-        Given a linear layer $L$.
-        Denote by $Q_i$ its \emph{invariant factors}.
-        Then
-        \begin{equation*}
-            \max_{c_1, \dots, c_t \in \F_2^n} \dim W_L(c_1, \dots, c_t) = \sum_{i=1}^t \deg Q_i\;.
-        \end{equation*}
-    \end{block}
-    }
-
-    \visible<2->{%
     \begin{block}{Application to \clyde/}
     \begin{columns}
-        \begin{column}{0.6\textwidth}
+        \begin{column}{0.55\textwidth}
         \begin{itemize}
-            \item Compute invariant factors of linear layer:
-            \item This gives a first lower bound on the number of rounds:
-            \item Find the important round constant differences:
+            \item Find the important round constant differences:\\
+                  {\small (the differences where the same tweakey is added)}
         \end{itemize}
         \end{column}
-        \visible<3->{%
-            \begin{column}{0.35\textwidth}
+        \pause
+            \begin{column}{0.45\textwidth}
             \begin{itemize}
-                \item[] $4 \times (x^{32}+1)$
-                \item[] 3 steps/6 rounds
-                \item[] Set of RC differences $D$
+                \item[] Set of RC differences $D$ below\\
+                        with $\abs{D} = 20$
             \end{itemize}
             \end{column}
-        }
     \end{columns}
     \end{block}
-    }
-    \visible<3->{%
+    \pause
     \begin{columns}
         \begin{column}{0.45\textwidth}
             \missingfigure{overview of clydes encryption over all 12 rounds}
         \end{column}
+        \pause
         \begin{column}{0.45\textwidth}
+            \vspace*{-10pt}
             \begin{align*}
                 D &= D_{\mathrm{TK}_0} \cup D_{\mathrm{TK}_1} \cup D_{\mathrm{TK}_2} \cup D_0\\[5pt]
                 D_{\mathrm{TK}_0} &= \set{0 + W(5), 0 + W(11), W(5) + W(11)} \\
@@ -159,20 +156,67 @@
             \end{align*}
         \end{column}
     \end{columns}
-    }
 \end{frame}
 
 \begin{frame}{Invariant Attacks}{Application to \clyde/}
     \begin{itemize}
         \item Computing $W_L$ is efficiently doable (takes $\approx$ 10 seconds on my laptop).
         \item For the round constants chosen for \clyde/, $\dim W_L(D) = 128 = n$.
+    \end{itemize}
+    \begin{itemize}
         \item Thus, we can apply:
               \begin{block}{Proposition~2 \cite{C:BCLR17}}
                   Suppose that the dimension of $W_L(D)$ is $n$.
                   Then any invariant $g$ is constant (and thus trivial).
               \end{block}
+    \end{itemize}
+    \begin{itemize}
         \item We conclude that we cannot find any non-trivial $g$ for \clyde/ which is at the same time invariant for the S-box layer and for the linear layer.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Invariant Attacks}{Improvable?}
+    \begin{block}{Bounding the dimension of $W_L$,~\cite[Theorem~1]{C:BCLR17}}
+        Given a linear layer $L$.
+        Denote by $Q_i$ its \emph{invariant factors}.
+        Then
+        \begin{equation*}
+            \max_{c_1, \dots, c_t \in \F_2^n} \dim W_L(c_1, \dots, c_t) = \sum_{i=1}^t \deg Q_i\;.
+        \end{equation*}
+    \end{block}
+    \pause
+    \begin{block}{Application to \clyde/}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+        \begin{itemize}
+            \item Compute invariant factors of linear layer:
+            \item This gives a lower bound on the number of rounds:
+        \end{itemize}
+        \end{column}
+        \pause
+        \begin{column}{0.35\textwidth}
+        \begin{itemize}
+            \item[] $4 \times (x^{32}+1)$
+            \item[] 3 steps/6 rounds
+        \end{itemize}
+        \end{column}
+    \end{columns}
+    \pause
+    \begin{columns}
+        \begin{column}{0.475\textwidth}
+            \begin{itemize}
+                \item 3 stps/6 rnds: $\dim W_L(c_1,\dots,c_4) = \hphantom{1}96$
+                \item 4 stps/8 rnds: $\dim W_L(c_1,\dots,c_8) = 128$
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.475\textwidth}
+            \begin{itemize}
+                \item 5 stps/10 rnds: $\dim W_L(c_1,\dots,c_{13}) = 128$
+                \item 6 stps/12 rnds: $\dim W_L(c_1,\dots,c_{20}) = 128$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    \end{block}
 \end{frame}
 
 \section{Subspace Trails}
@@ -180,6 +224,11 @@
     \centering
     \Huge
     Subspace Trails
+
+    {\Large
+        Probability~1~Truncated Differentials
+    }
+
     \vfill
 \end{frame}
 \begin{frame}{Subspace Trails}
@@ -427,10 +476,10 @@
 
     \begin{block}{Overall Complexity}
         \centering
-        \begin{tabular}{lccc}
+        \begin{tabular}{lccccc}
             \toprule
-            Algorithm  & \textsc{Compute Trail} & \textsc{Generic Subspace Trail Length} & Overall \\
-            Complexity & $\mathcal{O}(k^2 n^2)$ &          $\mathcal{O}(k2^n)$           & $\mathcal{O}(k^3 n^2 2^n)$ \\
+            Algorithm  & \textsc{Compute Trail} & \textsc{Generic Subspace Trail Length} &           Overall          &  \clyde/ & \shadow/ \\
+            Complexity & $\mathcal{O}(k^2 n^2)$ &          $\mathcal{O}(k2^n)$           & $\mathcal{O}(k^3 n^2 2^n)$ & $2^{23}$ & $2^{29}$ \\
             \bottomrule
         \end{tabular}
     \end{block}
@@ -490,15 +539,16 @@
 \begin{frame}{Results}{Thanks for your attention!}
     \centering
     \begin{minipage}{0.5\textwidth}
-    \begin{block}{Number of rounds for which a distinguisher exist}
+    \begin{block}{Number of rounds}
     \centering
     \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{lcc}
+    \begin{tabular}{ccc}
         \toprule
-        Cipher   & Subspace Trails & Division Property \\
+        Technique         & \clyde/ & \shadow/ \\
         \midrule
-        \clyde/  &      2 (+1)     &         8         \\ \rowcolor{gray!10}
-        \shadow/ &      4 (+1)     &  not yet testet   \\
+        Invariants        &   6     &   ---    \\ \rowcolor{saphierblau!20}
+        Subspace Trails   & 2 (+1)  &  4 (+1)  \\
+        Division Property &   8     &   ---    \\
         \bottomrule
     \end{tabular}
     \end{block}
