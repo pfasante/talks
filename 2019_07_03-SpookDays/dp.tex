@@ -38,37 +38,39 @@
         ???
     \end{block}
     \begin{block}{Propagating Bit-Based Division Trails}
-    \begin{columns}
-    \begin{column}{0.3\textwidth}
-        \vspace*{-10pt}
-        \begin{gather*}
-            \mathrm{copy} : x \mapsto (x, x) \\
-            \mathcal{D}^1_x \stackrel{\mathrm{copy}}{\to} \begin{cases*}
-                \mathcal{D}^1_{(0,0)}       & if $x = 0$ \\
-                \mathcal{D}^1_{(0,1),(1,0)} & if $x = 1$
-            \end{cases*}
-        \end{gather*}
-        \vspace*{-3pt}
-    \end{column}
-    \begin{column}{0.3\textwidth}
-        \vspace*{-10pt}
-        \begin{gather*}
-            \mathrm{xor} : (x,y) \mapsto x + y \\
-            \mathcal{D}^{1,2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
-        \end{gather*}
-    \end{column}
-    \begin{column}{0.3\textwidth}
-        \centering
-        S-box $S : \F_2^n \to \F_2^n$:\\
-        see~\cite[Algorithm~2]{AC:XZBL16},
-        computes for all $u \in \F_2^n$\\
-        \vspace*{-15pt}
-        \begin{equation*}
-            \mathcal{D}^{1,n}_{u} \stackrel{S}{\to} \mathcal{D}^{1,n}_V
-        \end{equation*}
-        \st/ $u \to v$ is a DT $\forall v \in V$.
-    \end{column}
-    \end{columns}
+        \vspace*{5pt}
+        \begin{columns}
+        \begin{column}{0.3\textwidth}
+            \vspace*{-10pt}
+            \begin{gather*}
+                \mathrm{copy} : x \mapsto (x, x) \\
+                \mathcal{D}^1_x \stackrel{\mathrm{copy}}{\to} \begin{cases*}
+                    \mathcal{D}^1_{(0,0)}       & if $x = 0$ \\
+                    \mathcal{D}^1_{(0,1),(1,0)} & if $x = 1$
+                \end{cases*}
+            \end{gather*}
+            \vspace*{-3pt}
+        \end{column}
+        \begin{column}{0.3\textwidth}
+            \vspace*{-10pt}
+            \begin{gather*}
+                \mathrm{xor} : (x,y) \mapsto x + y \\
+                \mathcal{D}^{1,2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
+            \end{gather*}
+        \end{column}
+        \begin{column}{0.3\textwidth}
+            \centering
+            S-box $S : \F_2^n \to \F_2^n$:\\
+            see~\cite[Algorithm~2]{AC:XZBL16},
+            computes for all $u \in \F_2^n$\\
+            \vspace*{-15pt}
+            \begin{equation*}
+                \mathcal{D}^{1,n}_{u} \stackrel{S}{\to} \mathcal{D}^{1,n}_V
+            \end{equation*}
+            \st/ $u \to v$ is a DT $\forall v \in V$.
+        \end{column}
+        \end{columns}
+        \vspace*{5pt}
     \end{block}
 \end{frame}
 
@@ -138,6 +140,8 @@
 }
 
 \begin{frame}{Division Property}{Modeling Propagation Rules: $\mathrm{copy}$}
+    \centering
+    Based on eprint's \href{https://ia.cr/2016/392}{2016/392}, \href{https://ia.cr/2016/811}{2016/811}, and \href{https://ia.cr/2016/1101}{2016/1101}
     \begin{columns}
         \begin{column}{0.35\textwidth}
             \begin{block}{Propagation Rule}
@@ -176,6 +180,8 @@
 \end{frame}
 
 \begin{frame}{Division Property}{Modeling Propagation Rules: $\mathrm{xor}$}
+    \centering
+    Based on eprint's \href{https://ia.cr/2016/392}{2016/392}, \href{https://ia.cr/2016/811}{2016/811}, and \href{https://ia.cr/2016/1101}{2016/1101}
     \begin{columns}
         \begin{column}{0.35\textwidth}
             \begin{block}{Propagation Rule}
@@ -210,6 +216,8 @@
 \end{frame}
 
 \begin{frame}{Division Property}{Modeling Propagation Rules: S-box}
+    \centering
+    Based on approach by \textcite{AC:SHWQMS14} for differential case
     \begin{columns}
         \begin{column}{0.35\textwidth}
             \begin{block}{Propagation Rule}
@@ -228,7 +236,7 @@
                         \begin{enumerate}
                             \item \quad $u \stackrel{S}{\to} v_1$
                             \item[] \quad \hspace{4pt} $\cdots$
-                            \item[\tikz{\node[scale=0.8,minimum width=2pt,minimum height=2pt,color=white,fill=saphierblau]{\scriptsize$k$}}] \quad $u \stackrel{S}{\to} v_k$
+                            \item[\tikz{\node[scale=0.8,minimum width=2pt,minimum height=2pt,color=white,fill=saphierblau]{\scriptsize k}}] \quad $u \stackrel{S}{\to} v_k$
                         \end{enumerate}
                     \end{column}
                     \begin{column}{0.5\linewidth}
@@ -241,8 +249,13 @@
         \begin{column}{0.575\textwidth}
             \begin{block}{MILP Model}
             \begin{itemize}
-                \item Interpret set of all $(u, v) \in \F_2^{2n}$ as polyhedron
-                \item Choose inequalities from its H-representation
+                \item Interpret set of all valid $(u, v) \in \F_2^{2n}$ as polyhedron
+                \item Get inequalities from its H-representation
+                \item Choose inequalities for model by
+                    \begin{itemize}
+                        \item Greedy Approach~\cite{AC:SHWQMS14}
+                        \item MILP Approach~\cite{SecITC:SasTod17} (seems to be slower)
+                    \end{itemize}
             \end{itemize}
             \end{block}
         \end{column}
@@ -251,7 +264,71 @@
 
 \againframe<3-4>{dp-milp-model}
 
-\begin{frame}{Division Property}{Start, Stop, Objective}
+\begin{frame}{Division Property}{Objective, Start, Stop}
+    \begin{block}{What are we looking for?}
+        \begin{itemize}
+            \item Unit vectors in output division property correspond to unbalanced bits.
+            \item We have to exclude these from our MILP model.
+            \item When minimising the sum over the output variables, we find these unit vectors first.
+        \end{itemize}
+    \end{block}
+    \begin{block}{Objective}
+        \begin{equation*}
+            \mathrm{minimise} \quad x_0^r + x_1^r + \cdots + x_n^r
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Division Property}{Objective, Start, Stop}
+\end{frame}
+
+\begin{frame}{Division Property}{Objective, Start, Stop}
+    \begin{columns}
+        \begin{column}{0.575\textwidth}
+            \begin{block}{Model Stopping Rule}
+                \begin{algorithmic}[1]
+                    \Require{A Division Property MILP model $\mathcal{M}$}
+                    \Ensure{A distinguisher exists or not}
+                    \Statex{}
+                    \Function{DP Distinguisher Search}{$\mathcal{M}$}
+                    \While{$\mathcal{M}$ has feasible solution}
+                        \State{}Solve $\mathcal{M}$
+                        \visible<2->{%
+                        \If{objective value equals one}
+                            \State{}Let $v$ be the variable $=1$ for solution
+                            \State{}Add constraint $v = 0$ to $\mathcal{M}$
+                        \visible<3->{%
+                        \Else{}
+                            \State{}\Return{Found distinguisher}
+                        }
+                        \EndIf{}
+                        }
+                    \EndWhile{}
+                    \visible<3->{%
+                    \State{}\Return{No distinguisher exists}
+                    }
+                    \EndFunction{}
+                \end{algorithmic}
+            \end{block}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{block}{Stopping Rule}
+                \begin{itemize}
+                    \item<2-> Unit vectors in output division property correspond to unbalanced bits.
+                    \item<2-> We have to exclude these from our MILP model.
+                    \item<3-> If no more unit vectors where found, but MILP still has feasible solution, a distinguisher exists.
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \againframe<4-5>{dp-milp-model}
+
+\begin{frame}{Division Property}{Results}
+    \begin{block}{Division Property distinguisher for \clyde/}
+        \begin{itemize}
+            \item 8 Rounds
+        \end{itemize}
+    \end{block}
+\end{frame}
