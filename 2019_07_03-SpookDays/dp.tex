@@ -1,21 +1,28 @@
 \section{Division Property}
 \begin{frame}[plain]
     \sectionpage
+    \centering
+    {\large
+        (Disclaimer)
+    }
     \vfill
 \end{frame}
 
 \begin{frame}{Division Property}
-    \begin{block}{Main Idea: Division Property}
+    \begin{block}{Main Idea: (Bit-based) Division Property}
         \begin{itemize}
-            \item Generalisation of Integral and Higher Order Differential attacks
-            \item Captures properties of bits in a set
+            \item Generalisation of Integral and Higher Order Differential attacks \hfill (Degree-based)
+            \item Captures properties of bits in a set \hfill (\eg/ linear combination of bits is balanced)
             \item For standard integral attacks: zero-sum, all or constant
             \item The Division Property allows to capture properties \enquote{in between} these\\
                   (even if they do not have such a nice description as \eg/ the zero-sum)
         \end{itemize}
     \end{block}
     \begin{block}{Division Property}
-        ???
+        A set $X \subseteq \F_2^n$ has Division Property (DP) $\mathcal{D}^n_K$ if for all $u \in \F_2^n$ with $\forall k \in K: u \prec k$
+        \begin{equation*}
+            \sum_{x \in X} x^u = \sum_{x \in X} \prod_{i=1}^n x_i^{u_i} = 0\;.
+        \end{equation*}
     \end{block}
 \end{frame}
 
@@ -34,10 +41,7 @@
 \end{frame}
 
 \begin{frame}{Division Trails}
-    \begin{block}{Division Trail}
-        ???
-    \end{block}
-    \begin{block}{Propagating Bit-Based Division Trails}
+    \begin{block}{Propagating (Bit-Based) Division Properties}
         \vspace*{5pt}
         \begin{columns}
         \begin{column}{0.3\textwidth}
@@ -45,8 +49,8 @@
             \begin{gather*}
                 \mathrm{copy} : x \mapsto (x, x) \\
                 \mathcal{D}^1_x \stackrel{\mathrm{copy}}{\to} \begin{cases*}
-                    \mathcal{D}^1_{(0,0)}       & if $x = 0$ \\
-                    \mathcal{D}^1_{(0,1),(1,0)} & if $x = 1$
+                    \mathcal{D}^2_{(0,0)}       & if $x = 0$ \\
+                    \mathcal{D}^2_{(0,1),(1,0)} & if $x = 1$
                 \end{cases*}
             \end{gather*}
             \vspace*{-3pt}
@@ -55,9 +59,10 @@
             \vspace*{-10pt}
             \begin{gather*}
                 \mathrm{xor} : (x,y) \mapsto x + y \\
-                \mathcal{D}^{1,2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
+                \mathcal{D}^{2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
             \end{gather*}
         \end{column}
+        \pause
         \begin{column}{0.3\textwidth}
             \centering
             S-box $S : \F_2^n \to \F_2^n$:\\
@@ -65,12 +70,21 @@
             computes for all $u \in \F_2^n$\\
             \vspace*{-15pt}
             \begin{equation*}
-                \mathcal{D}^{1,n}_{u} \stackrel{S}{\to} \mathcal{D}^{1,n}_V
+                \mathcal{D}^{n}_{u} \stackrel{S}{\to} \mathcal{D}^{n}_V
             \end{equation*}
             \st/ $u \to v$ is a DT $\forall v \in V$.
         \end{column}
         \end{columns}
         \vspace*{5pt}
+    \end{block}
+    \pause
+    \begin{block}{Division Trail}
+        Given a round function $F : \F_2^n \to \F_2^n$ and $K_i \subseteq \F_2^n$.
+        Assume that
+        \begin{equation*}
+            \forall k_i \in K_i: \exists k_{i+1} \in K_{i+1}\ \text{\st/}\ \mathcal{D}^n_{k_i} \to \mathcal{D}^n_{k_{i+1}}\;.
+        \end{equation*}
+        We call such a $(k_0, k_1, \ldots, k_r)$ an $r$-round Division Trail (DT).
     \end{block}
 \end{frame}
 
@@ -112,7 +126,7 @@
                 \vspace{10pt}
                 \begin{itemize}
                     \item $A, b, c$ known coefficients
-                    \item $x$ unknown variables
+                    \item $x$ unknown variables ($\mathbb{R}$, $\mathbb{Z}$, or $\set{0,1}$)
                 \end{itemize}
             \end{block}
         \end{column}
@@ -133,8 +147,11 @@
     \end{columns}
     \vfill
     \visible<5->{%
+    \begin{block}{Similar approach}
+        Using MILPs to find single differential trails and to estimate differentials basically same approach
+    \end{block}
         \centering
-        Using this, we can now model the DP search for \clyde/
+        We can now model the DP search for \clyde/.
     }
     \vfill
 }
@@ -149,8 +166,8 @@
                 \begin{gather*}
                     \mathrm{copy} : x \mapsto (x, x) \\
                     \mathcal{D}^1_x \stackrel{\mathrm{copy}}{\to} \begin{cases*}
-                        \mathcal{D}^1_{(0,0)}       & if $x = 0$ \\
-                        \mathcal{D}^1_{(0,1),(1,0)} & if $x = 1$
+                        \mathcal{D}^2_{(0,0)}       & if $x = 0$ \\
+                        \mathcal{D}^2_{(0,1),(1,0)} & if $x = 1$
                     \end{cases*}
                 \end{gather*}
                 \vspace*{-3pt}
@@ -188,7 +205,7 @@
             \vspace*{-10pt}
             \begin{gather*}
                 \mathrm{xor} : (x,y) \mapsto x + y \\
-                \mathcal{D}^{1,2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
+                \mathcal{D}^{2}_{(k_0,k_1)} \stackrel{\mathrm{xor}}{\to} \mathcal{D}^1_{k_0+k_1}
             \end{gather*}
             \end{block}
             \begin{block}{Valid Transitions}
@@ -227,7 +244,7 @@
                 computes for all $u \in \F_2^n$\\
                 \vspace*{-15pt}
                 \begin{equation*}
-                    \mathcal{D}^{1,n}_{u} \stackrel{S}{\to} \mathcal{D}^{1,n}_V
+                    \mathcal{D}^{n}_{u} \stackrel{S}{\to} \mathcal{D}^{n}_V
                 \end{equation*}
             \end{block}
             \begin{block}{Valid Transitions}
@@ -235,7 +252,7 @@
                     \begin{column}{0.5\linewidth}
                         \begin{enumerate}
                             \item \quad $u \stackrel{S}{\to} v_1$
-                            \item[] \quad \hspace{4pt} $\cdots$
+                            \item[$\vdots$] \quad \hspace{4pt} $\cdots$
                             \item[\tikz{\node[scale=0.8,minimum width=2pt,minimum height=2pt,color=white,fill=saphierblau]{\scriptsize k}}] \quad $u \stackrel{S}{\to} v_k$
                         \end{enumerate}
                     \end{column}
@@ -280,6 +297,19 @@
 \end{frame}
 
 \begin{frame}{Division Property}{Objective, Start, Stop}
+    \begin{block}{Possible Starting DPs}
+        \begin{itemize}
+            \item Similar to subspace trail approach, we need to reduce the starting DPs needed to be checked.
+            \item \cite[Proposition~2]{AC:SunWanWan17} showed that given a first initial DP $k_0$, for any initial DP $k_1$ which is element-wise smaller than $k_0$ the following holds:\\
+                  If DP starting in $k_0$ does not have a DP after $r$ rounds, the same holds for DP starting in $k_1$.
+            \item This reduces the initial DPs we have to check to $n$ for an $n$-bit cipher.
+          \end{itemize}
+    \end{block}
+    \pause
+    \begin{block}{Initial DPs}
+        \centering
+        All $k \in \F_2^n$ with hamming weight $n-1$ are possible initial DPs
+    \end{block}
 \end{frame}
 
 \begin{frame}{Division Property}{Objective, Start, Stop}
@@ -294,9 +324,9 @@
                     \While{$\mathcal{M}$ has feasible solution}
                         \State{}Solve $\mathcal{M}$
                         \visible<2->{%
-                        \If{objective value equals one}
-                            \State{}Let $v$ be the variable $=1$ for solution
-                            \State{}Add constraint $v = 0$ to $\mathcal{M}$
+                        \If{objective value $= 1$}
+                            \State{}Let solution $= e_i$
+                            \State{}Add constraint $x_i^r = 0$ to $\mathcal{M}$
                         \visible<3->{%
                         \Else{}
                             \State{}\Return{Found distinguisher}

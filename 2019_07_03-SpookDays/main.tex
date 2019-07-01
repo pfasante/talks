@@ -297,6 +297,12 @@ on grid
             \item Eprint Write-Up?
         \end{itemize}
     \end{block}
+    \begin{tikzpicture}[overlay]
+        \node (slides) at (3.75,0){};
+        \draw[line width=1.5pt,saphierblau,fill=gray!10]
+             ($(slides)-(3.85,.35)$) rectangle ($(slides)+(3.85,.35)$)
+             node at (slides) {\small \textbf{\href{https://pfasante.github.io/talk/spook_cryptanalysis}{pfasante.github.io/talk/spook\_cryptanalysis}}};
+    \end{tikzpicture}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \centering

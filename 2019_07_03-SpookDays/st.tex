@@ -216,16 +216,16 @@
             \begin{block}{Algorithm Idea}
                 %\begin{minipage}[t][117.5pt][t]{\textwidth}
                 \vspace{0.25em}
-                Compute the subspace trails for any starting point $W_{i,\alpha} \in \mathcal{W}$, with
+                Compute the subspace trails for any starting point $w_{i,\alpha} \in W$, with
                     \begin{equation*}
-                        W_{i,\alpha} \coloneqq (\underbrace{0, \ldots, 0}_{i-1}, \alpha, 0, \ldots, 0)
+                        w_{i,\alpha} \coloneqq (\underbrace{0, \ldots, 0}_{i-1}, \alpha, 0, \ldots, 0)
                     \end{equation*}
                 %\end{minipage}
             \end{block}
-            \begin{block}{Complexity (Size of $\mathcal{W}$)}
+            \begin{block}{Complexity (Size of $W$)}
                 \centering
                 For an S-box layer $S : \F_2^{kn} \to \F_2^{kn}$ with $k$ S-boxes, each $n$-bit:\\
-                $\abs{\mathcal{W}} = k \cdot (2^n-1)$
+                $\abs{W} = k \cdot (2^n-1)$
             \end{block}
             }
         \end{column}
@@ -241,9 +241,9 @@
         \Statex{}
         \Function{Generic Subspace Trail Length}{$M$, $S$}
         \State{}empty list $L$
-        \For{possible initial subspaces represented by $W_{i,\alpha} \in \mathcal{W}$}
+        \For{possible initial subspaces represented by $w_{i,\alpha} \in W$}
             \Comment Overall $k \cdot (2^n-1)$ iterations
-            \State{}$L.\mathrm{append}(\textsc{Compute Trail}(S^k \circ M, \set{W_{i,\alpha}}))$
+            \State{}$L.\mathrm{append}(\textsc{Compute Trail}(S^k \circ M, \set{w_{i,\alpha}}))$
             \Comment $S^k$ denotes the S-box layer
         \EndFor{}
         \State{}\Return{$\max{\set{\mathrm{len}(t) \given t \in L}}$}
@@ -268,7 +268,7 @@
             \begin{block}{\clyde/}
                 \begin{itemize}
                     \item \textsc{Generic Subspace Trail Length} Bound:\\
-                          2 Rounds
+                          2 (+1) Rounds
                 \end{itemize}
             \end{block}
         \end{column}
@@ -276,7 +276,7 @@
             \begin{block}{\shadow/}
                 \begin{itemize}
                     \item \textsc{Generic Subspace Trail Length} Bound:\\
-                        4 Rounds
+                        4 (+1) Rounds
                 \end{itemize}
             \end{block}
         \end{column}
