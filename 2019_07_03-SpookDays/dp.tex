@@ -12,16 +12,16 @@
     \begin{block}{Main Idea: (Bit-based) Division Property}
         \begin{itemize}
             \item Generalisation of Integral and Higher Order Differential attacks \hfill (Degree-based)
-            \item Captures properties of bits in a set \hfill (\eg/ linear combination of bits is balanced)
+            \item Captures properties of bits in a set \hfill (\eg/ combination of bits is balanced)
             \item For standard integral attacks: zero-sum, all or constant
             \item The Division Property allows to capture properties \enquote{in between} these\\
                   (even if they do not have such a nice description as \eg/ the zero-sum)
         \end{itemize}
     \end{block}
-    \begin{block}{Division Property}
+    \begin{block}{Bit-based Division Property}
         Given $X, K \subseteq \F_2^n$.
         $X$ has Division Property (DP) $\mathcal{D}^n_K$, if for all
-        $\displaystyle u \prec K: \sum_{x \in X} x^u = \sum_{x \in X} \prod_{i=1}^n x_i^{u_i} = 0$.
+        $\displaystyle u \preccurlyeq K: \sum_{x \in X} x^u = \sum_{x \in X} \prod_{i=1}^n x_i^{u_i} = 0$.
     \end{block}
 \end{frame}
 
@@ -71,7 +71,7 @@
             \begin{equation*}
                 \mathcal{D}^{n}_{u} \stackrel{S}{\to} \mathcal{D}^{n}_V
             \end{equation*}
-            \st/ $u \to v$ is a DT $\forall v \in V$.
+            \st/ $u \to v$ is valid $\forall v \in V$.
         \end{column}
         \end{columns}
         \vspace*{5pt}
@@ -81,7 +81,7 @@
         Given a round function $F : \F_2^n \to \F_2^n$ and $K_i \subseteq \F_2^n$.
         Assume that
         \begin{equation*}
-            \forall k_i \in K_i: \exists k_{i+1} \in K_{i+1}\ \text{\st/}\ \mathcal{D}^n_{k_i} \to \mathcal{D}^n_{k_{i+1}}\;.
+            \forall k_i \in K_i: \exists k_{i+1} \in K_{i+1}\ \text{\st/}\ \mathcal{D}^n_{k_i} \stackrel{F}{\to} \mathcal{D}^n_{k_{i+1}}\;.
         \end{equation*}
         We call such a $(k_0, k_1, \ldots, k_r)$ an $r$-round Division Trail (DT).
     \end{block}
