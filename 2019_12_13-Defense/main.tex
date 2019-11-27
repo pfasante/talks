@@ -1,0 +1,449 @@
+\documentclass[%
+    10pt,
+    professionalfont,
+    aspectratio=169,
+    %handout,
+]{beamer}
+
+\mode<presentation>{%
+    \usetheme[alternativetitlepage=bild]{Rub}
+    \titlegraphic{img-bg-rub.jpg}
+    \setbeamercovered{invisible}
+}
+\usepackage{pgfpages}
+\setbeameroption{show notes on second screen}
+
+\usepackage{rubfonts2009}
+\usepackage[charter]{mathdesign}
+\SetMathAlphabet{\mathcal}{normal}{OMS}{zplm}{m}{n}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{graphicx}
+\definecolor{gelbgruen}{cmyk}{0.5,0,1,0}
+\definecolor{lichtgrau}{cmyk}{0.03,0.03,0.03,0.1}
+\definecolor{saphierblau}{cmyk}{1,0.5,0,.6}
+\definecolor{ucorange}{cmyk}{0,0.45,0.93,0.04}
+\definecolor{alertred}{rgb}{0.80,0.12,0.12}
+
+\usepackage{abbrv}
+\usepackage{delimiters}
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{etoolbox,siunitx}
+\sisetup{binary-units}
+
+\usepackage{booktabs}
+
+\usepackage{setspace}
+\usepackage{todonotes}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\newcommand*\Let[2]{\State{} #1 $\gets$ #2}
+\algrenewcommand\alglinenumber[1]{%
+    {\sffamily\footnotesize#1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+\usepackage{accsupp}
+\usepackage{listings}
+
+\newcommand{\noncopynumber}[1]{%
+    \BeginAccSupp{method=escape,ActualText={}}
+    #1
+    \EndAccSupp{}
+}
+
+\usepackage{tikz}
+\usepackage{tikzsymbols}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing, overlay-beamer-styles}
+\usetikzlibrary{shapes}
+
+\usetikzlibrary{chains,shapes.arrows,fit}
+\definecolor{arrowcolor}{RGB}{201,216,232}% color for the arrow filling
+\definecolor{circlecolor}{RGB}{79,129,189}% color for the inner circles filling
+\colorlet{textcolor}{white}% color for the text inside the circles
+\colorlet{bordercolor}{white}% color for the outer border of circles
+
+\usetikzlibrary{crypto.symbols}
+\tikzset{shadows=no}        % Option: add shadows to XOR, ADD, etc.
+\usepackage{pgfplots}
+\usetikzlibrary{pgfplots.colormaps}
+
+
+\newcommand{\repeatarrow}{%
+    \begin{tikzpicture}[inner sep=0pt, baseline=(base)]%
+    \node (n) {};
+    \draw[thick,<-] (n.center) ++(110:0.6em) arc (110:430:0.6em);
+    \node (base) at (0,-.5ex) {};
+    \end{tikzpicture}%
+}
+
+\usepackage[beamer]{hf-tikz}
+\usepackage{forest}
+
+\tikzset{%
+    invisible/.style={opacity=0,text opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+    marked/.style={
+        color=alertred,
+    },
+    marked on/.style={alt=#1{marked}{}},
+}
+\forestset{%
+    visible on/.style={%
+        for tree={%
+            /tikz/visible on={#1},
+            edge+={/tikz/visible on={#1}}
+        }
+    }
+}
+
+\def\colorize<#1>{%
+    \temporal<#1>{\color{black}}{\color{alertred}}{\color{black!50}}%
+}
+
+
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\colorlet{arrowcolor}{saphierblau}
+\colorlet{circlecolor}{white}
+\colorlet{bordercolor}{gelbgruen}
+\colorlet{textcolor}{saphierblau}
+
+
+\setbeamertemplate{bibliography item}[text]
+\usepackage[%
+    backend=biber,
+    bibencoding=ascii,
+    style=alphabetic,
+    sortcites,
+    sorting=ynt,
+    hyperref=true,
+    maxbibnames=10,
+    maxcitenames=5,
+    giveninits=true,
+]{biblatex}
+\DefineBibliographyStrings{english}{%
+    andothers = {\etal/}
+}
+\DeclareFieldFormat{eprint:iacr}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://eprint.iacr.org/#1}{\nolinkurl{#1}}
+}
+\DeclareFieldFormat{eprint:iacrconf}{%
+\mkbibacro{iacr}\addcolon\space{}
+    \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
+}
+\renewcommand\bibfont{\scriptsize}
+\bibliography{bibliography}
+
+\hypersetup{%
+    colorlinks=true,
+    citecolor=black!70!green,
+    linkcolor=black!70!red,
+    urlcolor=black!20!blue,
+}
+
+\newcommand{\blfootnote}[1]{%
+    \begingroup
+        \renewcommand\thefootnote{}\footnote{#1}%
+        \addtocounter{footnote}{-1}%
+    \endgroup
+}
+\newcommand{\vpPp}{\vphantom{Pp}}
+\newcommand{\coset}[2]{#1 \!\! + \!\! #2}
+\newcommand{\through}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand\tower[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
+\DeclareMathOperator{\Prob}{Pr}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\derive}[2]{\Delta_{#1}\parens{#2}}
+\DeclareMathOperator*{\diffOp}{\rightrightarrows}
+\newcommand{\propDiff}[4]{#1 \diffOp^{#2}_{#3} #4}
+\DeclareMathOperator{\SpanOp}{Span}
+\newcommand{\Span}[1]{\SpanOp\set{#1}}
+
+\makeatletter
+\def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
+\def\maxheight#1{\ifdim\Gin@nat@height>#1 #1\else\Gin@nat@height\fi}
+\makeatother
+
+\def\printcipher/{PRINTcipher}
+\def\robin/{Robin}
+\def\iscream/{iSCREAM}
+\def\scream/{SCREAM}
+\def\midori/{Midori}
+\def\misty/{Misty}
+\def\zorro/{Zorro}
+\def\spook/{\textsf{Spook}}
+\def\clyde/{Clyde}
+\def\shadow/{Shadow}
+
+\title{Security Arguments and\\ Tool-based Design of Block Ciphers}
+\subtitle{PhD Defense}
+\author{Friedrich Wiemer}
+\institute{%
+    %SymCrypt, HGI, RUB
+    Arbeitsgruppe Symmetrische Kryptographie, Horst-Görtz-Institut für IT Sicherheit, Ruhr-Universität Bochum
+}
+
+\date[December 13th, 2019]{\small{}December 13th, 2019}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage{}
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{The setting}{Block Ciphers and Security Notion}
+\end{frame}
+
+\begin{frame}{Block Ciphers}
+\end{frame}
+
+\begin{frame}{Security}
+\end{frame}
+
+\begin{frame}{Substitution Permutation Networks}
+\end{frame}
+
+\begin{frame}{Overview}
+    \tableofcontents{}
+\end{frame}
+
+\section{Subspace Trail Attack}
+\begin{frame}{Subspace Trail Cryptanalysis}
+    \begin{block}{Main Idea of Subspace Trails}
+        \centering
+        \vspace{0.25em}
+        \begin{tikzpicture}[scale=0.8]
+            \tikzstyle{every node}=[transform shape];
+
+            \node (left2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (1,0) {};
+            \draw[thick] (left2-space.west)+(0,1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_r}$} +(3cm,1.125cm);
+            \draw[thick] (left2-space.west)+(0,-0.25cm) -- node[above, yshift=5mm] {\dots} +(3cm,-0.25cm);
+            \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_1}$}
+                                                            node[below, yshift=-1.5mm] {$U$} +(3cm,-1.125cm);
+
+            \node (middle-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (5,0) {};
+            \draw[thick] (middle-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=45] (vbs) {$\coset{V}{b_s}$} +(-1.5cm,-1.5cm);
+            \draw[thick] (middle-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] (middle-dots) {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
+            \draw[thick] (middle-space.east)+(-0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=45] (vb1) {$\coset{V}{b_1}$}
+                                                        node[below, yshift=-0.5mm, rotate=45] (v) {$V$} +(-1.5cm,-2cm);
+
+            \draw[-latex] (1.75,-1.5) to [bend left] (4.75,-1.5);
+            \visible<2->{%
+            \draw[-latex] (1.75,-0.5) to [bend left] (6.325,-1.0);
+            \draw[-latex] (1.75,+1.5) to [bend left] (middle-dots);
+            }
+
+            \node (left-f) at (3,0) {$F$};
+
+            \visible<3->{%
+            \node (right-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (9,0) {};
+            \draw[thick] (right-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=-45] (wct) {$\coset{W}{c_t}$} +(+1.5cm,-1.5cm);
+            \draw[thick] (right-space.west)+(0.5pt,1cm) -- node[above, yshift=10mm, rotate=-45] (right-dots) {\dots} +(3cm-1.25pt,-2cm+1.25pt);
+            \draw[thick] (right-space.west)+(0.5pt,-5mm) -- node[above, yshift=2.5mm, rotate=-45] (wc1) {$\coset{W}{c_1}$}
+                                                        node[below, yshift=-0.5mm, rotate=-45] (w) {$W$} +(+1.5cm,-2cm);
+
+            \node (middle-f) at (7,0) {$F$};
+            \node (right-f) at (11,0) {$\ldots$};
+
+            \draw[-latex] (vb1) to [bend left] (w);
+            \draw[-latex] (v) to [bend left] (wc1);
+            \draw[-latex] (vbs) to [bend right] (9.625,+1.75);
+            }
+        \end{tikzpicture}
+    \end{block}
+    \visible<3->{%
+    \begin{block}{Subspace Trail Cryptanalysis~[GRR16] (FSE'16)}
+        \vspace{0.25em}
+        \centering
+        Let $U_0, \ldots, U_r \subseteq \F_2^n$, and $F : \F_2^n \to \F_2^n$.
+        Then these form a \emph{subspace trail} (ST), $U_0 \through{F} \cdots \through{F} U_r$, iff
+        \begin{equation*}
+            \forall a \in U_i^\perp : \exists b \in U_{i+1}^\perp : \qquad F(\coset{U_i}{a}) \subseteq \coset{U_{i+1}}{b}
+        \end{equation*}
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{Our Goal}
+\end{frame}
+
+\begin{frame}{Subspace Propagation}
+    \centering
+    \begin{minipage}{0.45\textwidth}
+    Given a starting subspace $U$, we can efficiently compute the corresponding longest subspace trail.
+
+    \begin{lemma}
+        \vspace{14pt}
+        Let $U \through{F} V$ be a ST\@.
+        Then for all $u \in U$ and all~$x$: $F(x) + F(x + u) \in V$.
+        \vspace{14pt}
+    \end{lemma}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+    \visible<2->{%
+    \begin{block}{Proof}
+        \centering
+        \begin{tikzpicture}[scale=0.75]
+            \tikzstyle{every node}=[transform shape];
+
+            \node (left2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (1,0) {};
+            \draw[thick] (left2-space.west)+(0,1.125cm) -- node[above, yshift=1.5mm] {$\coset{U}{a_s}$} +(3cm,1.125cm);
+            \draw[thick] (left2-space.west)+(0,-0.25cm) -- node[above, yshift=5mm] {\dots} +(3cm,-0.25cm);
+            \draw[thick] (left2-space.west)+(0,-1.125cm) -- node[below, yshift=-1.5mm] {$U$} +(3cm,-1.125cm);
+
+            \node (right2-space) [draw,rectangle,thick,rounded corners,minimum width=3cm,minimum height=4cm,fill=white] at (5,0) {};
+            \draw[thick] (right2-space.north)+(0pt,-0.5pt) -- node[above, yshift=0.5mm, rotate=45] {$\coset{V}{b_t}$} +(-1.5cm,-1.5cm);
+            \draw[thick] (right2-space.east)+(-0.5pt,1cm) -- node[above, yshift=10mm, rotate=45] {\dots} +(-3cm+1.25pt,-2cm+1.25pt);
+            \draw[thick] (right2-space.east)+(-0.5pt,-5mm) -- node[below, yshift=-0.5mm, rotate=45] {$V$} +(-1.5cm,-2cm);
+
+            \node[xshift=-20pt, yshift=-18pt] (x1) at (left2-space) {$\cdot$};
+            \node[above] (x1-label) at (x1) {$x$};
+
+            \node[xshift=32pt, yshift=-4pt] (y1) at (right2-space) {$\cdot$};
+            \node[above] (y1-label) at (y1) {$F(x)$};
+
+            \draw[-latex] (x1) to [bend left] node[below,yshift=-5pt] {$F$} (y1);
+
+            \visible<3->{%
+                \node[xshift=25pt, yshift=-24pt] (x2) at (left2-space) {$\cdot$};
+                \node[above] (x2-label) at (x2) {$x+u$};
+
+                \node[xshift=-12pt, yshift=-42pt] (y2) at (right2-space) {$\cdot$};
+                \node[below] (y2-label) at (y2) {$F(x+u)$};
+
+                \draw[-latex] (x1) -- node[below,draw,fill=white,inner sep=1pt,circle] (u-label) {$u$} (x2);
+                \node[xshift=17pt, yshift=-23pt] at (u-label) (u) {$\cdot$};
+
+                \draw[-latex] (u-label) -- (u);
+
+                \draw[-latex] (x2) to [bend left] (y2);
+            }
+
+            \visible<4->{%
+                \draw[-latex] (y1) -- node[below,xshift=2pt,draw,fill=white,inner sep=1pt,circle] (v-label) {$v$} (y2);
+                \node[xshift=22pt, yshift=-9pt] at (v-label) (v) {$\cdot$};
+
+                \draw[-latex] (v-label) -- (v);
+            }
+
+        \end{tikzpicture}
+    \end{block}
+    }
+    \end{minipage}
+    \visible<5->{%
+    \begin{minipage}{0.925\textwidth}
+    \begin{block}{Computing the subspace trail}
+        \begin{itemize}
+            \item To compute the next subspace, we have to compute the image of the derivatives.
+        \end{itemize}
+    \end{block}
+    \end{minipage}
+    }
+\end{frame}
+
+\begin{frame}{Propagate a Basis}
+\end{frame}
+
+\begin{frame}{\texttt{ComputeTrail} Algorithm}
+    \begin{minipage}{0.55\textwidth}
+    \begin{block}{Computation of Subspace Trails}
+    \begin{algorithmic}[1]
+        \Require{A nonlinear function $F : \F_2^n \to \F_2^n$, a subspace $U$.}
+        \Ensure{A subspace trail $\propDiff{U}{F}{}{\propDiff{\cdots}{F}{}{V}}$.}
+        \Statex{}
+        \Function{\texttt{ComputeTrail}}{$F$, $U$}
+        \If{$\dim U = n$} \Return{$U$} \EndIf{}
+        \State{}$V \leftarrow \emptyset$
+        \For{$u_i$ basis vectors of $U$}
+            \For{enough $x \in_\mathrm{R} \F_2^n$}\label{st:alg:compute_trail_1line}
+                \Let{$V$}{$V \cup \derive{u_i}{F}(x)$}\label{st:alg:compute_trail_2line}
+            \EndFor{}
+        \EndFor{}
+        \State{}$V \leftarrow \Span{V}$
+        \State{}\Return{$\propDiff{U}{F}{}{\texttt{ComputeTrail}(F, V)}$}
+        \EndFunction{}
+    \end{algorithmic}
+    \end{block}
+    \end{minipage}%
+    \hspace*{-10pt}%
+    \begin{minipage}{0.5\textwidth}
+        \begin{itemize}
+            \item[] \textbf{Correctness}: previous two lemmata
+            \item[] \textbf{Runtime}:
+                \begin{itemize}
+                    \item Line 4: max.\ $n$ iterations
+                    \item Line 5: $n+c$ random vectors are enough
+                    \item Overall: $\mathcal{O}(n^2)$ evaluations of $F$
+                \end{itemize}
+            \item[] \vspace{1em}Remaining Problem: cyclic STs
+        \end{itemize}
+    \end{minipage}
+\end{frame}
+\note{
+    How many random vectors are enough:
+    \url{https://math.stackexchange.com/questions/564603/probability-that-a-random-binary-matrix-will-have-full-column-rank}
+}
+
+\section{Security against Subspace Trail Attacks}
+\begin{frame}{How to Bound the Length of Subspace Trails}
+\end{frame}
+
+\begin{frame}{Activating a single S-box only}
+\end{frame}
+
+\begin{frame}{The Connection to Linear Structures}
+\end{frame}
+
+\begin{frame}{S-boxes without Linear Structures}
+\end{frame}
+
+\begin{frame}{S-boxes with Linear Structures}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}{Thanks for your attention!}
+    \centering
+    \begin{minipage}{0.5\textwidth}
+    \begin{block}{Applications of \textsc{ComputeTrail}}
+        \begin{itemize}
+            \item Bound longest probability-one subspace trail
+            \item Link to Truncated Differentials
+            \item Finding key-recovery strategies
+        \end{itemize}
+    \end{block}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{figure}[!htb]
+            \includegraphics[height=50mm]{data/flickr/questionmark.png}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+    \tiny
+    \printbibliography{}
+\end{frame}
+
+\end{document}
