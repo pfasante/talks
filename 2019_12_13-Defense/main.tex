@@ -11,7 +11,7 @@
     \setbeamercovered{invisible}
 }
 \usepackage{pgfpages}
-\setbeameroption{show notes on second screen}
+%\setbeameroption{show notes on second screen}
 
 \usepackage{rubfonts2009}
 \usepackage[charter]{mathdesign}
@@ -174,8 +174,11 @@
 
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\derive}[2]{\Delta_{#1}\parens{#2}}
+\renewcommand{\iprod}[2]{\angles{#1, #2}}
 \DeclareMathOperator*{\diffOp}{\rightrightarrows}
 \newcommand{\propDiff}[4]{#1 \diffOp^{#2}_{#3} #4}
+\DeclareMathOperator{\ImOp}{Im}
+\renewcommand{\Im}[1]{\ImOp {#1}}
 \DeclareMathOperator{\SpanOp}{Span}
 \newcommand{\Span}[1]{\SpanOp\set{#1}}
 
@@ -286,6 +289,14 @@
 \end{frame}
 
 \begin{frame}{Our Goal}
+    \begin{block}{Problem: Security against Subspace Trails}
+        Given an SPN with round function $F$, consisting of
+        \begin{itemize}
+            \item $k$ parallel applications of an S-box $S : \F_2^n \to \F_2^n$ and
+            \item a linear layer $L : \F_2^{kn} \to \F_2^{kn}$.
+        \end{itemize}
+        Compute an upper bound on the length of any subspace trail through the cipher.
+    \end{block}
 \end{frame}
 
 \begin{frame}{Subspace Propagation}
@@ -363,6 +374,26 @@
 \end{frame}
 
 \begin{frame}{Propagate a Basis}
+    Actually it is enough to compute only the image of the derivatives in direction of U's basis vectors.
+    \begin{lemma}
+        Given $U \subseteq \F_2^n$ with basis $\set{b_1, \ldots, b_k}$.
+        Then
+        %\begin{equation*}
+        $
+            \Span{\bigcup_{u \in U} \Im{\derive{u}{F}}} = \Span{\bigcup_{b_i} \Im{\derive{b_i}{F}}}\;.
+        $
+        %\end{equation*}
+    \end{lemma}
+    \pause
+    \begin{block}{Proof: $\supseteq$ trivial, $\subseteq$ by induction over the dimension $k$ of $U$}
+        Let $u = \sum_{i=1}^k \lambda_i b_i$ and $v \in \Im{\derive{u}{F}}$, \ie/ there exists an $x$ \st/
+        \begin{equation*}
+            v = F(x) + F(x + \sum_{i=1}^k \lambda_i b_i)
+              = F(y + \lambda_k b_k) + F(y + \sum_{i=1}^{k-1} \lambda_i b_i)
+              = \lambda_k \derive{b_k}{F}(y) + \lambda^\prime \derive{u^\prime}{F}(y)\;.
+        \end{equation*}
+        Thus $v \in \Span{\Im{\derive{b_k}{F}} \cup \Im{\derive{u^\prime}{F}}}$, where $u^\prime$ is contained in a $(k-1)$ dimensional subspace.
+    \end{block}
 \end{frame}
 
 \begin{frame}{\texttt{ComputeTrail} Algorithm}
@@ -407,25 +438,129 @@
 
 \section{Security against Subspace Trail Attacks}
 \begin{frame}{How to Bound the Length of Subspace Trails}
+    \centering
+    \begin{block}{Goal}
+        Give an upper bound on the length of any subspace trail.
+    \end{block}
+    \pause
+
+    \begin{minipage}{0.45\textwidth}
+    \begin{block}{Na\"ive Approach I}
+        $\forall U \subseteq \F_2^m$ run $\texttt{ComputeTrail}(F, U)$
+    \end{block}
+    \begin{alertblock}{Problem}
+        Exponentially many starting subspaces.
+    \end{alertblock}
+    \end{minipage}%
+    \pause%
+    \hspace{5pt}%
+    \begin{minipage}{0.48\textwidth}
+    \begin{block}{Na\"ive Approach II}
+        $\forall u \subseteq \F_2^m \setminus \set{0}$ run $\texttt{ComputeTrail}(F, \Span{u})$
+    \end{block}
+    \begin{alertblock}{Problem}
+        Still $2^m-1$ starting subspaces.
+    \end{alertblock}
+    \end{minipage}
+    \pause
+
+    \begin{block}{Often used heuristic}
+        Activate single S-boxes only.
+        That is, for a round function with $k$ S-boxes which are $n$-bit wide, choose $U = \set{0}^i \times V \times \set{0}^{k-i-1}$, where $V \subseteq \F_2^n$.
+    \end{block}
 \end{frame}
 
 \begin{frame}{Activating a single S-box only}
+    \begin{alertblock}{Problem}
+        Heuristic not valid in general when we want to prove a bound on the subspace trail length.
+        In particular one can construct examples where the best subspace trail does activate more than one S-box in the beginning.
+    \end{alertblock}
+    \begin{exampleblock}{The good case}
+        However, we will see next a sufficient condition for the case when the heuristic is valid.
+    \end{exampleblock}
 \end{frame}
 
 \begin{frame}{The Connection to Linear Structures}
+    Let us observe how a single S-box $S$ behaves regarding subspace trails:
+    \begin{align*}
+        \intertext{Given a subpsace trail $\displaystyle\propDiff{U}{S}{}{V}$, this implies}
+        \derive{u}{S}(x) &\in V \qquad \text{for all $x \in \F_2^n$ and $u \in U$.}
+        \intertext{By definition of the dual space $V^\perp$:}
+        \iprod{\alpha}{\derive{u}{S}(x)} &= 0 \qquad \text{for all $\alpha \in V^\perp$,}
+    \end{align*}
+    which are exactly the \emph{linear structures} of $S$:
+    \begin{equation*}
+        \mathrm{LS}(S) \coloneqq \set{(\alpha, u) \given \iprod{\alpha}{\derive{u}{S}(x)}\ \text{is constant for all $x$}}
+    \end{equation*}
 \end{frame}
 
 \begin{frame}{S-boxes without Linear Structures}
+    \begin{minipage}{0.48\textwidth}
+    This observation implies that S-boxes without linear structures (\eg/ the AES S-box) exhibit only two important subspace trails:
+    \begin{equation*}
+        \propDiff{\set{0}}{}{}{\set{0}} \qquad \text{and} \qquad \propDiff{\F_2^n}{}{}{\F_2^n}
+    \end{equation*}
+    We can further show that subspace trails over an S-box layer without linear structures are direct products of the above two subspace trails.
+    \end{minipage}\hspace{15pt}%
+    \pause%
+    \begin{minipage}{0.45\textwidth}
+    \begin{theorem}
+        Let $F$ be an S-box layer of $k$ parallel S-boxes $S : \F_2^n \to \F_2^n$.
+        If $S$ has no non-trivial linear structures, then for every subspace trail $\propDiff{U}{F}{}{V}$:
+        \begin{equation*}
+            U = V = U_1 \times \cdots \times U_k\;,
+        \end{equation*}
+        with $U_i \in \set{\set{0}, \F_2^n}$.
+    \end{theorem}
+    \end{minipage}
+    \pause
+
+    \begin{block}{Proof}
+        \vspace{-1em}
+        \begin{equation*}
+            \text{For all $\alpha = (\alpha_1, \ldots, \alpha_k) \in V^\perp$:} \quad
+            \iprod{\alpha}{\derive{u}{F}(x)}
+            = \iprod{\begin{psmallmatrix}\alpha_1 \\ \vdots \\ \alpha_k\end{psmallmatrix}}{\begin{psmallmatrix}\derive{u_1}{S}(x_1) \\ \vdots \\ \derive{u_k}{S}(x_k)\end{psmallmatrix}}
+            = \sum_{i=1}^k \iprod{\alpha_i}{\derive{u_i}{S}(x_i)}
+            = 0
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}{S-boxes without Linear Structures}
+    \centering
+    The length $\ell$ of any subspace trail is upper bounded by
+    \begin{equation*}
+        \ell = \max_{U \in \set{\set{0}, \F_2^n}^k} \abs{\texttt{ComputeTrail}(F, U)}\;,
+    \end{equation*}
+    which needs $2^k$ evaluations of the \texttt{ComputeTrail} algorithm.
 \end{frame}
 
 \begin{frame}{S-boxes with Linear Structures}
+    \centering
+    Compared to the no-linear-structures-case, $V^\perp$ can now contain much more elements, namely\\
+    all combinations of linear structures, such that their corresponding constants sum to zero.\\[1em]
+
+    Instead, we can show that (for any not-trivially-insecure S-box) the subspace\\
+    after the first S-box layer contains at least one element of a specific structure:
+    \begin{equation*}
+        W_{i,\alpha} = \set{0}^{i-1} \times \set{0, \alpha} \times \set{0}^{k-i}\;.
+    \end{equation*}
+
+    The length $\ell$ of any subspace trail is then upper bounded by
+    \begin{equation*}
+        \ell = \max_{W_{i,\alpha}} \abs{\texttt{ComputeTrail}(F^\prime, W_{i,\alpha})} + 1\;,
+    \end{equation*}
+    which needs $k \cdot 2^n$ evaluations of the \texttt{ComputeTrail} algorithm.\\[1em]
+
+    Note that $F^\prime$ first applies the linear layer, then the S-box layer (b/c of the skipped first S-box layer).
 \end{frame}
 
 \section{Conclusion}
 \begin{frame}{Conclusion}{Thanks for your attention!}
     \centering
     \begin{minipage}{0.5\textwidth}
-    \begin{block}{Applications of \textsc{ComputeTrail}}
+    \begin{block}{Applications of \texttt{ComputeTrail}}
         \begin{itemize}
             \item Bound longest probability-one subspace trail
             \item Link to Truncated Differentials
@@ -441,9 +576,9 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{References}
-    \tiny
-    \printbibliography{}
-\end{frame}
+%\begin{frame}[allowframebreaks]{References}
+%    \tiny
+%    \printbibliography{}
+%\end{frame}
 
 \end{document}
