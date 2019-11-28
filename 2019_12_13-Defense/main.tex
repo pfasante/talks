@@ -151,13 +151,23 @@
     \href{https://www.iacr.org/archive/#1}{\nolinkurl{#1}}
 }
 \renewcommand\bibfont{\scriptsize}
-\bibliography{bibliography}
+\bibliography{abbrev3,bibliography}
 
 \hypersetup{%
     colorlinks=true,
     citecolor=black!70!green,
     linkcolor=black!70!red,
     urlcolor=black!20!blue,
+}
+
+\newrobustcmd*{\fullfullcite}{%
+    \AtNextCite{%
+        \AtEachCitekey{%
+            \defcounter{maxnames}{99}%
+            \DeclareNameAlias{labelname}{given-family}%
+        }%
+    }%
+    \fullcite
 }
 
 \newcommand{\blfootnote}[1]{%
@@ -215,20 +225,122 @@
 \end{frame}
 
 \section{Introduction}
-\begin{frame}{The setting}{Block Ciphers and Security Notion}
+\begin{frame}{Topics of the Thesis}
+    \setbeamercovered{transparent}
+    \centering
+    Based on mainly four papers:\\
+    \begin{minipage}{0.47\textwidth}
+        \centering
+        \begin{block}{Security Arguments}
+            \uncover<1>{%
+            \begin{itemize}
+                \item \fullcite{dlct}
+                \item \fullcite{bison}
+            \end{itemize}
+            }
+        \end{block}
+    \end{minipage}%
+    \hspace{5pt}%
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{block}{Tool-based Design}
+            \begin{itemize}
+                \uncover<1>{  \item \fullcite{xorcounts}}
+                \uncover<1-2>{\item \fullcite{subspacetrails}}
+            \end{itemize}
+        \end{block}
+    \end{minipage}
 \end{frame}
 
-\begin{frame}{Block Ciphers}
+\begin{frame}{The General Setting}{Block Ciphers and Security Notion}
+    \centering
+    \begin{minipage}{0.47\textwidth}
+    \begin{block}{Block Cipher}
+        \begin{itemize}
+            \item $\mathcal{E} = (E, D)$ tuple of permutation families.\\[10pt]
+            \item Here:\\
+                  $\text{\emph{block lengh}} = \text{\emph{key length}} = n$\\
+                  \emph{encryption} $E : \F_2^n \times \F_2^n \to \F_2^n$\\
+                  \emph{decryption} $D : \F_2^n \times \F_2^n \to \F_2^n$\\[10pt]
+            \item \emph{Correctness}: $\forall k \in \F_2^n: D(k, E(k, x)) = x \quad \forall x \in \F_2^n$
+        \end{itemize}
+        \vspace{1pt}
+    \end{block}
+    \end{minipage}%
+    \hspace{5pt}%
+    \pause%
+    \begin{minipage}{0.48\textwidth}
+    \begin{block}{Security}
+        Given a block cipher $\mathcal{E} = (E, D)$.
+        \begin{itemize}
+            \item $F_k = E(k, \cdot)$
+            \item $\mathrm{Perm}_n = \set{f : \F_2^n \to \F_2^n \given f\ \text{is permutation}}$
+        \end{itemize}
+        If all efficient adversaries $\mathcal{A}$ have a \emph{negligible} distinguishing advantage
+        \begin{equation*}
+            \abs{\Prob_{k \in_R \F_2^n}[\mathcal{A}^{F_k}(1^n) = 1] - \Prob_{f \in_R \mathrm{Perm}_n}[\mathcal{A}^{f}(1^n) = 1]}\;,
+        \end{equation*}
+        then $\mathcal{E}$ is \emph{secure}.
+    \end{block}
+    \end{minipage}
+    \pause
+
+    \vfill
+    In practice: security of a block cipher always security against known attacks.
 \end{frame}
 
-\begin{frame}{Security}
-\end{frame}
+\begin{frame}{Substitution Permutation Networks}{The most common design structure for block ciphers}
+    \begin{minipage}{0.475\textwidth}
+    \begin{block}{Exemplary SPN Structure}
+        \centering
+        \vspace{2pt}
+        \begin{tikzpicture}
 
-\begin{frame}{Substitution Permutation Networks}
+        \foreach \z in {0,...,3} {
+            \node[] (i\z) at ($(-0.25, \z*3em)+(0,0.35)$) {};
+            \node[] (o\z) at ($\z*(0, 3em)+(18.25em,0.35)$) {};
+            \draw[thick,solid] (i\z) -- (o\z.center);
+        }
+
+        %% Round 1
+        %% SBoxes
+        \foreach \z in {0,...,3} {
+            \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sl\z) at ($(0,\z*3em) + (2em,1.1em)$) {$S$};
+        }
+        %% Permutation Box
+        \node[draw,thick,solid,minimum width=2em,minimum height=11.75em,fill=white] (p1) at ($(1.125em,0) + (3.125em,5.6em)$) {$P$};
+
+        %% Round 2
+        %% SBoxes
+        \foreach \z in {0,...,3} {
+            \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sm\z) at ($(2.125,\z*3em) + (2em,1.1em)$) {$S$};
+        }
+        %% Permutation Box
+        \node[draw,thick,solid,minimum width=2em,minimum height=11.75em,fill=white] (p2) at ($(5.5125em,0) + (4.8em,5.6em)$) {$P$};
+
+        %% Round 3
+        %% SBoxes
+        \foreach \z in {0,...,3} {
+            \node[draw,thick,solid,minimum width=2em,minimum height=2.75em,fill=white] (sr\z) at ($(4.25,\z*3em) + (2em,1.1em)$) {$S$};
+        }
+        %% Permutation Box
+        \node[draw,thick,solid,minimum width=2em,minimum height=11.75em,fill=white] (p3) at ($(11.525em,0) + (4.8em,5.6em)$) {$P$};
+        \end{tikzpicture}
+    \end{block}
+    \end{minipage}%
+    \hspace{5pt}
+    \begin{minipage}{0.475\textwidth}
+        \begin{itemize}
+            \item S-box $S : \F_2^n \to \F_2^n$ provides \emph{confusion} and non-linearity on small blocks (typically $3 \leqslant n \leqslant 8$)
+            \item Linear layer $P : \F_2^{kn} \to \F_2^{kn}$ provides \emph{diffusion} and spreads the S-box influence over the whole state
+            \item Key-alternating: the round keys are added in between the rounds
+        \end{itemize}
+    \end{minipage}
+    \vfill
 \end{frame}
 
 \begin{frame}{Overview}
-    \tableofcontents{}
+    \tableofcontents[currentsection,sectionstyle=shaded/show]{}
 \end{frame}
 
 \section{Subspace Trail Attack}
@@ -289,6 +401,10 @@
 \end{frame}
 
 \begin{frame}{Our Goal}
+    \centering
+    \vfill
+    Find a solution to
+    \vfill
     \begin{block}{Problem: Security against Subspace Trails}
         Given an SPN with round function $F$, consisting of
         \begin{itemize}
@@ -297,6 +413,7 @@
         \end{itemize}
         Compute an upper bound on the length of any subspace trail through the cipher.
     \end{block}
+    \vfill
 \end{frame}
 
 \begin{frame}{Subspace Propagation}
