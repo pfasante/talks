@@ -519,6 +519,17 @@
         Thus $v \in \Span{\Im{\derive{b_k}{F}} \cup \Im{\derive{u^\prime}{F}}}$, where $u^\prime$ is contained in a $(k-1)$ dimensional subspace.\hfill\qedsymbol
     \end{block}
 \end{frame}
+\note{
+    \begin{align*}
+        v &= F(x) + F(x + \sum_{i=1}^k \lambda_i b_i) \\
+        \intertext{substitute $x + \lambda_k b_k = y$}
+          &= F(y + \lambda_k b_k) + F(y + \sum_{i=1}^{k-1} \lambda_i b_i) \\
+        \intertext{add $0 = F(y) + F(y)$ and rewrite as derivatives, with $u^\prime = \sum_{i=1}^{k-1} \lambda_i b_i$}
+          &= \derive{\lambda_k b_k}{F}(y) + \derive{u^\prime}{F}(y) \\
+          \intertext{as $\lambda_k$ is zero/one valued}
+          &= \lambda_k \derive{b_k}{F}(y) + \derive{u^\prime}{F}(y)
+    \end{align*}
+}
 
 \begin{frame}{\texttt{ComputeTrail} Algorithm}
     \begin{minipage}{0.55\textwidth}
