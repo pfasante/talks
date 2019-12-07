@@ -11,7 +11,8 @@
     \setbeamercovered{invisible}
 }
 \usepackage{pgfpages}
-%\setbeameroption{show notes on second screen}
+\setbeameroption{show notes on second screen}
+\setbeamertemplate{theorems}[numbered]
 
 \usepackage{rubfonts2009}
 \usepackage[charter]{mathdesign}
@@ -185,7 +186,7 @@
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\derive}[2]{\Delta_{#1}\parens{#2}}
 \renewcommand{\iprod}[2]{\angles{#1, #2}}
-\DeclareMathOperator*{\diffOp}{\rightrightarrows}
+\DeclareMathOperator*{\diffOp}{\rightarrow}
 \newcommand{\propDiff}[4]{#1 \diffOp^{#2}_{#3} #4}
 \DeclareMathOperator{\ImOp}{Im}
 \renewcommand{\Im}[1]{\ImOp {#1}}
@@ -213,7 +214,7 @@
 \author{Friedrich Wiemer}
 \institute{%
     %SymCrypt, HGI, RUB
-    Arbeitsgruppe Symmetrische Kryptographie, Horst-Görtz-Institut für IT Sicherheit, Ruhr-Universität Bochum
+    Workgroup Symmetric Cryptography, Horst-Görtz-Institute for IT-Security, Ruhr University Bochum
 }
 
 \date[December 13th, 2019]{\small{}December 13th, 2019}
@@ -254,7 +255,7 @@
 
 \begin{frame}{The General Setting}{Block Ciphers and Security Notion}
     \centering
-    \begin{block}{Def.: Block Cipher}
+    \begin{block}{Definition: Block Cipher}
     \begin{minipage}{0.50\textwidth}
         \begin{itemize}
             \item $E : \mathcal{K} \times \mathcal{M} \to \mathcal{C}$ family of permutations, with
@@ -268,21 +269,21 @@
     \hspace{5pt}%
     \begin{minipage}{0.45\textwidth}
         \begin{itemize}
-            \item In practice: $\mathcal{K} = \F_2^m$ and $\mathcal{M} = \mathcal{C} = \F_2^n$.\\
-                  $E : \F_2^m \times \F_2^n \to \F_2^n$ is the \emph{encryption},\\
-                  $D = E^{-1}$ the \emph{decryption},\\
-                  $m$ the \emph{key length} and $n$ the \emph{block lengh}.
+            \item In practice: $\mathcal{K} = \F_2^s$ and $\mathcal{M} = \mathcal{C} = \F_2^n$.\\
+                  $E_k = E(k, \cdot)$ the \emph{encryption} under key $k$,\\
+                  $D_k = E_k^{-1}$ the \emph{decryption},\\
+                  $s$ the \emph{key length} and $n$ the \emph{block lengh}.
         \end{itemize}
     \end{minipage}
     \end{block}
 
     \pause
-    Further $E_k = E(k, \cdot)$ and $\mathrm{Perm}_n = \set{f : \F_2^n \to \F_2^n \given f\ \text{is permutation}}$ the set of $n$-bit permutations.
+    Further let $\mathrm{Perm}_n = \set{f : \F_2^n \to \F_2^n \given f\ \text{is permutation}}$ the set of $n$-bit permutations.
 
-    \begin{block}{Def.: Security}
+    \begin{block}{Definition: Security}
         A block cipher $E$ is $(q,t,\varepsilon)$-\emph{secure}, if the (CPA)-advantage of every $(q,t)$-adversary is bound by $\varepsilon$:
         \begin{equation*}
-            \mathrm{Adv}^{\text{PRP-CPA}}_{E}(\mathcal{A}_{q,t}) \coloneqq \abs{\Prob_{k \in_R \F_2^n}[\mathcal{A}^{F_k}_{q,t} = 1] - \Prob_{f \in_R \mathrm{Perm}_n}[\mathcal{A}^{f}_{q,t} = 1]} \leqslant \varepsilon\;.
+            \mathrm{Adv}^{\text{PRP-CPA}}_{E}(\mathcal{A}_{q,t}) \coloneqq \abs{\Prob_{k \in_R \F_2^s}[\mathcal{A}^{E_k}_{q,t} = 1] - \Prob_{f \in_R \mathrm{Perm}_n}[\mathcal{A}^{f}_{q,t} = 1]} \leqslant \varepsilon\;.
         \end{equation*}
     \end{block}
     \pause
@@ -334,7 +335,7 @@
     \begin{minipage}{0.475\textwidth}
         \begin{itemize}
             \item S-box $S : \F_2^n \to \F_2^n$ provides \emph{confusion} and non-linearity on small blocks (typically $3 \leqslant n \leqslant 8$)
-            \item Linear layer $P : \F_2^{kn} \to \F_2^{kn}$ provides \emph{diffusion} and spreads the S-box influence over the whole state
+            \item Linear layer $P : \F_2^{tn} \to \F_2^{tn}$ provides \emph{diffusion} and spreads the S-box influence over the whole state
             \item Key-alternating: the round keys are added in between the rounds
         \end{itemize}
     \end{minipage}
@@ -347,6 +348,7 @@
 
 \section{Subspace Trail Attack}
 \begin{frame}{Subspace Trail Cryptanalysis}
+    \centering
     \begin{minipage}{0.47\textwidth}
     \begin{block}{Idea: Subspace Trails}
         \centering
@@ -392,6 +394,11 @@
     \end{block}
     }
     \end{minipage}%
+
+    \visible<3->{
+        \vspace{10pt}
+        (We only look at the probability-one variant here)
+    }
 \end{frame}
 
 \begin{frame}{The Problem/Our Goal}
@@ -402,8 +409,8 @@
     \begin{block}{Problem: Security against Subspace Trails}
         Given an SPN with round function $F$, consisting of
         \begin{itemize}
-            \item $k$ parallel applications of an S-box $S : \F_2^n \to \F_2^n$ and
-            \item a linear layer $L : \F_2^{kn} \to \F_2^{kn}$.
+            \item $t$ parallel applications of an S-box $S : \F_2^n \to \F_2^n$ and
+            \item a linear layer $L : \F_2^{tn} \to \F_2^{tn}$.
         \end{itemize}
         Compute an upper bound on the length of any subspace trail through the cipher.
     \end{block}
@@ -413,17 +420,22 @@
 \section{Propagating Subspaces}
 \begin{frame}{Subspace Propagation}
     \centering
-    \begin{minipage}{0.45\textwidth}
+    \begin{minipage}{0.48\textwidth}
     Given a starting subspace $U$, we can efficiently compute the corresponding longest subspace trail.
 
     \begin{lemma}
-        \vspace{14pt}
-        Let $U \through{F} V$ be a ST\@.
-        Then for all $u \in U$ and all~$x$: $F(x) + F(x + u) \in V$.
-        \vspace{14pt}
+        \vspace{5pt}
+        Let $U \through{F} V$ be a subspace trail.
+        Then
+        \begin{equation*}
+            \forall u \in U, x \in \F_2^m: \derive{u}{F}(x) \coloneqq F(x) + F(x + u) \in V\;.
+        \end{equation*}
+        \vspace{0pt}
     \end{lemma}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+    This implies $\Span{\bigcup_{u \in U} \Im{\derive{u}{F}}} \subseteq V$.
+    \end{minipage}%
+    \hspace{15pt}%
+    \begin{minipage}{0.40\textwidth}
     \visible<2->{%
     \begin{block}{Proof}
         \centering
@@ -488,7 +500,7 @@
 \begin{frame}{Propagate a Basis}
     Actually it is enough to compute only the image of the derivatives in direction of U's basis vectors.
     \begin{lemma}
-        Given $U \subseteq \F_2^n$ with basis $\set{b_1, \ldots, b_k}$.
+        Given $U \subseteq \F_2^m$ with basis $\set{b_1, \ldots, b_k}$.
         Then
         %\begin{equation*}
         $
@@ -502,9 +514,9 @@
         \begin{equation*}
             v = F(x) + F(x + \sum_{i=1}^k \lambda_i b_i)
               = F(y + \lambda_k b_k) + F(y + \sum_{i=1}^{k-1} \lambda_i b_i)
-              = \lambda_k \derive{b_k}{F}(y) + \lambda^\prime \derive{u^\prime}{F}(y)\;.
+              = \lambda_k \derive{b_k}{F}(y) + \derive{u^\prime}{F}(y)\;.
         \end{equation*}
-        Thus $v \in \Span{\Im{\derive{b_k}{F}} \cup \Im{\derive{u^\prime}{F}}}$, where $u^\prime$ is contained in a $(k-1)$ dimensional subspace.
+        Thus $v \in \Span{\Im{\derive{b_k}{F}} \cup \Im{\derive{u^\prime}{F}}}$, where $u^\prime$ is contained in a $(k-1)$ dimensional subspace.\hfill\qedsymbol
     \end{block}
 \end{frame}
 
@@ -512,15 +524,15 @@
     \begin{minipage}{0.55\textwidth}
     \begin{block}{Computation of Subspace Trails}
     \begin{algorithmic}[1]
-        \Require{A nonlinear function $F : \F_2^n \to \F_2^n$, a subspace $U$.}
+        \Require{A nonlinear function $F : \F_2^m \to \F_2^m$, a subspace~$U$.}
         \Ensure{A subspace trail $\propDiff{U}{F}{}{\propDiff{\cdots}{F}{}{V}}$.}
         \Statex{}
         \Function{\texttt{ComputeTrail}}{$F$, $U$}
-        \If{$\dim U = n$} \Return{$U$} \EndIf{}
+        \If{$\dim U = m$} \Return{$U$} \EndIf{}
         \State{}$V \leftarrow \emptyset$
         \For{$u_i$ basis vectors of $U$}
-            \For{enough $x \in_\mathrm{R} \F_2^n$}\label{st:alg:compute_trail_1line}
-                \Let{$V$}{$V \cup \derive{u_i}{F}(x)$}\label{st:alg:compute_trail_2line}
+            \For{enough $x \in_\mathrm{R} \F_2^m$}\label{st:alg:compute_trail_1line}
+                \Let{$V$}{$V \cup \set{\derive{u_i}{F}(x)}$}\label{st:alg:compute_trail_2line}
             \EndFor{}
         \EndFor{}
         \State{}$V \leftarrow \Span{V}$
@@ -536,17 +548,29 @@
             \item[] \textbf{Correctness}: previous two lemmata
             \item[] \textbf{Runtime}:
                 \begin{itemize}
-                    \item Line 4: max.\ $n$ iterations
-                    \item Line 5: $n+c$ random vectors are enough
-                    \item Recursions: can stop after $r < n$ rounds
-                    \item Overall: $\mathcal{O}(n^3)$ evaluations of $F$
+                    \item Line 4: $\mathcal{O}(m)$ iterations
+                    \item Line 5: $\mathcal{O}(m)$ random vectors are enough
+                    \item Recursions: can stop after $\mathcal{O}(m)$ rounds
+                    \item Overall: $\mathcal{O}(m^3)$ evaluations of $F$
                 \end{itemize}
         \end{itemize}
     \end{minipage}
 \end{frame}
-\note{
+\note{%
     How many random vectors are enough:
     \url{https://math.stackexchange.com/questions/564603/probability-that-a-random-binary-matrix-will-have-full-column-rank}
+    Draw $n$ random vectors of length $m$, but because $n > m$ look at the probability
+    \begin{equation*}
+        \Prob[\text{$m$ vectors of length $n$ have rank $m$}] = \Prob[\text{$m$ vectors on length $n$ are linearly independent}]\;.
+    \end{equation*}
+    The uniformly at random drawn $i+1$-th vector is linearly independent of the previous $i$ vectors with probability
+    \begin{equation*}
+        \frac{2^n - 2^i}{2^n} = 1 - 2^{i-n}
+    \end{equation*}
+    and thus for all vectors up to $m$ we get the probability
+    \begin{equation*}
+        \prod_{i=0}^{m-1} (1-2^{i-n})\;.
+    \end{equation*}
 }
 
 \section{Security for SPNs against Subspace Trail Attacks}
@@ -558,18 +582,18 @@
     \pause
 
     \begin{minipage}{0.45\textwidth}
-    \begin{block}{Na\"ive Approach I}
+    \begin{block}{Na\"ive Approach 1}
         $\forall U \subseteq \F_2^m$ run $\texttt{ComputeTrail}(F, U)$
     \end{block}
     \begin{alertblock}{Problem}
-        Exponentially many starting subspaces.
+        Exp.\ many ($\mathcal{O}(2^{(m^2)})$) starting subspaces.
     \end{alertblock}
     \end{minipage}%
     \pause%
     \hspace{5pt}%
     \begin{minipage}{0.48\textwidth}
-    \begin{block}{Na\"ive Approach II}
-        $\forall u \subseteq \F_2^m \setminus \set{0}$ run $\texttt{ComputeTrail}(F, \Span{u})$
+    \begin{block}{Na\"ive Approach 2}
+        $\forall u \in \F_2^m \setminus \set{0}$ run $\texttt{ComputeTrail}(F, \Span{u})$
     \end{block}
     \begin{alertblock}{Problem}
         Still $2^m-1$ starting subspaces.
@@ -579,9 +603,30 @@
 
     \begin{block}{Often used heuristic}
         Activate single S-boxes only.
-        That is, for a round function with $k$ S-boxes which are $n$-bit wide, choose $U = \set{0}^i \times V \times \set{0}^{k-i-1}$, where $V \subseteq \F_2^n$.
+        That is, for a round function with $t$ S-boxes which are $n$-bit wide, choose $U = \set{0}^{i-1} \times V \times \set{0}^{t-i}$, where $V \subseteq \F_2^n$.
     \end{block}
 \end{frame}
+\note{%
+    How many subspaces of $\F_2^n$:
+    \url{https://math.stackexchange.com/questions/70801/how-many-k-dimensional-subspaces-there-are-in-n-dimensional-vector-space-over}
+    \begin{equation*}
+        \sum_{r=1}^n \frac{A(n, r)}{B(n, r)} = \sum_{r=1}^n \frac{\prod_{i=1}^r (1 - 2^{n - i + 1})}{\prod_{i=1}^r (1 - 2^i)} = \sum_{r=1}^n \binom{n}{r}_2
+    \end{equation*}
+    $A(n, r)$: Number of subsets with $r$ linear independent elements:
+    \begin{equation*}
+        A(n, r) = \underbrace{(2^n - 1)}_\text{choices for first element}
+        \overbrace{(2^n - 2)}^\text{choices for second element}
+        \cdots
+        \underbrace{(2^n - 2^{r-1})}_\text{choices for $r$-th element}
+    \end{equation*}
+    $B(n, r)$: Number of bases for one $r$-dimensional subspace:
+    \begin{equation*}
+        B(n, r) = \underbrace{(2^r - 1)}_\text{choices for first basis vector}
+        \overbrace{(2^r - 2)}^\text{choices for second basis vector}
+        \cdots
+        \underbrace{(2^r - 2^{r-1})}_\text{choices for $r$-th vector}
+    \end{equation*}
+}
 
 \begin{frame}{Activating a single S-box only}
     \begin{alertblock}{Problem}
@@ -618,10 +663,10 @@
     \pause%
     \begin{minipage}{0.45\textwidth}
     \begin{theorem}
-        Let $F$ be an S-box layer of $k$ parallel S-boxes $S : \F_2^n \to \F_2^n$.
+        Let $F$ be an S-box layer of $t$ parallel S-boxes $S : \F_2^n \to \F_2^n$.
         If $S$ has no non-trivial linear structures, then for every subspace trail $\propDiff{U}{F}{}{V}$:
         \begin{equation*}
-            U = V = U_1 \times \cdots \times U_k\;,
+            U = V = U_1 \times \cdots \times U_t\;,
         \end{equation*}
         with $U_i \in \set{\set{0}, \F_2^n}$.
     \end{theorem}
@@ -629,14 +674,16 @@
     \pause
 
     \begin{block}{Proof}
-        \vspace{-1em}
+        \vspace*{-25pt}
         \begin{equation*}
-            \text{For all $\alpha = (\alpha_1, \ldots, \alpha_k) \in V^\perp$:} \quad
+            \text{For all $\alpha = (\alpha_1, \ldots, \alpha_t) \in V^\perp$:} \quad
             \iprod{\alpha}{\derive{u}{F}(x)}
-            = \iprod{\begin{psmallmatrix}\alpha_1 \\ \vdots \\ \alpha_k\end{psmallmatrix}}{\begin{psmallmatrix}\derive{u_1}{S}(x_1) \\ \vdots \\ \derive{u_k}{S}(x_k)\end{psmallmatrix}}
-            = \sum_{i=1}^k \iprod{\alpha_i}{\derive{u_i}{S}(x_i)}
+            %= \iprod{\begin{psmallmatrix}\alpha_1 \\ \vdots \\ \alpha_t\end{psmallmatrix}}{\begin{psmallmatrix}\derive{u_1}{S}(x_1) \\ \vdots \\ \derive{u_t}{S}(x_t)\end{psmallmatrix}}
+            = \sum_{i=1}^t \iprod{\alpha_i}{\derive{u_i}{S}(x_i)}
             = 0
         \end{equation*}
+        Thus every term is constant and in particular, as $S$ has no non-trivial LS, $\alpha_i$ or $u_i$ is zero.\\
+        If one of the two is zero, the other can take all values.\hfill\qedsymbol
     \end{block}
 \end{frame}
 
@@ -647,9 +694,9 @@
     \centering
     The length $\ell$ of any subspace trail is upper bounded by
     \begin{equation*}
-        \ell \leqslant \max_{U \in \set{\set{0}, \F_2^n}^k} \abs{\texttt{ComputeTrail}(F, U)}\;,
+        \ell \leqslant \max_{U \in \set{\set{0}, \F_2^n}^t} \abs{\texttt{ComputeTrail}(F, U)}\;,
     \end{equation*}
-    which needs $2^k$ evaluations of the \texttt{ComputeTrail} algorithm.
+    which needs $2^t$ evaluations of the \texttt{ComputeTrail} algorithm.
     \end{block}
     \end{minipage}
 \end{frame}
@@ -662,7 +709,7 @@
     Instead, we can show that (for any not-trivially-insecure S-box) the subspace\\
     after the first S-box layer contains at least one element of a specific structure:
     \begin{equation*}
-        W_{i,\alpha} = \set{0}^{i-1} \times \set{0, \alpha} \times \set{0}^{k-i}\;.
+        W_{i,\alpha} = \set{0}^{i-1} \times \set{0, \alpha} \times \set{0}^{t-i}\;.
     \end{equation*}
 
     \begin{minipage}{0.69\textwidth}
@@ -672,7 +719,7 @@
     \begin{equation*}
         \ell \leqslant \max_{W_{i,\alpha}} \abs{\texttt{ComputeTrail}(F^\prime, W_{i,\alpha})} + 1\;,
     \end{equation*}
-    which needs $k \cdot 2^n$ evaluations of the \texttt{ComputeTrail} algorithm.
+    which needs $t \cdot 2^n$ evaluations of the \texttt{ComputeTrail} algorithm.
     \end{block}
     \end{minipage}
 
@@ -687,8 +734,12 @@
     \begin{block}{Applications of \texttt{ComputeTrail}}
         \begin{itemize}
             \item Bound longest probability-one subspace trail
-            \item Link to Truncated Differentials
             \item Finding key-recovery strategies
+        \end{itemize}
+    \end{block}
+    \begin{block}{Further Results on Subspace Trails}
+        \begin{itemize}
+            \item Link to Truncated Differentials
         \end{itemize}
     \end{block}
     \end{minipage}
