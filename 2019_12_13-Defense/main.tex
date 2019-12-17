@@ -712,31 +712,31 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}{S-boxes with Linear Structures}
-    \centering
-    Compared to the no-linear-structures-case, $V^\perp$ can now contain much more elements, namely\\
-    all combinations of linear structures, such that their corresponding constants sum to zero.\\[1em]
-
-    Instead, we can show that (for any not-trivially-insecure S-box) the subspace\\
-    after the first S-box layer contains at least one element of a specific structure:
-    \begin{equation*}
-        W_{i,\alpha} = \set{0}^{i-1} \times \set{0, \alpha} \times \set{0}^{t-i}\;.
-    \end{equation*}
-
-    \begin{minipage}{0.69\textwidth}
-    \begin{block}{Resistance of SPN against Subspace Trails, with linear structures}
-    \centering
-    The length $\ell$ of any subspace trail is upper bounded by
-    \begin{equation*}
-        \ell \leqslant \max_{W_{i,\alpha}} \abs{\texttt{ComputeTrail}(F^\prime, W_{i,\alpha})} + 1\;,
-    \end{equation*}
-    which needs $t \cdot 2^n$ evaluations of the \texttt{ComputeTrail} algorithm.
-    \end{block}
-    \end{minipage}
-
-    \vspace{1em}
-    Note: $F^\prime$ first applies the linear layer, then the S-box layer (b/c of the skipped first S-box layer).
-\end{frame}
+%\begin{frame}{S-boxes with Linear Structures}
+%    \centering
+%    Compared to the no-linear-structures-case, $V^\perp$ can now contain much more elements, namely\\
+%    all combinations of linear structures, such that their corresponding constants sum to zero.\\[1em]
+%
+%    Instead, we can show that (for any not-trivially-insecure S-box) the subspace\\
+%    after the first S-box layer contains at least one element of a specific structure:
+%    \begin{equation*}
+%        W_{i,\alpha} = \set{0}^{i-1} \times \set{0, \alpha} \times \set{0}^{t-i}\;.
+%    \end{equation*}
+%
+%    \begin{minipage}{0.69\textwidth}
+%    \begin{block}{Resistance of SPN against Subspace Trails, with linear structures}
+%    \centering
+%    The length $\ell$ of any subspace trail is upper bounded by
+%    \begin{equation*}
+%        \ell \leqslant \max_{W_{i,\alpha}} \abs{\texttt{ComputeTrail}(F^\prime, W_{i,\alpha})} + 1\;,
+%    \end{equation*}
+%    which needs $t \cdot 2^n$ evaluations of the \texttt{ComputeTrail} algorithm.
+%    \end{block}
+%    \end{minipage}
+%
+%    \vspace{1em}
+%    Note: $F^\prime$ first applies the linear layer, then the S-box layer (b/c of the skipped first S-box layer).
+%\end{frame}
 
 \section{Conclusion}
 \begin{frame}{Conclusion}{Thanks for your attention!}
